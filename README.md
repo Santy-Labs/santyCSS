@@ -21,6 +21,34 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.9.4
+
+### 🐛 Icons now actually ship
+
+`santy-icons.css` lived only at the repo root. It was never copied into
+`dist/`, never listed in `package.json` `files[]`, and had no export — so
+`npm install santycss` shipped **no icons at all**, and the CDN URL the docs
+hand to Webflow users returned a 404:
+
+```
+https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-icons.css   ← was 404
+```
+
+It's now emitted to `dist/`, published, and exported:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-icons.css">
+```
+
+```js
+import 'santycss/css/icons';   // 2,151 icons
+```
+
+Backed by tests that check every one of the 2,191 icons the icons page renders
+resolves to a real CSS rule, plus a completeness guard on `icons.html` itself.
+
+---
+
 ## What's New in v2.9.3
 
 ### 🎯 Automatic class sorting (Prettier plugin)
