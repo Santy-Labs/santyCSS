@@ -570,6 +570,78 @@ test('@apply index only holds unconditional top-level rules', () => {
   assert(!('c' in index), 'pseudo-class rule must not be indexed');
 });
 
+// ── Accessibility & progressive enhancement (v2.9.0) ────────────────────────
+test('every bundle that ships animation also ships the reduced-motion guard', () => {
+  // Regression: the guard used to live inside the variants block, so
+  // stripVariantBlocks removed it from core and start — the CDN drop-in served
+  // 41 keyframes a reader had no way to switch off.
+  for (const file of ['santy.css', 'santy-core.css', 'santy-start.css',
+                      'santy-components.css', 'santy-animations.css', 'santy-variants.css']) {
+    const c = read(file);
+    const keyframes = (c.match(/@keyframes/g) || []).length;
+    const guarded = /animation-duration:\s*\.01ms\s*!important/.test(c);
+    assert(guarded, `${file} has ${keyframes} keyframes but no reduced-motion guard`);
+  }
+  // The minifier collapses whitespace around `:` but keeps it before !important.
+  const min = read('santy.min.css');
+  assert(/animation-duration:\.01ms\s*!important/.test(min), 'minified bundle lost the guard');
+});
+
+test('reduced-motion guard covers pseudo-elements', () => {
+  // A bare `*` never matches ::before/::after, so decorative animations on
+  // them kept running for readers who asked for reduced motion.
+  const c = read('santy.css');
+  const i = c.indexOf('@media (prefers-reduced-motion: reduce)', c.indexOf('animation-duration: .01ms') - 400);
+  const block = c.slice(c.lastIndexOf('@media (prefers-reduced-motion: reduce)', c.indexOf('animation-duration: .01ms')), c.indexOf('animation-duration: .01ms'));
+  assert(block.includes('*::before') && block.includes('*::after'),
+    'guard must target *, *::before and *::after');
+});
+
+test('dynamic viewport units carry a vh/vw fallback', () => {
+  // Without it an unsupporting browser drops the declaration and the element
+  // gets no height at all — a layout break, not a cosmetic downgrade.
+  const c = read('santy.css');
+  const rules = [
+    ['.set-height-dvh', 'height: 100vh; height: 100dvh;'],
+    ['.set-min-height-svh', 'min-height: 100vh; min-height: 100svh;'],
+    ['.set-width-dvw', 'width: 100vw; width: 100dvw;'],
+    ['.h-50dvh', 'height: 50vh; height: 50dvh;'],
+  ];
+  for (const [sel, expected] of rules) {
+    const line = c.split('\n').find(l => l.trim().startsWith(sel + ' ') || l.trim().startsWith(sel + '{'));
+    assert(line && line.includes(expected), `${sel} missing fallback — expected "${expected}"`);
+  }
+});
+
+test('color-mix utilities carry a precomputed hex fallback', () => {
+  const c = read('santy.css');
+  const line = c.split('\n').find(l => l.startsWith('.background-blue-tint-30 '));
+  assert(line, '.background-blue-tint-30 not found');
+  // Plain hex must come first so color-mix overrides it where supported.
+  assert(/background-color:\s*#[0-9a-f]{6};\s*background-color:\s*color-mix/.test(line),
+    `no hex fallback before color-mix: ${line}`);
+});
+
+test('no color-mix percentage is zero or negative', () => {
+  // `100 - pct * 10` produced 0%, -100% and -200%: shade-100 rendered pure
+  // black and shade-200/-300 were invalid CSS browsers discarded outright.
+  const c = read('santy.css');
+  const bad = c.match(/color-mix\([^)]*?\s(-\d+|0)%/g) || [];
+  assert(bad.length === 0, `invalid color-mix percentages: ${[...new Set(bad)].slice(0, 5).join(', ')}`);
+});
+
+test('shade utilities darken progressively', () => {
+  const c = read('santy.css');
+  const pct = n => {
+    const line = c.split('\n').find(l => l.startsWith(`.background-blue-shade-${n} `));
+    assert(line, `shade-${n} missing`);
+    return parseInt(/color-mix\(in srgb, \S+ (\d+)%/.exec(line)[1], 10);
+  };
+  const [a, b, d] = [pct(100), pct(200), pct(300)];
+  assert(a === 90 && b === 80 && d === 70,
+    `expected 90/80/70 base retention, got ${a}/${b}/${d}`);
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {

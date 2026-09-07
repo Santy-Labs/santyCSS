@@ -1430,7 +1430,6 @@ add(`\n/* ── Motion Variants ── */
 @media (prefers-reduced-motion: reduce) {
   .motion-reduce\\:animate-none  { animation: none !important; }
   .motion-reduce\\:transition-none{ transition: none !important; }
-  * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 `);
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
@@ -3578,20 +3577,24 @@ add(`
 /* ═══════════════════════════════════════════════════════════════════════════
    16. DYNAMIC VIEWPORT UNITS
 ═══════════════════════════════════════════════════════════════════════════ */
-.set-height-dvh      { height: 100dvh; }
-.set-height-svh      { height: 100svh; }
-.set-height-lvh      { height: 100lvh; }
-.set-min-height-dvh  { min-height: 100dvh; }
-.set-min-height-svh  { min-height: 100svh; }
-.set-min-height-lvh  { min-height: 100lvh; }
-.set-max-height-dvh  { max-height: 100dvh; }
-.set-width-dvw       { width: 100dvw; }
-.set-width-svw       { width: 100svw; }
-.set-width-lvw       { width: 100lvw; }
-.h-dvh { height: 100dvh; }
-.h-svh { height: 100svh; }
-.h-50dvh { height: 50dvh; }
-.h-75dvh { height: 75dvh; }
+/* Each rule states the classic unit first, then the dynamic one. A browser
+   that does not understand dvh/svh/lvh drops the second declaration and keeps
+   the first — without the fallback the element would end up with no height
+   at all, which is a layout break rather than a cosmetic downgrade. */
+.set-height-dvh      { height: 100vh; height: 100dvh; }
+.set-height-svh      { height: 100vh; height: 100svh; }
+.set-height-lvh      { height: 100vh; height: 100lvh; }
+.set-min-height-dvh  { min-height: 100vh; min-height: 100dvh; }
+.set-min-height-svh  { min-height: 100vh; min-height: 100svh; }
+.set-min-height-lvh  { min-height: 100vh; min-height: 100lvh; }
+.set-max-height-dvh  { max-height: 100vh; max-height: 100dvh; }
+.set-width-dvw       { width: 100vw; width: 100dvw; }
+.set-width-svw       { width: 100vw; width: 100svw; }
+.set-width-lvw       { width: 100vw; width: 100lvw; }
+.h-dvh { height: 100vh; height: 100dvh; }
+.h-svh { height: 100vh; height: 100svh; }
+.h-50dvh { height: 50vh; height: 50dvh; }
+.h-75dvh { height: 75vh; height: 75dvh; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    17. COLOR MIX & OPACITY MODIFIERS
@@ -3874,20 +3877,48 @@ add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
 add(`\n/* ── Color-Mix Tints & Shades — background, text, border ── */`);
 const tintLevels  = [10, 20, 30, 40, 50, 60, 70];
 const shadeLevels = [10, 20, 30];
+
+/**
+ * Precompute what color-mix() would produce, so each rule can state a plain
+ * hex first. Without the fallback, a browser that does not support color-mix
+ * drops the declaration entirely and the element inherits or goes transparent
+ * — text can end up invisible rather than merely off-shade.
+ */
+function mixHex(base, pct, towards) {
+  const hex = h => {
+    const s = h.replace('#', '');
+    const n = s.length === 3 ? s.split('').map(c => c + c).join('') : s;
+    return [parseInt(n.slice(0, 2), 16), parseInt(n.slice(2, 4), 16), parseInt(n.slice(4, 6), 16)];
+  };
+  const [r1, g1, b1] = hex(base);
+  const [r2, g2, b2] = hex(towards);
+  const w = Math.max(0, Math.min(100, pct)) / 100;
+  const mix = (a, b) => Math.round(a * w + b * (1 - w));
+  const to2 = v => v.toString(16).padStart(2, '0');
+  return `#${to2(mix(r1, r2))}${to2(mix(g1, g2))}${to2(mix(b1, b2))}`;
+}
+
 Object.entries(palette).forEach(([name, shades]) => {
   const base = shades[500];
+  const WHITE = '#ffffff', BLACK = '#000000';
   tintLevels.forEach(pct => {
-    add(`.background-${name}-tint-${pct} { background-color: color-mix(in srgb, ${base} ${pct}%, #ffffff); }`);
-    add(`.color-${name}-tint-${pct}      { color: color-mix(in srgb, ${base} ${pct}%, #ffffff); }`);
+    const fb = mixHex(base, pct, WHITE);
+    add(`.background-${name}-tint-${pct} { background-color: ${fb}; background-color: color-mix(in srgb, ${base} ${pct}%, ${WHITE}); }`);
+    add(`.color-${name}-tint-${pct}      { color: ${fb}; color: color-mix(in srgb, ${base} ${pct}%, ${WHITE}); }`);
   });
   shadeLevels.forEach(pct => {
-    const keep = 100 - pct * 10;
-    add(`.background-${name}-shade-${pct}0 { background-color: color-mix(in srgb, ${base} ${keep}%, #000000); }`);
-    add(`.color-${name}-shade-${pct}0      { color: color-mix(in srgb, ${base} ${keep}%, #000000); }`);
+    // `100 - pct * 10` produced 0%, -100% and -200%: shade-100 came out pure
+    // black and shade-200/-300 were invalid CSS the browser threw away. The
+    // sibling .border-*-shade-10 rule below has always used 90% for pct 10,
+    // which confirms the intended formula is `100 - pct`.
+    const keep = 100 - pct;
+    const fb = mixHex(base, keep, BLACK);
+    add(`.background-${name}-shade-${pct}0 { background-color: ${fb}; background-color: color-mix(in srgb, ${base} ${keep}%, ${BLACK}); }`);
+    add(`.color-${name}-shade-${pct}0      { color: ${fb}; color: color-mix(in srgb, ${base} ${keep}%, ${BLACK}); }`);
   });
-  add(`.border-${name}-tint-20 { border-color: color-mix(in srgb, ${base} 20%, #ffffff); }`);
-  add(`.border-${name}-tint-40 { border-color: color-mix(in srgb, ${base} 40%, #ffffff); }`);
-  add(`.border-${name}-shade-10 { border-color: color-mix(in srgb, ${base} 90%, #000000); }`);
+  add(`.border-${name}-tint-20 { border-color: ${mixHex(base, 20, WHITE)}; border-color: color-mix(in srgb, ${base} 20%, ${WHITE}); }`);
+  add(`.border-${name}-tint-40 { border-color: ${mixHex(base, 40, WHITE)}; border-color: color-mix(in srgb, ${base} 40%, ${WHITE}); }`);
+  add(`.border-${name}-shade-10 { border-color: ${mixHex(base, 90, BLACK)}; border-color: color-mix(in srgb, ${base} 90%, ${BLACK}); }`);
 });
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
@@ -4639,6 +4670,28 @@ add(`
 `);
 
 // ─── WRITE FILES (full + split) ───────────────────────────────────────────────
+// ─── MOTION GUARD (v2.9.0) ───────────────────────────────────────────────────
+// This used to live inside the VARIANTS block, which meant `stripVariantBlocks`
+// removed it from santy-core.css and santy-start.css — so the CDN drop-in
+// shipped 41 keyframes with no way for a reader to turn them off, and
+// santy-animations.css shipped 155. Animation that ignores this preference can
+// trigger vestibular symptoms, so the guard now travels with every bundle that
+// carries animations rather than only with the variants.
+//
+// `*::before, *::after` are included: the bare `*` selector never matched
+// pseudo-elements, so decorative animations on them ran regardless.
+const MOTION_GUARD_CSS = `
+/* ── Reduced motion (WCAG 2.3.3) — ships with every bundle that has animation ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+`;
+
 const fullCSS = lines.join('\n');
 
 // ─── GRANULAR MODULE EXTRACTION ──────────────────────────────────────────────
@@ -5549,14 +5602,19 @@ const THEMES_CSS = `/* SantyCSS Themes — prebuilt design-token presets (v2.7.0
 
 // ─── APPLY OPTIONAL CLASS PREFIX (santy.config.json → "prefix") ──────────────
 const OUT_CSS = {
-  // All four of these sit past the component marker, so they reach
-  // santy-components.css via compCSS but would otherwise miss the full bundle.
-  'santy.css': applyPrefix(fullCSS + EXTENDED_COMPONENTS_CSS + GRID_CSS + PLUGIN_CSS + BEHAVIOR_CSS),
-  'santy-core.css': applyPrefix(slimmedCoreCSS),
-  'santy-variants.css': applyPrefix(variantsCSS),
-  'santy-start.css': applyPrefix(startCSS),
-  'santy-components.css': applyPrefix(compCSS),
-  'santy-animations.css': applyPrefix(animCSS),
+  // Extended components, grid and plugin CSS sit past the component marker, so
+  // they reach santy-components.css via compCSS but would otherwise miss the
+  // full bundle.
+  //
+  // The motion guard is then appended to every bundle that can ship a keyframe,
+  // so no entry point serves animation a reader is unable to switch off.
+  // It is intentionally NOT prefixed: it targets `*`, never a class.
+  'santy.css': applyPrefix(fullCSS + EXTENDED_COMPONENTS_CSS + GRID_CSS + PLUGIN_CSS + BEHAVIOR_CSS) + MOTION_GUARD_CSS,
+  'santy-core.css': applyPrefix(slimmedCoreCSS) + MOTION_GUARD_CSS,
+  'santy-variants.css': applyPrefix(variantsCSS) + MOTION_GUARD_CSS,
+  'santy-start.css': applyPrefix(startCSS) + MOTION_GUARD_CSS,
+  'santy-components.css': applyPrefix(compCSS) + MOTION_GUARD_CSS,
+  'santy-animations.css': applyPrefix(animCSS) + MOTION_GUARD_CSS,
   'santy-email.css': applyPrefix(EMAIL_CSS.trim()),
   'santy-themes.css': applyPrefix(THEMES_CSS),
 };

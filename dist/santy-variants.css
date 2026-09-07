@@ -4913,7 +4913,6 @@
 @media (prefers-reduced-motion: reduce) {
   .motion-reduce\:animate-none  { animation: none !important; }
   .motion-reduce\:transition-none{ transition: none !important; }
-  * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 
 /* ── Extra State Variants ── */
@@ -13741,4 +13740,13 @@
   .on-container-below-xl\:add-padding-y-64 { padding-top:64px; padding-bottom:64px; }
   .on-container-below-xl\:add-margin-64 { margin:64px; }
   .on-container-below-xl\:gap-64 { gap:64px; }
+}
+/* ── Reduced motion (WCAG 2.3.3) — ships with every bundle that has animation ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

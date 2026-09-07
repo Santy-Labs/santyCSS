@@ -3,6 +3,40 @@
 All notable changes to SantyCSS are documented here.
 The full illustrated changelog lives at [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
 
+## [2.9.2] — 2026-09-06
+
+
+### Fixed — accessibility
+- **`prefers-reduced-motion` was missing from most bundles.** The global guard
+  lived inside the variants block, so `stripVariantBlocks` removed it from
+  `santy-core.css` and `santy-start.css`. In practice that meant the CDN
+  drop-in shipped 41 keyframes with no way for a reader to switch them off, and
+  `santy-animations.css` shipped 155. Animation that ignores this preference
+  can trigger vestibular symptoms (WCAG 2.3.3). The guard now travels with
+  every bundle that carries animation.
+- **The guard never matched pseudo-elements.** It targeted `*`, which does not
+  select `::before` / `::after`, so decorative animations on them kept running.
+  Now `*, *::before, *::after`.
+
+### Fixed — progressive enhancement
+- **Dynamic viewport units had no fallback.** `.set-height-dvh` emitted only
+  `height: 100dvh`, so a browser without `dvh` support dropped the declaration
+  and the element ended up with no height — a layout break, not a cosmetic
+  downgrade. Every `dvh`/`svh`/`lvh`/`dvw`/`svw`/`lvw` utility now states the
+  classic unit first.
+- **`color-mix()` had no fallback.** 417 tint/shade utilities resolved to
+  nothing on browsers without support, so text could render invisible rather
+  than merely off-shade. Each rule now states a precomputed hex first and lets
+  `color-mix` override it where available.
+
+### Fixed — correctness
+- **Shade utilities generated invalid CSS.** The retention percentage was
+  computed as `100 - pct * 10`, producing `0%`, `-100%` and `-200%`:
+  `.background-*-shade-100` rendered pure black, and `-200` / `-300` were
+  invalid declarations browsers discarded outright. The sibling
+  `.border-*-shade-10` rule has always used `90%`, confirming the intended
+  formula is `100 - pct`. Shades now darken progressively (90% / 80% / 70%).
+
 ## [2.9.1] — 2026-09-06
 
 ### Added
@@ -140,65 +174,4 @@ The full illustrated changelog lives at [santycss.santy.in/changelog.html](https
 - `santy.css` is still missing the portfolio/CV/itsme template blocks that
   `santy-components.css` and `santy-start.css` carry — same root cause as the
   fix above, tracked separately to avoid changing the flagship bundle's
-  contents in a behavior-layer release.
-
-## [2.8.0] — 2026-08-17
-
-### Added
-- **Configuration system** — optional `santy.config.json` (consumed by `node build.js`
-  and the new `npx santycss build` command) with support for:
-  - `colors` — extend/override the palette with brand colors (single hex or full shade map)
-  - `spacing` / `fontSizes` — extra scale values
-  - `breakpoints` — custom responsive prefixes
-  - `prefix` — class prefix (e.g. `sty-`) to avoid collisions in legacy codebases
-  - `output` — output directory for custom builds
-- **`npx santycss build`** — build a customized framework from `santy.config.json`
-  without cloning the repo (writes to `./santy-dist` by default).
-- **ARIA variants** — `aria-expanded:` `aria-selected:` `aria-checked:` `aria-pressed:`
-  `aria-disabled:` `aria-current:` `aria-hidden:` `aria-busy:` `aria-invalid:` plus
-  `group-aria-*:` for styling children from an ancestor's ARIA state.
-- **RTL/LTR variants** — `rtl:` and `ltr:` prefixes keyed off `<html dir="rtl|ltr">`.
-- **Max-width breakpoints** — `max-sm:` `max-md:` `max-lg:` `max-xl:` `max-xxl:`
-  (apply *below* the breakpoint, Tailwind-style).
-- **TypeScript declarations** — `index.d.ts` for the main entry point and the
-  `santy.config.json` shape.
-- `LICENSE` (MIT), `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`.
-- **CI workflow** — every push/PR now builds, runs the test suite, type-checks the
-  declarations, and verifies the committed CSS matches `build.js` output.
-
-### Changed
-- npm publish workflow now runs the test suite before publishing.
-- CLI starter page and docs pin the CDN to the current major (`santycss@2`).
-- `prepublish` script replaced with `prepublishOnly` (build + test).
-
-## [2.7.0] — 2026-07
-
-### Added
-- `:has()` parent variants — `has-checked:` `has-focus:` `has-hover:` `has-invalid:`
-  and 6 more, plus `group-has-*:`.
-- 9 new components: `.toast`, `.switch`, `.checkbox`, `.radio`, `.range`, `.carousel`,
-  `.dialog`, `.popover`, `.file-drop` — all with dark-mode styles.
-- Semantic theming: 5 prebuilt themes (`ocean`, `sunset`, `forest`, `midnight`, `mono`)
-  via `data-theme`, with semantic utilities (`background-surface`, `color-text`, …).
-- `npx santycss init` starter scaffold; `santy-classmap.json` (21,000+ classes);
-  83-check regression test suite.
-
-### Fixed
-- `transition-all` was documented but never generated; templates page Copy Code now
-  rewrites local CSS paths to CDN URLs.
-
-## [2.6.1] — 2026-06
-- 4 new industry templates (school, salon, eye clinic, brewery).
-
-## [2.6.0] — 2026-06
-- Granular module imports (`santycss/css/flex`, `santycss/css/spacing`, …) —
-  10 module files with package export subpaths.
-
-## [2.5.1] — 2026-05
-- Interactive snippets library (`snippets.html`) with 40+ ready-to-use snippets.
-
-## [2.5.0] — 2026-05
-- Three portfolio templates and supporting component classes.
-
-## [2.4.x and earlier]
-See [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
+  contents in a behavior-layer release.

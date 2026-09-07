@@ -8973,20 +8973,24 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 /* ═══════════════════════════════════════════════════════════════════════════
    16. DYNAMIC VIEWPORT UNITS
 ═══════════════════════════════════════════════════════════════════════════ */
-.set-height-dvh      { height: 100dvh; }
-.set-height-svh      { height: 100svh; }
-.set-height-lvh      { height: 100lvh; }
-.set-min-height-dvh  { min-height: 100dvh; }
-.set-min-height-svh  { min-height: 100svh; }
-.set-min-height-lvh  { min-height: 100lvh; }
-.set-max-height-dvh  { max-height: 100dvh; }
-.set-width-dvw       { width: 100dvw; }
-.set-width-svw       { width: 100svw; }
-.set-width-lvw       { width: 100lvw; }
-.h-dvh { height: 100dvh; }
-.h-svh { height: 100svh; }
-.h-50dvh { height: 50dvh; }
-.h-75dvh { height: 75dvh; }
+/* Each rule states the classic unit first, then the dynamic one. A browser
+   that does not understand dvh/svh/lvh drops the second declaration and keeps
+   the first — without the fallback the element would end up with no height
+   at all, which is a layout break rather than a cosmetic downgrade. */
+.set-height-dvh      { height: 100vh; height: 100dvh; }
+.set-height-svh      { height: 100vh; height: 100svh; }
+.set-height-lvh      { height: 100vh; height: 100lvh; }
+.set-min-height-dvh  { min-height: 100vh; min-height: 100dvh; }
+.set-min-height-svh  { min-height: 100vh; min-height: 100svh; }
+.set-min-height-lvh  { min-height: 100vh; min-height: 100lvh; }
+.set-max-height-dvh  { max-height: 100vh; max-height: 100dvh; }
+.set-width-dvw       { width: 100vw; width: 100dvw; }
+.set-width-svw       { width: 100vw; width: 100svw; }
+.set-width-lvw       { width: 100vw; width: 100lvw; }
+.h-dvh { height: 100vh; height: 100dvh; }
+.h-svh { height: 100vh; height: 100svh; }
+.h-50dvh { height: 50vh; height: 50dvh; }
+.h-75dvh { height: 75vh; height: 75dvh; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    17. COLOR MIX & OPACITY MODIFIERS
@@ -9438,420 +9442,420 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 /* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* ── Color-Mix Tints & Shades — background, text, border ── */
-.background-red-tint-10 { background-color: color-mix(in srgb, #ef4444 10%, #ffffff); }
-.color-red-tint-10      { color: color-mix(in srgb, #ef4444 10%, #ffffff); }
-.background-red-tint-20 { background-color: color-mix(in srgb, #ef4444 20%, #ffffff); }
-.color-red-tint-20      { color: color-mix(in srgb, #ef4444 20%, #ffffff); }
-.background-red-tint-30 { background-color: color-mix(in srgb, #ef4444 30%, #ffffff); }
-.color-red-tint-30      { color: color-mix(in srgb, #ef4444 30%, #ffffff); }
-.background-red-tint-40 { background-color: color-mix(in srgb, #ef4444 40%, #ffffff); }
-.color-red-tint-40      { color: color-mix(in srgb, #ef4444 40%, #ffffff); }
-.background-red-tint-50 { background-color: color-mix(in srgb, #ef4444 50%, #ffffff); }
-.color-red-tint-50      { color: color-mix(in srgb, #ef4444 50%, #ffffff); }
-.background-red-tint-60 { background-color: color-mix(in srgb, #ef4444 60%, #ffffff); }
-.color-red-tint-60      { color: color-mix(in srgb, #ef4444 60%, #ffffff); }
-.background-red-tint-70 { background-color: color-mix(in srgb, #ef4444 70%, #ffffff); }
-.color-red-tint-70      { color: color-mix(in srgb, #ef4444 70%, #ffffff); }
-.background-red-shade-100 { background-color: color-mix(in srgb, #ef4444 0%, #000000); }
-.color-red-shade-100      { color: color-mix(in srgb, #ef4444 0%, #000000); }
-.background-red-shade-200 { background-color: color-mix(in srgb, #ef4444 -100%, #000000); }
-.color-red-shade-200      { color: color-mix(in srgb, #ef4444 -100%, #000000); }
-.background-red-shade-300 { background-color: color-mix(in srgb, #ef4444 -200%, #000000); }
-.color-red-shade-300      { color: color-mix(in srgb, #ef4444 -200%, #000000); }
-.border-red-tint-20 { border-color: color-mix(in srgb, #ef4444 20%, #ffffff); }
-.border-red-tint-40 { border-color: color-mix(in srgb, #ef4444 40%, #ffffff); }
-.border-red-shade-10 { border-color: color-mix(in srgb, #ef4444 90%, #000000); }
-.background-orange-tint-10 { background-color: color-mix(in srgb, #f97316 10%, #ffffff); }
-.color-orange-tint-10      { color: color-mix(in srgb, #f97316 10%, #ffffff); }
-.background-orange-tint-20 { background-color: color-mix(in srgb, #f97316 20%, #ffffff); }
-.color-orange-tint-20      { color: color-mix(in srgb, #f97316 20%, #ffffff); }
-.background-orange-tint-30 { background-color: color-mix(in srgb, #f97316 30%, #ffffff); }
-.color-orange-tint-30      { color: color-mix(in srgb, #f97316 30%, #ffffff); }
-.background-orange-tint-40 { background-color: color-mix(in srgb, #f97316 40%, #ffffff); }
-.color-orange-tint-40      { color: color-mix(in srgb, #f97316 40%, #ffffff); }
-.background-orange-tint-50 { background-color: color-mix(in srgb, #f97316 50%, #ffffff); }
-.color-orange-tint-50      { color: color-mix(in srgb, #f97316 50%, #ffffff); }
-.background-orange-tint-60 { background-color: color-mix(in srgb, #f97316 60%, #ffffff); }
-.color-orange-tint-60      { color: color-mix(in srgb, #f97316 60%, #ffffff); }
-.background-orange-tint-70 { background-color: color-mix(in srgb, #f97316 70%, #ffffff); }
-.color-orange-tint-70      { color: color-mix(in srgb, #f97316 70%, #ffffff); }
-.background-orange-shade-100 { background-color: color-mix(in srgb, #f97316 0%, #000000); }
-.color-orange-shade-100      { color: color-mix(in srgb, #f97316 0%, #000000); }
-.background-orange-shade-200 { background-color: color-mix(in srgb, #f97316 -100%, #000000); }
-.color-orange-shade-200      { color: color-mix(in srgb, #f97316 -100%, #000000); }
-.background-orange-shade-300 { background-color: color-mix(in srgb, #f97316 -200%, #000000); }
-.color-orange-shade-300      { color: color-mix(in srgb, #f97316 -200%, #000000); }
-.border-orange-tint-20 { border-color: color-mix(in srgb, #f97316 20%, #ffffff); }
-.border-orange-tint-40 { border-color: color-mix(in srgb, #f97316 40%, #ffffff); }
-.border-orange-shade-10 { border-color: color-mix(in srgb, #f97316 90%, #000000); }
-.background-amber-tint-10 { background-color: color-mix(in srgb, #f59e0b 10%, #ffffff); }
-.color-amber-tint-10      { color: color-mix(in srgb, #f59e0b 10%, #ffffff); }
-.background-amber-tint-20 { background-color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
-.color-amber-tint-20      { color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
-.background-amber-tint-30 { background-color: color-mix(in srgb, #f59e0b 30%, #ffffff); }
-.color-amber-tint-30      { color: color-mix(in srgb, #f59e0b 30%, #ffffff); }
-.background-amber-tint-40 { background-color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
-.color-amber-tint-40      { color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
-.background-amber-tint-50 { background-color: color-mix(in srgb, #f59e0b 50%, #ffffff); }
-.color-amber-tint-50      { color: color-mix(in srgb, #f59e0b 50%, #ffffff); }
-.background-amber-tint-60 { background-color: color-mix(in srgb, #f59e0b 60%, #ffffff); }
-.color-amber-tint-60      { color: color-mix(in srgb, #f59e0b 60%, #ffffff); }
-.background-amber-tint-70 { background-color: color-mix(in srgb, #f59e0b 70%, #ffffff); }
-.color-amber-tint-70      { color: color-mix(in srgb, #f59e0b 70%, #ffffff); }
-.background-amber-shade-100 { background-color: color-mix(in srgb, #f59e0b 0%, #000000); }
-.color-amber-shade-100      { color: color-mix(in srgb, #f59e0b 0%, #000000); }
-.background-amber-shade-200 { background-color: color-mix(in srgb, #f59e0b -100%, #000000); }
-.color-amber-shade-200      { color: color-mix(in srgb, #f59e0b -100%, #000000); }
-.background-amber-shade-300 { background-color: color-mix(in srgb, #f59e0b -200%, #000000); }
-.color-amber-shade-300      { color: color-mix(in srgb, #f59e0b -200%, #000000); }
-.border-amber-tint-20 { border-color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
-.border-amber-tint-40 { border-color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
-.border-amber-shade-10 { border-color: color-mix(in srgb, #f59e0b 90%, #000000); }
-.background-yellow-tint-10 { background-color: color-mix(in srgb, #eab308 10%, #ffffff); }
-.color-yellow-tint-10      { color: color-mix(in srgb, #eab308 10%, #ffffff); }
-.background-yellow-tint-20 { background-color: color-mix(in srgb, #eab308 20%, #ffffff); }
-.color-yellow-tint-20      { color: color-mix(in srgb, #eab308 20%, #ffffff); }
-.background-yellow-tint-30 { background-color: color-mix(in srgb, #eab308 30%, #ffffff); }
-.color-yellow-tint-30      { color: color-mix(in srgb, #eab308 30%, #ffffff); }
-.background-yellow-tint-40 { background-color: color-mix(in srgb, #eab308 40%, #ffffff); }
-.color-yellow-tint-40      { color: color-mix(in srgb, #eab308 40%, #ffffff); }
-.background-yellow-tint-50 { background-color: color-mix(in srgb, #eab308 50%, #ffffff); }
-.color-yellow-tint-50      { color: color-mix(in srgb, #eab308 50%, #ffffff); }
-.background-yellow-tint-60 { background-color: color-mix(in srgb, #eab308 60%, #ffffff); }
-.color-yellow-tint-60      { color: color-mix(in srgb, #eab308 60%, #ffffff); }
-.background-yellow-tint-70 { background-color: color-mix(in srgb, #eab308 70%, #ffffff); }
-.color-yellow-tint-70      { color: color-mix(in srgb, #eab308 70%, #ffffff); }
-.background-yellow-shade-100 { background-color: color-mix(in srgb, #eab308 0%, #000000); }
-.color-yellow-shade-100      { color: color-mix(in srgb, #eab308 0%, #000000); }
-.background-yellow-shade-200 { background-color: color-mix(in srgb, #eab308 -100%, #000000); }
-.color-yellow-shade-200      { color: color-mix(in srgb, #eab308 -100%, #000000); }
-.background-yellow-shade-300 { background-color: color-mix(in srgb, #eab308 -200%, #000000); }
-.color-yellow-shade-300      { color: color-mix(in srgb, #eab308 -200%, #000000); }
-.border-yellow-tint-20 { border-color: color-mix(in srgb, #eab308 20%, #ffffff); }
-.border-yellow-tint-40 { border-color: color-mix(in srgb, #eab308 40%, #ffffff); }
-.border-yellow-shade-10 { border-color: color-mix(in srgb, #eab308 90%, #000000); }
-.background-lime-tint-10 { background-color: color-mix(in srgb, #84cc16 10%, #ffffff); }
-.color-lime-tint-10      { color: color-mix(in srgb, #84cc16 10%, #ffffff); }
-.background-lime-tint-20 { background-color: color-mix(in srgb, #84cc16 20%, #ffffff); }
-.color-lime-tint-20      { color: color-mix(in srgb, #84cc16 20%, #ffffff); }
-.background-lime-tint-30 { background-color: color-mix(in srgb, #84cc16 30%, #ffffff); }
-.color-lime-tint-30      { color: color-mix(in srgb, #84cc16 30%, #ffffff); }
-.background-lime-tint-40 { background-color: color-mix(in srgb, #84cc16 40%, #ffffff); }
-.color-lime-tint-40      { color: color-mix(in srgb, #84cc16 40%, #ffffff); }
-.background-lime-tint-50 { background-color: color-mix(in srgb, #84cc16 50%, #ffffff); }
-.color-lime-tint-50      { color: color-mix(in srgb, #84cc16 50%, #ffffff); }
-.background-lime-tint-60 { background-color: color-mix(in srgb, #84cc16 60%, #ffffff); }
-.color-lime-tint-60      { color: color-mix(in srgb, #84cc16 60%, #ffffff); }
-.background-lime-tint-70 { background-color: color-mix(in srgb, #84cc16 70%, #ffffff); }
-.color-lime-tint-70      { color: color-mix(in srgb, #84cc16 70%, #ffffff); }
-.background-lime-shade-100 { background-color: color-mix(in srgb, #84cc16 0%, #000000); }
-.color-lime-shade-100      { color: color-mix(in srgb, #84cc16 0%, #000000); }
-.background-lime-shade-200 { background-color: color-mix(in srgb, #84cc16 -100%, #000000); }
-.color-lime-shade-200      { color: color-mix(in srgb, #84cc16 -100%, #000000); }
-.background-lime-shade-300 { background-color: color-mix(in srgb, #84cc16 -200%, #000000); }
-.color-lime-shade-300      { color: color-mix(in srgb, #84cc16 -200%, #000000); }
-.border-lime-tint-20 { border-color: color-mix(in srgb, #84cc16 20%, #ffffff); }
-.border-lime-tint-40 { border-color: color-mix(in srgb, #84cc16 40%, #ffffff); }
-.border-lime-shade-10 { border-color: color-mix(in srgb, #84cc16 90%, #000000); }
-.background-green-tint-10 { background-color: color-mix(in srgb, #22c55e 10%, #ffffff); }
-.color-green-tint-10      { color: color-mix(in srgb, #22c55e 10%, #ffffff); }
-.background-green-tint-20 { background-color: color-mix(in srgb, #22c55e 20%, #ffffff); }
-.color-green-tint-20      { color: color-mix(in srgb, #22c55e 20%, #ffffff); }
-.background-green-tint-30 { background-color: color-mix(in srgb, #22c55e 30%, #ffffff); }
-.color-green-tint-30      { color: color-mix(in srgb, #22c55e 30%, #ffffff); }
-.background-green-tint-40 { background-color: color-mix(in srgb, #22c55e 40%, #ffffff); }
-.color-green-tint-40      { color: color-mix(in srgb, #22c55e 40%, #ffffff); }
-.background-green-tint-50 { background-color: color-mix(in srgb, #22c55e 50%, #ffffff); }
-.color-green-tint-50      { color: color-mix(in srgb, #22c55e 50%, #ffffff); }
-.background-green-tint-60 { background-color: color-mix(in srgb, #22c55e 60%, #ffffff); }
-.color-green-tint-60      { color: color-mix(in srgb, #22c55e 60%, #ffffff); }
-.background-green-tint-70 { background-color: color-mix(in srgb, #22c55e 70%, #ffffff); }
-.color-green-tint-70      { color: color-mix(in srgb, #22c55e 70%, #ffffff); }
-.background-green-shade-100 { background-color: color-mix(in srgb, #22c55e 0%, #000000); }
-.color-green-shade-100      { color: color-mix(in srgb, #22c55e 0%, #000000); }
-.background-green-shade-200 { background-color: color-mix(in srgb, #22c55e -100%, #000000); }
-.color-green-shade-200      { color: color-mix(in srgb, #22c55e -100%, #000000); }
-.background-green-shade-300 { background-color: color-mix(in srgb, #22c55e -200%, #000000); }
-.color-green-shade-300      { color: color-mix(in srgb, #22c55e -200%, #000000); }
-.border-green-tint-20 { border-color: color-mix(in srgb, #22c55e 20%, #ffffff); }
-.border-green-tint-40 { border-color: color-mix(in srgb, #22c55e 40%, #ffffff); }
-.border-green-shade-10 { border-color: color-mix(in srgb, #22c55e 90%, #000000); }
-.background-teal-tint-10 { background-color: color-mix(in srgb, #14b8a6 10%, #ffffff); }
-.color-teal-tint-10      { color: color-mix(in srgb, #14b8a6 10%, #ffffff); }
-.background-teal-tint-20 { background-color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
-.color-teal-tint-20      { color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
-.background-teal-tint-30 { background-color: color-mix(in srgb, #14b8a6 30%, #ffffff); }
-.color-teal-tint-30      { color: color-mix(in srgb, #14b8a6 30%, #ffffff); }
-.background-teal-tint-40 { background-color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
-.color-teal-tint-40      { color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
-.background-teal-tint-50 { background-color: color-mix(in srgb, #14b8a6 50%, #ffffff); }
-.color-teal-tint-50      { color: color-mix(in srgb, #14b8a6 50%, #ffffff); }
-.background-teal-tint-60 { background-color: color-mix(in srgb, #14b8a6 60%, #ffffff); }
-.color-teal-tint-60      { color: color-mix(in srgb, #14b8a6 60%, #ffffff); }
-.background-teal-tint-70 { background-color: color-mix(in srgb, #14b8a6 70%, #ffffff); }
-.color-teal-tint-70      { color: color-mix(in srgb, #14b8a6 70%, #ffffff); }
-.background-teal-shade-100 { background-color: color-mix(in srgb, #14b8a6 0%, #000000); }
-.color-teal-shade-100      { color: color-mix(in srgb, #14b8a6 0%, #000000); }
-.background-teal-shade-200 { background-color: color-mix(in srgb, #14b8a6 -100%, #000000); }
-.color-teal-shade-200      { color: color-mix(in srgb, #14b8a6 -100%, #000000); }
-.background-teal-shade-300 { background-color: color-mix(in srgb, #14b8a6 -200%, #000000); }
-.color-teal-shade-300      { color: color-mix(in srgb, #14b8a6 -200%, #000000); }
-.border-teal-tint-20 { border-color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
-.border-teal-tint-40 { border-color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
-.border-teal-shade-10 { border-color: color-mix(in srgb, #14b8a6 90%, #000000); }
-.background-cyan-tint-10 { background-color: color-mix(in srgb, #06b6d4 10%, #ffffff); }
-.color-cyan-tint-10      { color: color-mix(in srgb, #06b6d4 10%, #ffffff); }
-.background-cyan-tint-20 { background-color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
-.color-cyan-tint-20      { color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
-.background-cyan-tint-30 { background-color: color-mix(in srgb, #06b6d4 30%, #ffffff); }
-.color-cyan-tint-30      { color: color-mix(in srgb, #06b6d4 30%, #ffffff); }
-.background-cyan-tint-40 { background-color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
-.color-cyan-tint-40      { color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
-.background-cyan-tint-50 { background-color: color-mix(in srgb, #06b6d4 50%, #ffffff); }
-.color-cyan-tint-50      { color: color-mix(in srgb, #06b6d4 50%, #ffffff); }
-.background-cyan-tint-60 { background-color: color-mix(in srgb, #06b6d4 60%, #ffffff); }
-.color-cyan-tint-60      { color: color-mix(in srgb, #06b6d4 60%, #ffffff); }
-.background-cyan-tint-70 { background-color: color-mix(in srgb, #06b6d4 70%, #ffffff); }
-.color-cyan-tint-70      { color: color-mix(in srgb, #06b6d4 70%, #ffffff); }
-.background-cyan-shade-100 { background-color: color-mix(in srgb, #06b6d4 0%, #000000); }
-.color-cyan-shade-100      { color: color-mix(in srgb, #06b6d4 0%, #000000); }
-.background-cyan-shade-200 { background-color: color-mix(in srgb, #06b6d4 -100%, #000000); }
-.color-cyan-shade-200      { color: color-mix(in srgb, #06b6d4 -100%, #000000); }
-.background-cyan-shade-300 { background-color: color-mix(in srgb, #06b6d4 -200%, #000000); }
-.color-cyan-shade-300      { color: color-mix(in srgb, #06b6d4 -200%, #000000); }
-.border-cyan-tint-20 { border-color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
-.border-cyan-tint-40 { border-color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
-.border-cyan-shade-10 { border-color: color-mix(in srgb, #06b6d4 90%, #000000); }
-.background-blue-tint-10 { background-color: color-mix(in srgb, #3b82f6 10%, #ffffff); }
-.color-blue-tint-10      { color: color-mix(in srgb, #3b82f6 10%, #ffffff); }
-.background-blue-tint-20 { background-color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
-.color-blue-tint-20      { color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
-.background-blue-tint-30 { background-color: color-mix(in srgb, #3b82f6 30%, #ffffff); }
-.color-blue-tint-30      { color: color-mix(in srgb, #3b82f6 30%, #ffffff); }
-.background-blue-tint-40 { background-color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
-.color-blue-tint-40      { color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
-.background-blue-tint-50 { background-color: color-mix(in srgb, #3b82f6 50%, #ffffff); }
-.color-blue-tint-50      { color: color-mix(in srgb, #3b82f6 50%, #ffffff); }
-.background-blue-tint-60 { background-color: color-mix(in srgb, #3b82f6 60%, #ffffff); }
-.color-blue-tint-60      { color: color-mix(in srgb, #3b82f6 60%, #ffffff); }
-.background-blue-tint-70 { background-color: color-mix(in srgb, #3b82f6 70%, #ffffff); }
-.color-blue-tint-70      { color: color-mix(in srgb, #3b82f6 70%, #ffffff); }
-.background-blue-shade-100 { background-color: color-mix(in srgb, #3b82f6 0%, #000000); }
-.color-blue-shade-100      { color: color-mix(in srgb, #3b82f6 0%, #000000); }
-.background-blue-shade-200 { background-color: color-mix(in srgb, #3b82f6 -100%, #000000); }
-.color-blue-shade-200      { color: color-mix(in srgb, #3b82f6 -100%, #000000); }
-.background-blue-shade-300 { background-color: color-mix(in srgb, #3b82f6 -200%, #000000); }
-.color-blue-shade-300      { color: color-mix(in srgb, #3b82f6 -200%, #000000); }
-.border-blue-tint-20 { border-color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
-.border-blue-tint-40 { border-color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
-.border-blue-shade-10 { border-color: color-mix(in srgb, #3b82f6 90%, #000000); }
-.background-indigo-tint-10 { background-color: color-mix(in srgb, #6366f1 10%, #ffffff); }
-.color-indigo-tint-10      { color: color-mix(in srgb, #6366f1 10%, #ffffff); }
-.background-indigo-tint-20 { background-color: color-mix(in srgb, #6366f1 20%, #ffffff); }
-.color-indigo-tint-20      { color: color-mix(in srgb, #6366f1 20%, #ffffff); }
-.background-indigo-tint-30 { background-color: color-mix(in srgb, #6366f1 30%, #ffffff); }
-.color-indigo-tint-30      { color: color-mix(in srgb, #6366f1 30%, #ffffff); }
-.background-indigo-tint-40 { background-color: color-mix(in srgb, #6366f1 40%, #ffffff); }
-.color-indigo-tint-40      { color: color-mix(in srgb, #6366f1 40%, #ffffff); }
-.background-indigo-tint-50 { background-color: color-mix(in srgb, #6366f1 50%, #ffffff); }
-.color-indigo-tint-50      { color: color-mix(in srgb, #6366f1 50%, #ffffff); }
-.background-indigo-tint-60 { background-color: color-mix(in srgb, #6366f1 60%, #ffffff); }
-.color-indigo-tint-60      { color: color-mix(in srgb, #6366f1 60%, #ffffff); }
-.background-indigo-tint-70 { background-color: color-mix(in srgb, #6366f1 70%, #ffffff); }
-.color-indigo-tint-70      { color: color-mix(in srgb, #6366f1 70%, #ffffff); }
-.background-indigo-shade-100 { background-color: color-mix(in srgb, #6366f1 0%, #000000); }
-.color-indigo-shade-100      { color: color-mix(in srgb, #6366f1 0%, #000000); }
-.background-indigo-shade-200 { background-color: color-mix(in srgb, #6366f1 -100%, #000000); }
-.color-indigo-shade-200      { color: color-mix(in srgb, #6366f1 -100%, #000000); }
-.background-indigo-shade-300 { background-color: color-mix(in srgb, #6366f1 -200%, #000000); }
-.color-indigo-shade-300      { color: color-mix(in srgb, #6366f1 -200%, #000000); }
-.border-indigo-tint-20 { border-color: color-mix(in srgb, #6366f1 20%, #ffffff); }
-.border-indigo-tint-40 { border-color: color-mix(in srgb, #6366f1 40%, #ffffff); }
-.border-indigo-shade-10 { border-color: color-mix(in srgb, #6366f1 90%, #000000); }
-.background-violet-tint-10 { background-color: color-mix(in srgb, #8b5cf6 10%, #ffffff); }
-.color-violet-tint-10      { color: color-mix(in srgb, #8b5cf6 10%, #ffffff); }
-.background-violet-tint-20 { background-color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
-.color-violet-tint-20      { color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
-.background-violet-tint-30 { background-color: color-mix(in srgb, #8b5cf6 30%, #ffffff); }
-.color-violet-tint-30      { color: color-mix(in srgb, #8b5cf6 30%, #ffffff); }
-.background-violet-tint-40 { background-color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
-.color-violet-tint-40      { color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
-.background-violet-tint-50 { background-color: color-mix(in srgb, #8b5cf6 50%, #ffffff); }
-.color-violet-tint-50      { color: color-mix(in srgb, #8b5cf6 50%, #ffffff); }
-.background-violet-tint-60 { background-color: color-mix(in srgb, #8b5cf6 60%, #ffffff); }
-.color-violet-tint-60      { color: color-mix(in srgb, #8b5cf6 60%, #ffffff); }
-.background-violet-tint-70 { background-color: color-mix(in srgb, #8b5cf6 70%, #ffffff); }
-.color-violet-tint-70      { color: color-mix(in srgb, #8b5cf6 70%, #ffffff); }
-.background-violet-shade-100 { background-color: color-mix(in srgb, #8b5cf6 0%, #000000); }
-.color-violet-shade-100      { color: color-mix(in srgb, #8b5cf6 0%, #000000); }
-.background-violet-shade-200 { background-color: color-mix(in srgb, #8b5cf6 -100%, #000000); }
-.color-violet-shade-200      { color: color-mix(in srgb, #8b5cf6 -100%, #000000); }
-.background-violet-shade-300 { background-color: color-mix(in srgb, #8b5cf6 -200%, #000000); }
-.color-violet-shade-300      { color: color-mix(in srgb, #8b5cf6 -200%, #000000); }
-.border-violet-tint-20 { border-color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
-.border-violet-tint-40 { border-color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
-.border-violet-shade-10 { border-color: color-mix(in srgb, #8b5cf6 90%, #000000); }
-.background-purple-tint-10 { background-color: color-mix(in srgb, #a855f7 10%, #ffffff); }
-.color-purple-tint-10      { color: color-mix(in srgb, #a855f7 10%, #ffffff); }
-.background-purple-tint-20 { background-color: color-mix(in srgb, #a855f7 20%, #ffffff); }
-.color-purple-tint-20      { color: color-mix(in srgb, #a855f7 20%, #ffffff); }
-.background-purple-tint-30 { background-color: color-mix(in srgb, #a855f7 30%, #ffffff); }
-.color-purple-tint-30      { color: color-mix(in srgb, #a855f7 30%, #ffffff); }
-.background-purple-tint-40 { background-color: color-mix(in srgb, #a855f7 40%, #ffffff); }
-.color-purple-tint-40      { color: color-mix(in srgb, #a855f7 40%, #ffffff); }
-.background-purple-tint-50 { background-color: color-mix(in srgb, #a855f7 50%, #ffffff); }
-.color-purple-tint-50      { color: color-mix(in srgb, #a855f7 50%, #ffffff); }
-.background-purple-tint-60 { background-color: color-mix(in srgb, #a855f7 60%, #ffffff); }
-.color-purple-tint-60      { color: color-mix(in srgb, #a855f7 60%, #ffffff); }
-.background-purple-tint-70 { background-color: color-mix(in srgb, #a855f7 70%, #ffffff); }
-.color-purple-tint-70      { color: color-mix(in srgb, #a855f7 70%, #ffffff); }
-.background-purple-shade-100 { background-color: color-mix(in srgb, #a855f7 0%, #000000); }
-.color-purple-shade-100      { color: color-mix(in srgb, #a855f7 0%, #000000); }
-.background-purple-shade-200 { background-color: color-mix(in srgb, #a855f7 -100%, #000000); }
-.color-purple-shade-200      { color: color-mix(in srgb, #a855f7 -100%, #000000); }
-.background-purple-shade-300 { background-color: color-mix(in srgb, #a855f7 -200%, #000000); }
-.color-purple-shade-300      { color: color-mix(in srgb, #a855f7 -200%, #000000); }
-.border-purple-tint-20 { border-color: color-mix(in srgb, #a855f7 20%, #ffffff); }
-.border-purple-tint-40 { border-color: color-mix(in srgb, #a855f7 40%, #ffffff); }
-.border-purple-shade-10 { border-color: color-mix(in srgb, #a855f7 90%, #000000); }
-.background-pink-tint-10 { background-color: color-mix(in srgb, #ec4899 10%, #ffffff); }
-.color-pink-tint-10      { color: color-mix(in srgb, #ec4899 10%, #ffffff); }
-.background-pink-tint-20 { background-color: color-mix(in srgb, #ec4899 20%, #ffffff); }
-.color-pink-tint-20      { color: color-mix(in srgb, #ec4899 20%, #ffffff); }
-.background-pink-tint-30 { background-color: color-mix(in srgb, #ec4899 30%, #ffffff); }
-.color-pink-tint-30      { color: color-mix(in srgb, #ec4899 30%, #ffffff); }
-.background-pink-tint-40 { background-color: color-mix(in srgb, #ec4899 40%, #ffffff); }
-.color-pink-tint-40      { color: color-mix(in srgb, #ec4899 40%, #ffffff); }
-.background-pink-tint-50 { background-color: color-mix(in srgb, #ec4899 50%, #ffffff); }
-.color-pink-tint-50      { color: color-mix(in srgb, #ec4899 50%, #ffffff); }
-.background-pink-tint-60 { background-color: color-mix(in srgb, #ec4899 60%, #ffffff); }
-.color-pink-tint-60      { color: color-mix(in srgb, #ec4899 60%, #ffffff); }
-.background-pink-tint-70 { background-color: color-mix(in srgb, #ec4899 70%, #ffffff); }
-.color-pink-tint-70      { color: color-mix(in srgb, #ec4899 70%, #ffffff); }
-.background-pink-shade-100 { background-color: color-mix(in srgb, #ec4899 0%, #000000); }
-.color-pink-shade-100      { color: color-mix(in srgb, #ec4899 0%, #000000); }
-.background-pink-shade-200 { background-color: color-mix(in srgb, #ec4899 -100%, #000000); }
-.color-pink-shade-200      { color: color-mix(in srgb, #ec4899 -100%, #000000); }
-.background-pink-shade-300 { background-color: color-mix(in srgb, #ec4899 -200%, #000000); }
-.color-pink-shade-300      { color: color-mix(in srgb, #ec4899 -200%, #000000); }
-.border-pink-tint-20 { border-color: color-mix(in srgb, #ec4899 20%, #ffffff); }
-.border-pink-tint-40 { border-color: color-mix(in srgb, #ec4899 40%, #ffffff); }
-.border-pink-shade-10 { border-color: color-mix(in srgb, #ec4899 90%, #000000); }
-.background-rose-tint-10 { background-color: color-mix(in srgb, #f43f5e 10%, #ffffff); }
-.color-rose-tint-10      { color: color-mix(in srgb, #f43f5e 10%, #ffffff); }
-.background-rose-tint-20 { background-color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
-.color-rose-tint-20      { color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
-.background-rose-tint-30 { background-color: color-mix(in srgb, #f43f5e 30%, #ffffff); }
-.color-rose-tint-30      { color: color-mix(in srgb, #f43f5e 30%, #ffffff); }
-.background-rose-tint-40 { background-color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
-.color-rose-tint-40      { color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
-.background-rose-tint-50 { background-color: color-mix(in srgb, #f43f5e 50%, #ffffff); }
-.color-rose-tint-50      { color: color-mix(in srgb, #f43f5e 50%, #ffffff); }
-.background-rose-tint-60 { background-color: color-mix(in srgb, #f43f5e 60%, #ffffff); }
-.color-rose-tint-60      { color: color-mix(in srgb, #f43f5e 60%, #ffffff); }
-.background-rose-tint-70 { background-color: color-mix(in srgb, #f43f5e 70%, #ffffff); }
-.color-rose-tint-70      { color: color-mix(in srgb, #f43f5e 70%, #ffffff); }
-.background-rose-shade-100 { background-color: color-mix(in srgb, #f43f5e 0%, #000000); }
-.color-rose-shade-100      { color: color-mix(in srgb, #f43f5e 0%, #000000); }
-.background-rose-shade-200 { background-color: color-mix(in srgb, #f43f5e -100%, #000000); }
-.color-rose-shade-200      { color: color-mix(in srgb, #f43f5e -100%, #000000); }
-.background-rose-shade-300 { background-color: color-mix(in srgb, #f43f5e -200%, #000000); }
-.color-rose-shade-300      { color: color-mix(in srgb, #f43f5e -200%, #000000); }
-.border-rose-tint-20 { border-color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
-.border-rose-tint-40 { border-color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
-.border-rose-shade-10 { border-color: color-mix(in srgb, #f43f5e 90%, #000000); }
-.background-slate-tint-10 { background-color: color-mix(in srgb, #64748b 10%, #ffffff); }
-.color-slate-tint-10      { color: color-mix(in srgb, #64748b 10%, #ffffff); }
-.background-slate-tint-20 { background-color: color-mix(in srgb, #64748b 20%, #ffffff); }
-.color-slate-tint-20      { color: color-mix(in srgb, #64748b 20%, #ffffff); }
-.background-slate-tint-30 { background-color: color-mix(in srgb, #64748b 30%, #ffffff); }
-.color-slate-tint-30      { color: color-mix(in srgb, #64748b 30%, #ffffff); }
-.background-slate-tint-40 { background-color: color-mix(in srgb, #64748b 40%, #ffffff); }
-.color-slate-tint-40      { color: color-mix(in srgb, #64748b 40%, #ffffff); }
-.background-slate-tint-50 { background-color: color-mix(in srgb, #64748b 50%, #ffffff); }
-.color-slate-tint-50      { color: color-mix(in srgb, #64748b 50%, #ffffff); }
-.background-slate-tint-60 { background-color: color-mix(in srgb, #64748b 60%, #ffffff); }
-.color-slate-tint-60      { color: color-mix(in srgb, #64748b 60%, #ffffff); }
-.background-slate-tint-70 { background-color: color-mix(in srgb, #64748b 70%, #ffffff); }
-.color-slate-tint-70      { color: color-mix(in srgb, #64748b 70%, #ffffff); }
-.background-slate-shade-100 { background-color: color-mix(in srgb, #64748b 0%, #000000); }
-.color-slate-shade-100      { color: color-mix(in srgb, #64748b 0%, #000000); }
-.background-slate-shade-200 { background-color: color-mix(in srgb, #64748b -100%, #000000); }
-.color-slate-shade-200      { color: color-mix(in srgb, #64748b -100%, #000000); }
-.background-slate-shade-300 { background-color: color-mix(in srgb, #64748b -200%, #000000); }
-.color-slate-shade-300      { color: color-mix(in srgb, #64748b -200%, #000000); }
-.border-slate-tint-20 { border-color: color-mix(in srgb, #64748b 20%, #ffffff); }
-.border-slate-tint-40 { border-color: color-mix(in srgb, #64748b 40%, #ffffff); }
-.border-slate-shade-10 { border-color: color-mix(in srgb, #64748b 90%, #000000); }
-.background-gray-tint-10 { background-color: color-mix(in srgb, #6b7280 10%, #ffffff); }
-.color-gray-tint-10      { color: color-mix(in srgb, #6b7280 10%, #ffffff); }
-.background-gray-tint-20 { background-color: color-mix(in srgb, #6b7280 20%, #ffffff); }
-.color-gray-tint-20      { color: color-mix(in srgb, #6b7280 20%, #ffffff); }
-.background-gray-tint-30 { background-color: color-mix(in srgb, #6b7280 30%, #ffffff); }
-.color-gray-tint-30      { color: color-mix(in srgb, #6b7280 30%, #ffffff); }
-.background-gray-tint-40 { background-color: color-mix(in srgb, #6b7280 40%, #ffffff); }
-.color-gray-tint-40      { color: color-mix(in srgb, #6b7280 40%, #ffffff); }
-.background-gray-tint-50 { background-color: color-mix(in srgb, #6b7280 50%, #ffffff); }
-.color-gray-tint-50      { color: color-mix(in srgb, #6b7280 50%, #ffffff); }
-.background-gray-tint-60 { background-color: color-mix(in srgb, #6b7280 60%, #ffffff); }
-.color-gray-tint-60      { color: color-mix(in srgb, #6b7280 60%, #ffffff); }
-.background-gray-tint-70 { background-color: color-mix(in srgb, #6b7280 70%, #ffffff); }
-.color-gray-tint-70      { color: color-mix(in srgb, #6b7280 70%, #ffffff); }
-.background-gray-shade-100 { background-color: color-mix(in srgb, #6b7280 0%, #000000); }
-.color-gray-shade-100      { color: color-mix(in srgb, #6b7280 0%, #000000); }
-.background-gray-shade-200 { background-color: color-mix(in srgb, #6b7280 -100%, #000000); }
-.color-gray-shade-200      { color: color-mix(in srgb, #6b7280 -100%, #000000); }
-.background-gray-shade-300 { background-color: color-mix(in srgb, #6b7280 -200%, #000000); }
-.color-gray-shade-300      { color: color-mix(in srgb, #6b7280 -200%, #000000); }
-.border-gray-tint-20 { border-color: color-mix(in srgb, #6b7280 20%, #ffffff); }
-.border-gray-tint-40 { border-color: color-mix(in srgb, #6b7280 40%, #ffffff); }
-.border-gray-shade-10 { border-color: color-mix(in srgb, #6b7280 90%, #000000); }
-.background-zinc-tint-10 { background-color: color-mix(in srgb, #71717a 10%, #ffffff); }
-.color-zinc-tint-10      { color: color-mix(in srgb, #71717a 10%, #ffffff); }
-.background-zinc-tint-20 { background-color: color-mix(in srgb, #71717a 20%, #ffffff); }
-.color-zinc-tint-20      { color: color-mix(in srgb, #71717a 20%, #ffffff); }
-.background-zinc-tint-30 { background-color: color-mix(in srgb, #71717a 30%, #ffffff); }
-.color-zinc-tint-30      { color: color-mix(in srgb, #71717a 30%, #ffffff); }
-.background-zinc-tint-40 { background-color: color-mix(in srgb, #71717a 40%, #ffffff); }
-.color-zinc-tint-40      { color: color-mix(in srgb, #71717a 40%, #ffffff); }
-.background-zinc-tint-50 { background-color: color-mix(in srgb, #71717a 50%, #ffffff); }
-.color-zinc-tint-50      { color: color-mix(in srgb, #71717a 50%, #ffffff); }
-.background-zinc-tint-60 { background-color: color-mix(in srgb, #71717a 60%, #ffffff); }
-.color-zinc-tint-60      { color: color-mix(in srgb, #71717a 60%, #ffffff); }
-.background-zinc-tint-70 { background-color: color-mix(in srgb, #71717a 70%, #ffffff); }
-.color-zinc-tint-70      { color: color-mix(in srgb, #71717a 70%, #ffffff); }
-.background-zinc-shade-100 { background-color: color-mix(in srgb, #71717a 0%, #000000); }
-.color-zinc-shade-100      { color: color-mix(in srgb, #71717a 0%, #000000); }
-.background-zinc-shade-200 { background-color: color-mix(in srgb, #71717a -100%, #000000); }
-.color-zinc-shade-200      { color: color-mix(in srgb, #71717a -100%, #000000); }
-.background-zinc-shade-300 { background-color: color-mix(in srgb, #71717a -200%, #000000); }
-.color-zinc-shade-300      { color: color-mix(in srgb, #71717a -200%, #000000); }
-.border-zinc-tint-20 { border-color: color-mix(in srgb, #71717a 20%, #ffffff); }
-.border-zinc-tint-40 { border-color: color-mix(in srgb, #71717a 40%, #ffffff); }
-.border-zinc-shade-10 { border-color: color-mix(in srgb, #71717a 90%, #000000); }
-.background-stone-tint-10 { background-color: color-mix(in srgb, #78716c 10%, #ffffff); }
-.color-stone-tint-10      { color: color-mix(in srgb, #78716c 10%, #ffffff); }
-.background-stone-tint-20 { background-color: color-mix(in srgb, #78716c 20%, #ffffff); }
-.color-stone-tint-20      { color: color-mix(in srgb, #78716c 20%, #ffffff); }
-.background-stone-tint-30 { background-color: color-mix(in srgb, #78716c 30%, #ffffff); }
-.color-stone-tint-30      { color: color-mix(in srgb, #78716c 30%, #ffffff); }
-.background-stone-tint-40 { background-color: color-mix(in srgb, #78716c 40%, #ffffff); }
-.color-stone-tint-40      { color: color-mix(in srgb, #78716c 40%, #ffffff); }
-.background-stone-tint-50 { background-color: color-mix(in srgb, #78716c 50%, #ffffff); }
-.color-stone-tint-50      { color: color-mix(in srgb, #78716c 50%, #ffffff); }
-.background-stone-tint-60 { background-color: color-mix(in srgb, #78716c 60%, #ffffff); }
-.color-stone-tint-60      { color: color-mix(in srgb, #78716c 60%, #ffffff); }
-.background-stone-tint-70 { background-color: color-mix(in srgb, #78716c 70%, #ffffff); }
-.color-stone-tint-70      { color: color-mix(in srgb, #78716c 70%, #ffffff); }
-.background-stone-shade-100 { background-color: color-mix(in srgb, #78716c 0%, #000000); }
-.color-stone-shade-100      { color: color-mix(in srgb, #78716c 0%, #000000); }
-.background-stone-shade-200 { background-color: color-mix(in srgb, #78716c -100%, #000000); }
-.color-stone-shade-200      { color: color-mix(in srgb, #78716c -100%, #000000); }
-.background-stone-shade-300 { background-color: color-mix(in srgb, #78716c -200%, #000000); }
-.color-stone-shade-300      { color: color-mix(in srgb, #78716c -200%, #000000); }
-.border-stone-tint-20 { border-color: color-mix(in srgb, #78716c 20%, #ffffff); }
-.border-stone-tint-40 { border-color: color-mix(in srgb, #78716c 40%, #ffffff); }
-.border-stone-shade-10 { border-color: color-mix(in srgb, #78716c 90%, #000000); }
+.background-red-tint-10 { background-color: #fdecec; background-color: color-mix(in srgb, #ef4444 10%, #ffffff); }
+.color-red-tint-10      { color: #fdecec; color: color-mix(in srgb, #ef4444 10%, #ffffff); }
+.background-red-tint-20 { background-color: #fcdada; background-color: color-mix(in srgb, #ef4444 20%, #ffffff); }
+.color-red-tint-20      { color: #fcdada; color: color-mix(in srgb, #ef4444 20%, #ffffff); }
+.background-red-tint-30 { background-color: #fac7c7; background-color: color-mix(in srgb, #ef4444 30%, #ffffff); }
+.color-red-tint-30      { color: #fac7c7; color: color-mix(in srgb, #ef4444 30%, #ffffff); }
+.background-red-tint-40 { background-color: #f9b4b4; background-color: color-mix(in srgb, #ef4444 40%, #ffffff); }
+.color-red-tint-40      { color: #f9b4b4; color: color-mix(in srgb, #ef4444 40%, #ffffff); }
+.background-red-tint-50 { background-color: #f7a2a2; background-color: color-mix(in srgb, #ef4444 50%, #ffffff); }
+.color-red-tint-50      { color: #f7a2a2; color: color-mix(in srgb, #ef4444 50%, #ffffff); }
+.background-red-tint-60 { background-color: #f58f8f; background-color: color-mix(in srgb, #ef4444 60%, #ffffff); }
+.color-red-tint-60      { color: #f58f8f; color: color-mix(in srgb, #ef4444 60%, #ffffff); }
+.background-red-tint-70 { background-color: #f47c7c; background-color: color-mix(in srgb, #ef4444 70%, #ffffff); }
+.color-red-tint-70      { color: #f47c7c; color: color-mix(in srgb, #ef4444 70%, #ffffff); }
+.background-red-shade-100 { background-color: #d73d3d; background-color: color-mix(in srgb, #ef4444 90%, #000000); }
+.color-red-shade-100      { color: #d73d3d; color: color-mix(in srgb, #ef4444 90%, #000000); }
+.background-red-shade-200 { background-color: #bf3636; background-color: color-mix(in srgb, #ef4444 80%, #000000); }
+.color-red-shade-200      { color: #bf3636; color: color-mix(in srgb, #ef4444 80%, #000000); }
+.background-red-shade-300 { background-color: #a73030; background-color: color-mix(in srgb, #ef4444 70%, #000000); }
+.color-red-shade-300      { color: #a73030; color: color-mix(in srgb, #ef4444 70%, #000000); }
+.border-red-tint-20 { border-color: #fcdada; border-color: color-mix(in srgb, #ef4444 20%, #ffffff); }
+.border-red-tint-40 { border-color: #f9b4b4; border-color: color-mix(in srgb, #ef4444 40%, #ffffff); }
+.border-red-shade-10 { border-color: #d73d3d; border-color: color-mix(in srgb, #ef4444 90%, #000000); }
+.background-orange-tint-10 { background-color: #fef1e8; background-color: color-mix(in srgb, #f97316 10%, #ffffff); }
+.color-orange-tint-10      { color: #fef1e8; color: color-mix(in srgb, #f97316 10%, #ffffff); }
+.background-orange-tint-20 { background-color: #fee3d0; background-color: color-mix(in srgb, #f97316 20%, #ffffff); }
+.color-orange-tint-20      { color: #fee3d0; color: color-mix(in srgb, #f97316 20%, #ffffff); }
+.background-orange-tint-30 { background-color: #fdd5b9; background-color: color-mix(in srgb, #f97316 30%, #ffffff); }
+.color-orange-tint-30      { color: #fdd5b9; color: color-mix(in srgb, #f97316 30%, #ffffff); }
+.background-orange-tint-40 { background-color: #fdc7a2; background-color: color-mix(in srgb, #f97316 40%, #ffffff); }
+.color-orange-tint-40      { color: #fdc7a2; color: color-mix(in srgb, #f97316 40%, #ffffff); }
+.background-orange-tint-50 { background-color: #fcb98b; background-color: color-mix(in srgb, #f97316 50%, #ffffff); }
+.color-orange-tint-50      { color: #fcb98b; color: color-mix(in srgb, #f97316 50%, #ffffff); }
+.background-orange-tint-60 { background-color: #fbab73; background-color: color-mix(in srgb, #f97316 60%, #ffffff); }
+.color-orange-tint-60      { color: #fbab73; color: color-mix(in srgb, #f97316 60%, #ffffff); }
+.background-orange-tint-70 { background-color: #fb9d5c; background-color: color-mix(in srgb, #f97316 70%, #ffffff); }
+.color-orange-tint-70      { color: #fb9d5c; color: color-mix(in srgb, #f97316 70%, #ffffff); }
+.background-orange-shade-100 { background-color: #e06814; background-color: color-mix(in srgb, #f97316 90%, #000000); }
+.color-orange-shade-100      { color: #e06814; color: color-mix(in srgb, #f97316 90%, #000000); }
+.background-orange-shade-200 { background-color: #c75c12; background-color: color-mix(in srgb, #f97316 80%, #000000); }
+.color-orange-shade-200      { color: #c75c12; color: color-mix(in srgb, #f97316 80%, #000000); }
+.background-orange-shade-300 { background-color: #ae510f; background-color: color-mix(in srgb, #f97316 70%, #000000); }
+.color-orange-shade-300      { color: #ae510f; color: color-mix(in srgb, #f97316 70%, #000000); }
+.border-orange-tint-20 { border-color: #fee3d0; border-color: color-mix(in srgb, #f97316 20%, #ffffff); }
+.border-orange-tint-40 { border-color: #fdc7a2; border-color: color-mix(in srgb, #f97316 40%, #ffffff); }
+.border-orange-shade-10 { border-color: #e06814; border-color: color-mix(in srgb, #f97316 90%, #000000); }
+.background-amber-tint-10 { background-color: #fef5e7; background-color: color-mix(in srgb, #f59e0b 10%, #ffffff); }
+.color-amber-tint-10      { color: #fef5e7; color: color-mix(in srgb, #f59e0b 10%, #ffffff); }
+.background-amber-tint-20 { background-color: #fdecce; background-color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
+.color-amber-tint-20      { color: #fdecce; color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
+.background-amber-tint-30 { background-color: #fce2b6; background-color: color-mix(in srgb, #f59e0b 30%, #ffffff); }
+.color-amber-tint-30      { color: #fce2b6; color: color-mix(in srgb, #f59e0b 30%, #ffffff); }
+.background-amber-tint-40 { background-color: #fbd89d; background-color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
+.color-amber-tint-40      { color: #fbd89d; color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
+.background-amber-tint-50 { background-color: #facf85; background-color: color-mix(in srgb, #f59e0b 50%, #ffffff); }
+.color-amber-tint-50      { color: #facf85; color: color-mix(in srgb, #f59e0b 50%, #ffffff); }
+.background-amber-tint-60 { background-color: #f9c56d; background-color: color-mix(in srgb, #f59e0b 60%, #ffffff); }
+.color-amber-tint-60      { color: #f9c56d; color: color-mix(in srgb, #f59e0b 60%, #ffffff); }
+.background-amber-tint-70 { background-color: #f8bb54; background-color: color-mix(in srgb, #f59e0b 70%, #ffffff); }
+.color-amber-tint-70      { color: #f8bb54; color: color-mix(in srgb, #f59e0b 70%, #ffffff); }
+.background-amber-shade-100 { background-color: #dd8e0a; background-color: color-mix(in srgb, #f59e0b 90%, #000000); }
+.color-amber-shade-100      { color: #dd8e0a; color: color-mix(in srgb, #f59e0b 90%, #000000); }
+.background-amber-shade-200 { background-color: #c47e09; background-color: color-mix(in srgb, #f59e0b 80%, #000000); }
+.color-amber-shade-200      { color: #c47e09; color: color-mix(in srgb, #f59e0b 80%, #000000); }
+.background-amber-shade-300 { background-color: #ac6f08; background-color: color-mix(in srgb, #f59e0b 70%, #000000); }
+.color-amber-shade-300      { color: #ac6f08; color: color-mix(in srgb, #f59e0b 70%, #000000); }
+.border-amber-tint-20 { border-color: #fdecce; border-color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
+.border-amber-tint-40 { border-color: #fbd89d; border-color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
+.border-amber-shade-10 { border-color: #dd8e0a; border-color: color-mix(in srgb, #f59e0b 90%, #000000); }
+.background-yellow-tint-10 { background-color: #fdf7e6; background-color: color-mix(in srgb, #eab308 10%, #ffffff); }
+.color-yellow-tint-10      { color: #fdf7e6; color: color-mix(in srgb, #eab308 10%, #ffffff); }
+.background-yellow-tint-20 { background-color: #fbf0ce; background-color: color-mix(in srgb, #eab308 20%, #ffffff); }
+.color-yellow-tint-20      { color: #fbf0ce; color: color-mix(in srgb, #eab308 20%, #ffffff); }
+.background-yellow-tint-30 { background-color: #f9e8b5; background-color: color-mix(in srgb, #eab308 30%, #ffffff); }
+.color-yellow-tint-30      { color: #f9e8b5; color: color-mix(in srgb, #eab308 30%, #ffffff); }
+.background-yellow-tint-40 { background-color: #f7e19c; background-color: color-mix(in srgb, #eab308 40%, #ffffff); }
+.color-yellow-tint-40      { color: #f7e19c; color: color-mix(in srgb, #eab308 40%, #ffffff); }
+.background-yellow-tint-50 { background-color: #f5d984; background-color: color-mix(in srgb, #eab308 50%, #ffffff); }
+.color-yellow-tint-50      { color: #f5d984; color: color-mix(in srgb, #eab308 50%, #ffffff); }
+.background-yellow-tint-60 { background-color: #f2d16b; background-color: color-mix(in srgb, #eab308 60%, #ffffff); }
+.color-yellow-tint-60      { color: #f2d16b; color: color-mix(in srgb, #eab308 60%, #ffffff); }
+.background-yellow-tint-70 { background-color: #f0ca52; background-color: color-mix(in srgb, #eab308 70%, #ffffff); }
+.color-yellow-tint-70      { color: #f0ca52; color: color-mix(in srgb, #eab308 70%, #ffffff); }
+.background-yellow-shade-100 { background-color: #d3a107; background-color: color-mix(in srgb, #eab308 90%, #000000); }
+.color-yellow-shade-100      { color: #d3a107; color: color-mix(in srgb, #eab308 90%, #000000); }
+.background-yellow-shade-200 { background-color: #bb8f06; background-color: color-mix(in srgb, #eab308 80%, #000000); }
+.color-yellow-shade-200      { color: #bb8f06; color: color-mix(in srgb, #eab308 80%, #000000); }
+.background-yellow-shade-300 { background-color: #a47d06; background-color: color-mix(in srgb, #eab308 70%, #000000); }
+.color-yellow-shade-300      { color: #a47d06; color: color-mix(in srgb, #eab308 70%, #000000); }
+.border-yellow-tint-20 { border-color: #fbf0ce; border-color: color-mix(in srgb, #eab308 20%, #ffffff); }
+.border-yellow-tint-40 { border-color: #f7e19c; border-color: color-mix(in srgb, #eab308 40%, #ffffff); }
+.border-yellow-shade-10 { border-color: #d3a107; border-color: color-mix(in srgb, #eab308 90%, #000000); }
+.background-lime-tint-10 { background-color: #f3fae8; background-color: color-mix(in srgb, #84cc16 10%, #ffffff); }
+.color-lime-tint-10      { color: #f3fae8; color: color-mix(in srgb, #84cc16 10%, #ffffff); }
+.background-lime-tint-20 { background-color: #e6f5d0; background-color: color-mix(in srgb, #84cc16 20%, #ffffff); }
+.color-lime-tint-20      { color: #e6f5d0; color: color-mix(in srgb, #84cc16 20%, #ffffff); }
+.background-lime-tint-30 { background-color: #daf0b9; background-color: color-mix(in srgb, #84cc16 30%, #ffffff); }
+.color-lime-tint-30      { color: #daf0b9; color: color-mix(in srgb, #84cc16 30%, #ffffff); }
+.background-lime-tint-40 { background-color: #ceeba2; background-color: color-mix(in srgb, #84cc16 40%, #ffffff); }
+.color-lime-tint-40      { color: #ceeba2; color: color-mix(in srgb, #84cc16 40%, #ffffff); }
+.background-lime-tint-50 { background-color: #c2e68b; background-color: color-mix(in srgb, #84cc16 50%, #ffffff); }
+.color-lime-tint-50      { color: #c2e68b; color: color-mix(in srgb, #84cc16 50%, #ffffff); }
+.background-lime-tint-60 { background-color: #b5e073; background-color: color-mix(in srgb, #84cc16 60%, #ffffff); }
+.color-lime-tint-60      { color: #b5e073; color: color-mix(in srgb, #84cc16 60%, #ffffff); }
+.background-lime-tint-70 { background-color: #a9db5c; background-color: color-mix(in srgb, #84cc16 70%, #ffffff); }
+.color-lime-tint-70      { color: #a9db5c; color: color-mix(in srgb, #84cc16 70%, #ffffff); }
+.background-lime-shade-100 { background-color: #77b814; background-color: color-mix(in srgb, #84cc16 90%, #000000); }
+.color-lime-shade-100      { color: #77b814; color: color-mix(in srgb, #84cc16 90%, #000000); }
+.background-lime-shade-200 { background-color: #6aa312; background-color: color-mix(in srgb, #84cc16 80%, #000000); }
+.color-lime-shade-200      { color: #6aa312; color: color-mix(in srgb, #84cc16 80%, #000000); }
+.background-lime-shade-300 { background-color: #5c8f0f; background-color: color-mix(in srgb, #84cc16 70%, #000000); }
+.color-lime-shade-300      { color: #5c8f0f; color: color-mix(in srgb, #84cc16 70%, #000000); }
+.border-lime-tint-20 { border-color: #e6f5d0; border-color: color-mix(in srgb, #84cc16 20%, #ffffff); }
+.border-lime-tint-40 { border-color: #ceeba2; border-color: color-mix(in srgb, #84cc16 40%, #ffffff); }
+.border-lime-shade-10 { border-color: #77b814; border-color: color-mix(in srgb, #84cc16 90%, #000000); }
+.background-green-tint-10 { background-color: #e9f9ef; background-color: color-mix(in srgb, #22c55e 10%, #ffffff); }
+.color-green-tint-10      { color: #e9f9ef; color: color-mix(in srgb, #22c55e 10%, #ffffff); }
+.background-green-tint-20 { background-color: #d3f3df; background-color: color-mix(in srgb, #22c55e 20%, #ffffff); }
+.color-green-tint-20      { color: #d3f3df; color: color-mix(in srgb, #22c55e 20%, #ffffff); }
+.background-green-tint-30 { background-color: #bdeecf; background-color: color-mix(in srgb, #22c55e 30%, #ffffff); }
+.color-green-tint-30      { color: #bdeecf; color: color-mix(in srgb, #22c55e 30%, #ffffff); }
+.background-green-tint-40 { background-color: #a7e8bf; background-color: color-mix(in srgb, #22c55e 40%, #ffffff); }
+.color-green-tint-40      { color: #a7e8bf; color: color-mix(in srgb, #22c55e 40%, #ffffff); }
+.background-green-tint-50 { background-color: #91e2af; background-color: color-mix(in srgb, #22c55e 50%, #ffffff); }
+.color-green-tint-50      { color: #91e2af; color: color-mix(in srgb, #22c55e 50%, #ffffff); }
+.background-green-tint-60 { background-color: #7adc9e; background-color: color-mix(in srgb, #22c55e 60%, #ffffff); }
+.color-green-tint-60      { color: #7adc9e; color: color-mix(in srgb, #22c55e 60%, #ffffff); }
+.background-green-tint-70 { background-color: #64d68e; background-color: color-mix(in srgb, #22c55e 70%, #ffffff); }
+.color-green-tint-70      { color: #64d68e; color: color-mix(in srgb, #22c55e 70%, #ffffff); }
+.background-green-shade-100 { background-color: #1fb155; background-color: color-mix(in srgb, #22c55e 90%, #000000); }
+.color-green-shade-100      { color: #1fb155; color: color-mix(in srgb, #22c55e 90%, #000000); }
+.background-green-shade-200 { background-color: #1b9e4b; background-color: color-mix(in srgb, #22c55e 80%, #000000); }
+.color-green-shade-200      { color: #1b9e4b; color: color-mix(in srgb, #22c55e 80%, #000000); }
+.background-green-shade-300 { background-color: #188a42; background-color: color-mix(in srgb, #22c55e 70%, #000000); }
+.color-green-shade-300      { color: #188a42; color: color-mix(in srgb, #22c55e 70%, #000000); }
+.border-green-tint-20 { border-color: #d3f3df; border-color: color-mix(in srgb, #22c55e 20%, #ffffff); }
+.border-green-tint-40 { border-color: #a7e8bf; border-color: color-mix(in srgb, #22c55e 40%, #ffffff); }
+.border-green-shade-10 { border-color: #1fb155; border-color: color-mix(in srgb, #22c55e 90%, #000000); }
+.background-teal-tint-10 { background-color: #e8f8f6; background-color: color-mix(in srgb, #14b8a6 10%, #ffffff); }
+.color-teal-tint-10      { color: #e8f8f6; color: color-mix(in srgb, #14b8a6 10%, #ffffff); }
+.background-teal-tint-20 { background-color: #d0f1ed; background-color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
+.color-teal-tint-20      { color: #d0f1ed; color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
+.background-teal-tint-30 { background-color: #b9eae4; background-color: color-mix(in srgb, #14b8a6 30%, #ffffff); }
+.color-teal-tint-30      { color: #b9eae4; color: color-mix(in srgb, #14b8a6 30%, #ffffff); }
+.background-teal-tint-40 { background-color: #a1e3db; background-color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
+.color-teal-tint-40      { color: #a1e3db; color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
+.background-teal-tint-50 { background-color: #8adcd3; background-color: color-mix(in srgb, #14b8a6 50%, #ffffff); }
+.color-teal-tint-50      { color: #8adcd3; color: color-mix(in srgb, #14b8a6 50%, #ffffff); }
+.background-teal-tint-60 { background-color: #72d4ca; background-color: color-mix(in srgb, #14b8a6 60%, #ffffff); }
+.color-teal-tint-60      { color: #72d4ca; color: color-mix(in srgb, #14b8a6 60%, #ffffff); }
+.background-teal-tint-70 { background-color: #5bcdc1; background-color: color-mix(in srgb, #14b8a6 70%, #ffffff); }
+.color-teal-tint-70      { color: #5bcdc1; color: color-mix(in srgb, #14b8a6 70%, #ffffff); }
+.background-teal-shade-100 { background-color: #12a695; background-color: color-mix(in srgb, #14b8a6 90%, #000000); }
+.color-teal-shade-100      { color: #12a695; color: color-mix(in srgb, #14b8a6 90%, #000000); }
+.background-teal-shade-200 { background-color: #109385; background-color: color-mix(in srgb, #14b8a6 80%, #000000); }
+.color-teal-shade-200      { color: #109385; color: color-mix(in srgb, #14b8a6 80%, #000000); }
+.background-teal-shade-300 { background-color: #0e8174; background-color: color-mix(in srgb, #14b8a6 70%, #000000); }
+.color-teal-shade-300      { color: #0e8174; color: color-mix(in srgb, #14b8a6 70%, #000000); }
+.border-teal-tint-20 { border-color: #d0f1ed; border-color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
+.border-teal-tint-40 { border-color: #a1e3db; border-color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
+.border-teal-shade-10 { border-color: #12a695; border-color: color-mix(in srgb, #14b8a6 90%, #000000); }
+.background-cyan-tint-10 { background-color: #e6f8fb; background-color: color-mix(in srgb, #06b6d4 10%, #ffffff); }
+.color-cyan-tint-10      { color: #e6f8fb; color: color-mix(in srgb, #06b6d4 10%, #ffffff); }
+.background-cyan-tint-20 { background-color: #cdf0f6; background-color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
+.color-cyan-tint-20      { color: #cdf0f6; color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
+.background-cyan-tint-30 { background-color: #b4e9f2; background-color: color-mix(in srgb, #06b6d4 30%, #ffffff); }
+.color-cyan-tint-30      { color: #b4e9f2; color: color-mix(in srgb, #06b6d4 30%, #ffffff); }
+.background-cyan-tint-40 { background-color: #9be2ee; background-color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
+.color-cyan-tint-40      { color: #9be2ee; color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
+.background-cyan-tint-50 { background-color: #83dbea; background-color: color-mix(in srgb, #06b6d4 50%, #ffffff); }
+.color-cyan-tint-50      { color: #83dbea; color: color-mix(in srgb, #06b6d4 50%, #ffffff); }
+.background-cyan-tint-60 { background-color: #6ad3e5; background-color: color-mix(in srgb, #06b6d4 60%, #ffffff); }
+.color-cyan-tint-60      { color: #6ad3e5; color: color-mix(in srgb, #06b6d4 60%, #ffffff); }
+.background-cyan-tint-70 { background-color: #51cce1; background-color: color-mix(in srgb, #06b6d4 70%, #ffffff); }
+.color-cyan-tint-70      { color: #51cce1; color: color-mix(in srgb, #06b6d4 70%, #ffffff); }
+.background-cyan-shade-100 { background-color: #05a4bf; background-color: color-mix(in srgb, #06b6d4 90%, #000000); }
+.color-cyan-shade-100      { color: #05a4bf; color: color-mix(in srgb, #06b6d4 90%, #000000); }
+.background-cyan-shade-200 { background-color: #0592aa; background-color: color-mix(in srgb, #06b6d4 80%, #000000); }
+.color-cyan-shade-200      { color: #0592aa; color: color-mix(in srgb, #06b6d4 80%, #000000); }
+.background-cyan-shade-300 { background-color: #047f94; background-color: color-mix(in srgb, #06b6d4 70%, #000000); }
+.color-cyan-shade-300      { color: #047f94; color: color-mix(in srgb, #06b6d4 70%, #000000); }
+.border-cyan-tint-20 { border-color: #cdf0f6; border-color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
+.border-cyan-tint-40 { border-color: #9be2ee; border-color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
+.border-cyan-shade-10 { border-color: #05a4bf; border-color: color-mix(in srgb, #06b6d4 90%, #000000); }
+.background-blue-tint-10 { background-color: #ebf3fe; background-color: color-mix(in srgb, #3b82f6 10%, #ffffff); }
+.color-blue-tint-10      { color: #ebf3fe; color: color-mix(in srgb, #3b82f6 10%, #ffffff); }
+.background-blue-tint-20 { background-color: #d8e6fd; background-color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
+.color-blue-tint-20      { color: #d8e6fd; color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
+.background-blue-tint-30 { background-color: #c4dafc; background-color: color-mix(in srgb, #3b82f6 30%, #ffffff); }
+.color-blue-tint-30      { color: #c4dafc; color: color-mix(in srgb, #3b82f6 30%, #ffffff); }
+.background-blue-tint-40 { background-color: #b1cdfb; background-color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
+.color-blue-tint-40      { color: #b1cdfb; color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
+.background-blue-tint-50 { background-color: #9dc1fb; background-color: color-mix(in srgb, #3b82f6 50%, #ffffff); }
+.color-blue-tint-50      { color: #9dc1fb; color: color-mix(in srgb, #3b82f6 50%, #ffffff); }
+.background-blue-tint-60 { background-color: #89b4fa; background-color: color-mix(in srgb, #3b82f6 60%, #ffffff); }
+.color-blue-tint-60      { color: #89b4fa; color: color-mix(in srgb, #3b82f6 60%, #ffffff); }
+.background-blue-tint-70 { background-color: #76a8f9; background-color: color-mix(in srgb, #3b82f6 70%, #ffffff); }
+.color-blue-tint-70      { color: #76a8f9; color: color-mix(in srgb, #3b82f6 70%, #ffffff); }
+.background-blue-shade-100 { background-color: #3575dd; background-color: color-mix(in srgb, #3b82f6 90%, #000000); }
+.color-blue-shade-100      { color: #3575dd; color: color-mix(in srgb, #3b82f6 90%, #000000); }
+.background-blue-shade-200 { background-color: #2f68c5; background-color: color-mix(in srgb, #3b82f6 80%, #000000); }
+.color-blue-shade-200      { color: #2f68c5; color: color-mix(in srgb, #3b82f6 80%, #000000); }
+.background-blue-shade-300 { background-color: #295bac; background-color: color-mix(in srgb, #3b82f6 70%, #000000); }
+.color-blue-shade-300      { color: #295bac; color: color-mix(in srgb, #3b82f6 70%, #000000); }
+.border-blue-tint-20 { border-color: #d8e6fd; border-color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
+.border-blue-tint-40 { border-color: #b1cdfb; border-color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
+.border-blue-shade-10 { border-color: #3575dd; border-color: color-mix(in srgb, #3b82f6 90%, #000000); }
+.background-indigo-tint-10 { background-color: #eff0fe; background-color: color-mix(in srgb, #6366f1 10%, #ffffff); }
+.color-indigo-tint-10      { color: #eff0fe; color: color-mix(in srgb, #6366f1 10%, #ffffff); }
+.background-indigo-tint-20 { background-color: #e0e0fc; background-color: color-mix(in srgb, #6366f1 20%, #ffffff); }
+.color-indigo-tint-20      { color: #e0e0fc; color: color-mix(in srgb, #6366f1 20%, #ffffff); }
+.background-indigo-tint-30 { background-color: #d0d1fb; background-color: color-mix(in srgb, #6366f1 30%, #ffffff); }
+.color-indigo-tint-30      { color: #d0d1fb; color: color-mix(in srgb, #6366f1 30%, #ffffff); }
+.background-indigo-tint-40 { background-color: #c1c2f9; background-color: color-mix(in srgb, #6366f1 40%, #ffffff); }
+.color-indigo-tint-40      { color: #c1c2f9; color: color-mix(in srgb, #6366f1 40%, #ffffff); }
+.background-indigo-tint-50 { background-color: #b1b3f8; background-color: color-mix(in srgb, #6366f1 50%, #ffffff); }
+.color-indigo-tint-50      { color: #b1b3f8; color: color-mix(in srgb, #6366f1 50%, #ffffff); }
+.background-indigo-tint-60 { background-color: #a1a3f7; background-color: color-mix(in srgb, #6366f1 60%, #ffffff); }
+.color-indigo-tint-60      { color: #a1a3f7; color: color-mix(in srgb, #6366f1 60%, #ffffff); }
+.background-indigo-tint-70 { background-color: #9294f5; background-color: color-mix(in srgb, #6366f1 70%, #ffffff); }
+.color-indigo-tint-70      { color: #9294f5; color: color-mix(in srgb, #6366f1 70%, #ffffff); }
+.background-indigo-shade-100 { background-color: #595cd9; background-color: color-mix(in srgb, #6366f1 90%, #000000); }
+.color-indigo-shade-100      { color: #595cd9; color: color-mix(in srgb, #6366f1 90%, #000000); }
+.background-indigo-shade-200 { background-color: #4f52c1; background-color: color-mix(in srgb, #6366f1 80%, #000000); }
+.color-indigo-shade-200      { color: #4f52c1; color: color-mix(in srgb, #6366f1 80%, #000000); }
+.background-indigo-shade-300 { background-color: #4547a9; background-color: color-mix(in srgb, #6366f1 70%, #000000); }
+.color-indigo-shade-300      { color: #4547a9; color: color-mix(in srgb, #6366f1 70%, #000000); }
+.border-indigo-tint-20 { border-color: #e0e0fc; border-color: color-mix(in srgb, #6366f1 20%, #ffffff); }
+.border-indigo-tint-40 { border-color: #c1c2f9; border-color: color-mix(in srgb, #6366f1 40%, #ffffff); }
+.border-indigo-shade-10 { border-color: #595cd9; border-color: color-mix(in srgb, #6366f1 90%, #000000); }
+.background-violet-tint-10 { background-color: #f3effe; background-color: color-mix(in srgb, #8b5cf6 10%, #ffffff); }
+.color-violet-tint-10      { color: #f3effe; color: color-mix(in srgb, #8b5cf6 10%, #ffffff); }
+.background-violet-tint-20 { background-color: #e8defd; background-color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
+.color-violet-tint-20      { color: #e8defd; color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
+.background-violet-tint-30 { background-color: #dccefc; background-color: color-mix(in srgb, #8b5cf6 30%, #ffffff); }
+.color-violet-tint-30      { color: #dccefc; color: color-mix(in srgb, #8b5cf6 30%, #ffffff); }
+.background-violet-tint-40 { background-color: #d1befb; background-color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
+.color-violet-tint-40      { color: #d1befb; color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
+.background-violet-tint-50 { background-color: #c5aefb; background-color: color-mix(in srgb, #8b5cf6 50%, #ffffff); }
+.color-violet-tint-50      { color: #c5aefb; color: color-mix(in srgb, #8b5cf6 50%, #ffffff); }
+.background-violet-tint-60 { background-color: #b99dfa; background-color: color-mix(in srgb, #8b5cf6 60%, #ffffff); }
+.color-violet-tint-60      { color: #b99dfa; color: color-mix(in srgb, #8b5cf6 60%, #ffffff); }
+.background-violet-tint-70 { background-color: #ae8df9; background-color: color-mix(in srgb, #8b5cf6 70%, #ffffff); }
+.color-violet-tint-70      { color: #ae8df9; color: color-mix(in srgb, #8b5cf6 70%, #ffffff); }
+.background-violet-shade-100 { background-color: #7d53dd; background-color: color-mix(in srgb, #8b5cf6 90%, #000000); }
+.color-violet-shade-100      { color: #7d53dd; color: color-mix(in srgb, #8b5cf6 90%, #000000); }
+.background-violet-shade-200 { background-color: #6f4ac5; background-color: color-mix(in srgb, #8b5cf6 80%, #000000); }
+.color-violet-shade-200      { color: #6f4ac5; color: color-mix(in srgb, #8b5cf6 80%, #000000); }
+.background-violet-shade-300 { background-color: #6140ac; background-color: color-mix(in srgb, #8b5cf6 70%, #000000); }
+.color-violet-shade-300      { color: #6140ac; color: color-mix(in srgb, #8b5cf6 70%, #000000); }
+.border-violet-tint-20 { border-color: #e8defd; border-color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
+.border-violet-tint-40 { border-color: #d1befb; border-color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
+.border-violet-shade-10 { border-color: #7d53dd; border-color: color-mix(in srgb, #8b5cf6 90%, #000000); }
+.background-purple-tint-10 { background-color: #f6eefe; background-color: color-mix(in srgb, #a855f7 10%, #ffffff); }
+.color-purple-tint-10      { color: #f6eefe; color: color-mix(in srgb, #a855f7 10%, #ffffff); }
+.background-purple-tint-20 { background-color: #eeddfd; background-color: color-mix(in srgb, #a855f7 20%, #ffffff); }
+.color-purple-tint-20      { color: #eeddfd; color: color-mix(in srgb, #a855f7 20%, #ffffff); }
+.background-purple-tint-30 { background-color: #e5ccfd; background-color: color-mix(in srgb, #a855f7 30%, #ffffff); }
+.color-purple-tint-30      { color: #e5ccfd; color: color-mix(in srgb, #a855f7 30%, #ffffff); }
+.background-purple-tint-40 { background-color: #dcbbfc; background-color: color-mix(in srgb, #a855f7 40%, #ffffff); }
+.color-purple-tint-40      { color: #dcbbfc; color: color-mix(in srgb, #a855f7 40%, #ffffff); }
+.background-purple-tint-50 { background-color: #d4aafb; background-color: color-mix(in srgb, #a855f7 50%, #ffffff); }
+.color-purple-tint-50      { color: #d4aafb; color: color-mix(in srgb, #a855f7 50%, #ffffff); }
+.background-purple-tint-60 { background-color: #cb99fa; background-color: color-mix(in srgb, #a855f7 60%, #ffffff); }
+.color-purple-tint-60      { color: #cb99fa; color: color-mix(in srgb, #a855f7 60%, #ffffff); }
+.background-purple-tint-70 { background-color: #c288f9; background-color: color-mix(in srgb, #a855f7 70%, #ffffff); }
+.color-purple-tint-70      { color: #c288f9; color: color-mix(in srgb, #a855f7 70%, #ffffff); }
+.background-purple-shade-100 { background-color: #974dde; background-color: color-mix(in srgb, #a855f7 90%, #000000); }
+.color-purple-shade-100      { color: #974dde; color: color-mix(in srgb, #a855f7 90%, #000000); }
+.background-purple-shade-200 { background-color: #8644c6; background-color: color-mix(in srgb, #a855f7 80%, #000000); }
+.color-purple-shade-200      { color: #8644c6; color: color-mix(in srgb, #a855f7 80%, #000000); }
+.background-purple-shade-300 { background-color: #763bad; background-color: color-mix(in srgb, #a855f7 70%, #000000); }
+.color-purple-shade-300      { color: #763bad; color: color-mix(in srgb, #a855f7 70%, #000000); }
+.border-purple-tint-20 { border-color: #eeddfd; border-color: color-mix(in srgb, #a855f7 20%, #ffffff); }
+.border-purple-tint-40 { border-color: #dcbbfc; border-color: color-mix(in srgb, #a855f7 40%, #ffffff); }
+.border-purple-shade-10 { border-color: #974dde; border-color: color-mix(in srgb, #a855f7 90%, #000000); }
+.background-pink-tint-10 { background-color: #fdedf5; background-color: color-mix(in srgb, #ec4899 10%, #ffffff); }
+.color-pink-tint-10      { color: #fdedf5; color: color-mix(in srgb, #ec4899 10%, #ffffff); }
+.background-pink-tint-20 { background-color: #fbdaeb; background-color: color-mix(in srgb, #ec4899 20%, #ffffff); }
+.color-pink-tint-20      { color: #fbdaeb; color: color-mix(in srgb, #ec4899 20%, #ffffff); }
+.background-pink-tint-30 { background-color: #f9c8e0; background-color: color-mix(in srgb, #ec4899 30%, #ffffff); }
+.color-pink-tint-30      { color: #f9c8e0; color: color-mix(in srgb, #ec4899 30%, #ffffff); }
+.background-pink-tint-40 { background-color: #f7b6d6; background-color: color-mix(in srgb, #ec4899 40%, #ffffff); }
+.color-pink-tint-40      { color: #f7b6d6; color: color-mix(in srgb, #ec4899 40%, #ffffff); }
+.background-pink-tint-50 { background-color: #f6a4cc; background-color: color-mix(in srgb, #ec4899 50%, #ffffff); }
+.color-pink-tint-50      { color: #f6a4cc; color: color-mix(in srgb, #ec4899 50%, #ffffff); }
+.background-pink-tint-60 { background-color: #f491c2; background-color: color-mix(in srgb, #ec4899 60%, #ffffff); }
+.color-pink-tint-60      { color: #f491c2; color: color-mix(in srgb, #ec4899 60%, #ffffff); }
+.background-pink-tint-70 { background-color: #f27fb8; background-color: color-mix(in srgb, #ec4899 70%, #ffffff); }
+.color-pink-tint-70      { color: #f27fb8; color: color-mix(in srgb, #ec4899 70%, #ffffff); }
+.background-pink-shade-100 { background-color: #d4418a; background-color: color-mix(in srgb, #ec4899 90%, #000000); }
+.color-pink-shade-100      { color: #d4418a; color: color-mix(in srgb, #ec4899 90%, #000000); }
+.background-pink-shade-200 { background-color: #bd3a7a; background-color: color-mix(in srgb, #ec4899 80%, #000000); }
+.color-pink-shade-200      { color: #bd3a7a; color: color-mix(in srgb, #ec4899 80%, #000000); }
+.background-pink-shade-300 { background-color: #a5326b; background-color: color-mix(in srgb, #ec4899 70%, #000000); }
+.color-pink-shade-300      { color: #a5326b; color: color-mix(in srgb, #ec4899 70%, #000000); }
+.border-pink-tint-20 { border-color: #fbdaeb; border-color: color-mix(in srgb, #ec4899 20%, #ffffff); }
+.border-pink-tint-40 { border-color: #f7b6d6; border-color: color-mix(in srgb, #ec4899 40%, #ffffff); }
+.border-pink-shade-10 { border-color: #d4418a; border-color: color-mix(in srgb, #ec4899 90%, #000000); }
+.background-rose-tint-10 { background-color: #feecef; background-color: color-mix(in srgb, #f43f5e 10%, #ffffff); }
+.color-rose-tint-10      { color: #feecef; color: color-mix(in srgb, #f43f5e 10%, #ffffff); }
+.background-rose-tint-20 { background-color: #fdd9df; background-color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
+.color-rose-tint-20      { color: #fdd9df; color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
+.background-rose-tint-30 { background-color: #fcc5cf; background-color: color-mix(in srgb, #f43f5e 30%, #ffffff); }
+.color-rose-tint-30      { color: #fcc5cf; color: color-mix(in srgb, #f43f5e 30%, #ffffff); }
+.background-rose-tint-40 { background-color: #fbb2bf; background-color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
+.color-rose-tint-40      { color: #fbb2bf; color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
+.background-rose-tint-50 { background-color: #fa9faf; background-color: color-mix(in srgb, #f43f5e 50%, #ffffff); }
+.color-rose-tint-50      { color: #fa9faf; color: color-mix(in srgb, #f43f5e 50%, #ffffff); }
+.background-rose-tint-60 { background-color: #f88c9e; background-color: color-mix(in srgb, #f43f5e 60%, #ffffff); }
+.color-rose-tint-60      { color: #f88c9e; color: color-mix(in srgb, #f43f5e 60%, #ffffff); }
+.background-rose-tint-70 { background-color: #f7798e; background-color: color-mix(in srgb, #f43f5e 70%, #ffffff); }
+.color-rose-tint-70      { color: #f7798e; color: color-mix(in srgb, #f43f5e 70%, #ffffff); }
+.background-rose-shade-100 { background-color: #dc3955; background-color: color-mix(in srgb, #f43f5e 90%, #000000); }
+.color-rose-shade-100      { color: #dc3955; color: color-mix(in srgb, #f43f5e 90%, #000000); }
+.background-rose-shade-200 { background-color: #c3324b; background-color: color-mix(in srgb, #f43f5e 80%, #000000); }
+.color-rose-shade-200      { color: #c3324b; color: color-mix(in srgb, #f43f5e 80%, #000000); }
+.background-rose-shade-300 { background-color: #ab2c42; background-color: color-mix(in srgb, #f43f5e 70%, #000000); }
+.color-rose-shade-300      { color: #ab2c42; color: color-mix(in srgb, #f43f5e 70%, #000000); }
+.border-rose-tint-20 { border-color: #fdd9df; border-color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
+.border-rose-tint-40 { border-color: #fbb2bf; border-color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
+.border-rose-shade-10 { border-color: #dc3955; border-color: color-mix(in srgb, #f43f5e 90%, #000000); }
+.background-slate-tint-10 { background-color: #f0f1f3; background-color: color-mix(in srgb, #64748b 10%, #ffffff); }
+.color-slate-tint-10      { color: #f0f1f3; color: color-mix(in srgb, #64748b 10%, #ffffff); }
+.background-slate-tint-20 { background-color: #e0e3e8; background-color: color-mix(in srgb, #64748b 20%, #ffffff); }
+.color-slate-tint-20      { color: #e0e3e8; color: color-mix(in srgb, #64748b 20%, #ffffff); }
+.background-slate-tint-30 { background-color: #d1d5dc; background-color: color-mix(in srgb, #64748b 30%, #ffffff); }
+.color-slate-tint-30      { color: #d1d5dc; color: color-mix(in srgb, #64748b 30%, #ffffff); }
+.background-slate-tint-40 { background-color: #c1c7d1; background-color: color-mix(in srgb, #64748b 40%, #ffffff); }
+.color-slate-tint-40      { color: #c1c7d1; color: color-mix(in srgb, #64748b 40%, #ffffff); }
+.background-slate-tint-50 { background-color: #b2bac5; background-color: color-mix(in srgb, #64748b 50%, #ffffff); }
+.color-slate-tint-50      { color: #b2bac5; color: color-mix(in srgb, #64748b 50%, #ffffff); }
+.background-slate-tint-60 { background-color: #a2acb9; background-color: color-mix(in srgb, #64748b 60%, #ffffff); }
+.color-slate-tint-60      { color: #a2acb9; color: color-mix(in srgb, #64748b 60%, #ffffff); }
+.background-slate-tint-70 { background-color: #939eae; background-color: color-mix(in srgb, #64748b 70%, #ffffff); }
+.color-slate-tint-70      { color: #939eae; color: color-mix(in srgb, #64748b 70%, #ffffff); }
+.background-slate-shade-100 { background-color: #5a687d; background-color: color-mix(in srgb, #64748b 90%, #000000); }
+.color-slate-shade-100      { color: #5a687d; color: color-mix(in srgb, #64748b 90%, #000000); }
+.background-slate-shade-200 { background-color: #505d6f; background-color: color-mix(in srgb, #64748b 80%, #000000); }
+.color-slate-shade-200      { color: #505d6f; color: color-mix(in srgb, #64748b 80%, #000000); }
+.background-slate-shade-300 { background-color: #465161; background-color: color-mix(in srgb, #64748b 70%, #000000); }
+.color-slate-shade-300      { color: #465161; color: color-mix(in srgb, #64748b 70%, #000000); }
+.border-slate-tint-20 { border-color: #e0e3e8; border-color: color-mix(in srgb, #64748b 20%, #ffffff); }
+.border-slate-tint-40 { border-color: #c1c7d1; border-color: color-mix(in srgb, #64748b 40%, #ffffff); }
+.border-slate-shade-10 { border-color: #5a687d; border-color: color-mix(in srgb, #64748b 90%, #000000); }
+.background-gray-tint-10 { background-color: #f0f1f2; background-color: color-mix(in srgb, #6b7280 10%, #ffffff); }
+.color-gray-tint-10      { color: #f0f1f2; color: color-mix(in srgb, #6b7280 10%, #ffffff); }
+.background-gray-tint-20 { background-color: #e1e3e6; background-color: color-mix(in srgb, #6b7280 20%, #ffffff); }
+.color-gray-tint-20      { color: #e1e3e6; color: color-mix(in srgb, #6b7280 20%, #ffffff); }
+.background-gray-tint-30 { background-color: #d3d5d9; background-color: color-mix(in srgb, #6b7280 30%, #ffffff); }
+.color-gray-tint-30      { color: #d3d5d9; color: color-mix(in srgb, #6b7280 30%, #ffffff); }
+.background-gray-tint-40 { background-color: #c4c7cc; background-color: color-mix(in srgb, #6b7280 40%, #ffffff); }
+.color-gray-tint-40      { color: #c4c7cc; color: color-mix(in srgb, #6b7280 40%, #ffffff); }
+.background-gray-tint-50 { background-color: #b5b9c0; background-color: color-mix(in srgb, #6b7280 50%, #ffffff); }
+.color-gray-tint-50      { color: #b5b9c0; color: color-mix(in srgb, #6b7280 50%, #ffffff); }
+.background-gray-tint-60 { background-color: #a6aab3; background-color: color-mix(in srgb, #6b7280 60%, #ffffff); }
+.color-gray-tint-60      { color: #a6aab3; color: color-mix(in srgb, #6b7280 60%, #ffffff); }
+.background-gray-tint-70 { background-color: #979ca6; background-color: color-mix(in srgb, #6b7280 70%, #ffffff); }
+.color-gray-tint-70      { color: #979ca6; color: color-mix(in srgb, #6b7280 70%, #ffffff); }
+.background-gray-shade-100 { background-color: #606773; background-color: color-mix(in srgb, #6b7280 90%, #000000); }
+.color-gray-shade-100      { color: #606773; color: color-mix(in srgb, #6b7280 90%, #000000); }
+.background-gray-shade-200 { background-color: #565b66; background-color: color-mix(in srgb, #6b7280 80%, #000000); }
+.color-gray-shade-200      { color: #565b66; color: color-mix(in srgb, #6b7280 80%, #000000); }
+.background-gray-shade-300 { background-color: #4b505a; background-color: color-mix(in srgb, #6b7280 70%, #000000); }
+.color-gray-shade-300      { color: #4b505a; color: color-mix(in srgb, #6b7280 70%, #000000); }
+.border-gray-tint-20 { border-color: #e1e3e6; border-color: color-mix(in srgb, #6b7280 20%, #ffffff); }
+.border-gray-tint-40 { border-color: #c4c7cc; border-color: color-mix(in srgb, #6b7280 40%, #ffffff); }
+.border-gray-shade-10 { border-color: #606773; border-color: color-mix(in srgb, #6b7280 90%, #000000); }
+.background-zinc-tint-10 { background-color: #f1f1f2; background-color: color-mix(in srgb, #71717a 10%, #ffffff); }
+.color-zinc-tint-10      { color: #f1f1f2; color: color-mix(in srgb, #71717a 10%, #ffffff); }
+.background-zinc-tint-20 { background-color: #e3e3e4; background-color: color-mix(in srgb, #71717a 20%, #ffffff); }
+.color-zinc-tint-20      { color: #e3e3e4; color: color-mix(in srgb, #71717a 20%, #ffffff); }
+.background-zinc-tint-30 { background-color: #d4d4d7; background-color: color-mix(in srgb, #71717a 30%, #ffffff); }
+.color-zinc-tint-30      { color: #d4d4d7; color: color-mix(in srgb, #71717a 30%, #ffffff); }
+.background-zinc-tint-40 { background-color: #c6c6ca; background-color: color-mix(in srgb, #71717a 40%, #ffffff); }
+.color-zinc-tint-40      { color: #c6c6ca; color: color-mix(in srgb, #71717a 40%, #ffffff); }
+.background-zinc-tint-50 { background-color: #b8b8bd; background-color: color-mix(in srgb, #71717a 50%, #ffffff); }
+.color-zinc-tint-50      { color: #b8b8bd; color: color-mix(in srgb, #71717a 50%, #ffffff); }
+.background-zinc-tint-60 { background-color: #aaaaaf; background-color: color-mix(in srgb, #71717a 60%, #ffffff); }
+.color-zinc-tint-60      { color: #aaaaaf; color: color-mix(in srgb, #71717a 60%, #ffffff); }
+.background-zinc-tint-70 { background-color: #9c9ca2; background-color: color-mix(in srgb, #71717a 70%, #ffffff); }
+.color-zinc-tint-70      { color: #9c9ca2; color: color-mix(in srgb, #71717a 70%, #ffffff); }
+.background-zinc-shade-100 { background-color: #66666e; background-color: color-mix(in srgb, #71717a 90%, #000000); }
+.color-zinc-shade-100      { color: #66666e; color: color-mix(in srgb, #71717a 90%, #000000); }
+.background-zinc-shade-200 { background-color: #5a5a62; background-color: color-mix(in srgb, #71717a 80%, #000000); }
+.color-zinc-shade-200      { color: #5a5a62; color: color-mix(in srgb, #71717a 80%, #000000); }
+.background-zinc-shade-300 { background-color: #4f4f55; background-color: color-mix(in srgb, #71717a 70%, #000000); }
+.color-zinc-shade-300      { color: #4f4f55; color: color-mix(in srgb, #71717a 70%, #000000); }
+.border-zinc-tint-20 { border-color: #e3e3e4; border-color: color-mix(in srgb, #71717a 20%, #ffffff); }
+.border-zinc-tint-40 { border-color: #c6c6ca; border-color: color-mix(in srgb, #71717a 40%, #ffffff); }
+.border-zinc-shade-10 { border-color: #66666e; border-color: color-mix(in srgb, #71717a 90%, #000000); }
+.background-stone-tint-10 { background-color: #f2f1f0; background-color: color-mix(in srgb, #78716c 10%, #ffffff); }
+.color-stone-tint-10      { color: #f2f1f0; color: color-mix(in srgb, #78716c 10%, #ffffff); }
+.background-stone-tint-20 { background-color: #e4e3e2; background-color: color-mix(in srgb, #78716c 20%, #ffffff); }
+.color-stone-tint-20      { color: #e4e3e2; color: color-mix(in srgb, #78716c 20%, #ffffff); }
+.background-stone-tint-30 { background-color: #d7d4d3; background-color: color-mix(in srgb, #78716c 30%, #ffffff); }
+.color-stone-tint-30      { color: #d7d4d3; color: color-mix(in srgb, #78716c 30%, #ffffff); }
+.background-stone-tint-40 { background-color: #c9c6c4; background-color: color-mix(in srgb, #78716c 40%, #ffffff); }
+.color-stone-tint-40      { color: #c9c6c4; color: color-mix(in srgb, #78716c 40%, #ffffff); }
+.background-stone-tint-50 { background-color: #bcb8b6; background-color: color-mix(in srgb, #78716c 50%, #ffffff); }
+.color-stone-tint-50      { color: #bcb8b6; color: color-mix(in srgb, #78716c 50%, #ffffff); }
+.background-stone-tint-60 { background-color: #aeaaa7; background-color: color-mix(in srgb, #78716c 60%, #ffffff); }
+.color-stone-tint-60      { color: #aeaaa7; color: color-mix(in srgb, #78716c 60%, #ffffff); }
+.background-stone-tint-70 { background-color: #a19c98; background-color: color-mix(in srgb, #78716c 70%, #ffffff); }
+.color-stone-tint-70      { color: #a19c98; color: color-mix(in srgb, #78716c 70%, #ffffff); }
+.background-stone-shade-100 { background-color: #6c6661; background-color: color-mix(in srgb, #78716c 90%, #000000); }
+.color-stone-shade-100      { color: #6c6661; color: color-mix(in srgb, #78716c 90%, #000000); }
+.background-stone-shade-200 { background-color: #605a56; background-color: color-mix(in srgb, #78716c 80%, #000000); }
+.color-stone-shade-200      { color: #605a56; color: color-mix(in srgb, #78716c 80%, #000000); }
+.background-stone-shade-300 { background-color: #544f4c; background-color: color-mix(in srgb, #78716c 70%, #000000); }
+.color-stone-shade-300      { color: #544f4c; color: color-mix(in srgb, #78716c 70%, #000000); }
+.border-stone-tint-20 { border-color: #e4e3e2; border-color: color-mix(in srgb, #78716c 20%, #ffffff); }
+.border-stone-tint-40 { border-color: #c9c6c4; border-color: color-mix(in srgb, #78716c 40%, #ffffff); }
+.border-stone-shade-10 { border-color: #6c6661; border-color: color-mix(in srgb, #78716c 90%, #000000); }
 /* ═══ VARIANTS_BLOCK_END ═══ */
 
 /* @SANTYMOD:layout */
@@ -13072,4 +13076,14 @@ details[open] > .tree-node > .tree-caret { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) {
   .santy-ripple { animation: none; display: none; }
   .santy-tip { transition: none; }
+}
+
+/* ── Reduced motion (WCAG 2.3.3) — ships with every bundle that has animation ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
