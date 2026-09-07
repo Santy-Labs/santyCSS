@@ -9,6 +9,7 @@
  *   npx santycss migrate --file=index.html     # single file
  *   npx santycss migrate --dry-run             # preview only, no writes
  *   npx santycss migrate --report              # print unmapped classes
+ *   npx santycss migrate --from=bootstrap      # migrate Bootstrap 5 instead
  */
 
 'use strict';
@@ -345,14 +346,32 @@ const DYNAMIC_PATTERNS = [
   { re: /^basis-auto$/, fn: () => 'flex-basis-auto' },
 ];
 
+// ─── Source framework selection (v2.9.0) ─────────────────────────────────────
+// Tailwind has been supported since v2.4.0; Bootstrap is new. `--from=` picks
+// the dialect, so the two maps never have to be merged (they disagree on
+// several class names — `text-primary` and `d-flex` mean different things).
+const bootstrap = require('./lib/bootstrap-map');
+
+let SOURCE = 'tailwind';
+
 // ─── Convert a single class name ─────────────────────────────────────────────
 function convertClass(tw) {
+  if (SOURCE === 'bootstrap') {
+    const out = bootstrap.convert(tw);
+    // A passthrough (class already valid in SantyCSS) is not a conversion.
+    return out === null || out === tw ? null : out;
+  }
   if (STATIC_MAP[tw]) return STATIC_MAP[tw];
   for (const p of DYNAMIC_PATTERNS) {
     const m = tw.match(p.re);
     if (m) return p.fn(m);
   }
   return null; // unmapped
+}
+
+/** True when a class needs no change because SantyCSS already supports it. */
+function isPassthrough(cls) {
+  return SOURCE === 'bootstrap' && bootstrap.convert(cls) === cls;
 }
 
 // ─── Convert all class= attributes in a string ───────────────────────────────
@@ -366,7 +385,9 @@ function convertContent(source) {
       if (!cls) return cls;
       const mapped = convertClass(cls);
       if (mapped) { convCount++; return mapped; }
-      unmapped.add(cls);
+      // Classes SantyCSS already understands are correct as-is; only flag
+      // the ones a human still has to deal with.
+      if (!isPassthrough(cls)) unmapped.add(cls);
       return cls; // keep original if unmapped
     }).join(' ');
     return open + converted + close;
@@ -395,6 +416,11 @@ const getArg    = (k, def) => { const m = args.find(a => a.startsWith(`--${k}=`)
 const hasFlag   = k => args.includes(`--${k}`);
 const isDryRun  = hasFlag('dry-run');
 const isReport  = hasFlag('report');
+SOURCE = (getArg('from', 'tailwind') || 'tailwind').toLowerCase();
+if (SOURCE !== 'tailwind' && SOURCE !== 'bootstrap') {
+  console.error('Unknown --from=' + SOURCE + '. Use tailwind or bootstrap.');
+  process.exit(1);
+}
 
 const inputDir  = getArg('input', null);
 const singleFile= getArg('file', null);
@@ -441,6 +467,6 @@ console.log(`  Files changed : ${totalFiles}`);
 console.log(`  Classes mapped: ${totalConverted}`);
 
 if (isReport && allUnmapped.size) {
-  console.log(`\n  Unmapped Tailwind classes (${allUnmapped.size}):`);
+  console.log(`\n  Unmapped ${SOURCE} classes (${allUnmapped.size}):`);
   [...allUnmapped].sort().forEach(c => console.log(`    - ${c}`));
 }

@@ -1,6 +1,6 @@
 {
   "name": "santycss",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "types": "index.d.ts",
@@ -41,7 +41,10 @@
     "./elements": "./dist/santy-elements.js",
     "./merge": "./packages/merge/santy-merge.js",
     "./react": "./packages/react/index.js",
-    "./vue": "./packages/vue/index.js"
+    "./vue": "./packages/vue/index.js",
+    "./sort": "./packages/sort/santy-sort.js",
+    "./prettier": "./packages/prettier/index.js",
+    "./bootstrap-map": "./lib/bootstrap-map.js"
   },
   "files": [
     "dist/",

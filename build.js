@@ -5504,6 +5504,8 @@ const BEHAVIOR_JS = fs.readFileSync(path.join(__dirname, 'santy.js'), 'utf8');
 // mirrored into dist/ for CDN use; the React/Vue packages ship as source.
 const ELEMENTS_JS = fs.readFileSync(path.join(__dirname, 'packages', 'elements', 'santy-elements.js'), 'utf8');
 const MERGE_JS    = fs.readFileSync(path.join(__dirname, 'packages', 'merge', 'santy-merge.js'), 'utf8');
+// Class sorter mirrored to dist so editors and CDN consumers can load it.
+const SORT_JS = fs.readFileSync(path.join(__dirname, 'packages', 'sort', 'santy-sort.js'), 'utf8');
 
 const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
@@ -5660,6 +5662,7 @@ const OUT_FILES = {
   'santy.js': BEHAVIOR_JS,
   'santy-elements.js': ELEMENTS_JS,
   'santy-merge.js': MERGE_JS,
+  'santy-sort.js': SORT_JS,
   'santy-classmap.json': CLASSMAP_JSON,
 };
 

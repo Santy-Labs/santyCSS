@@ -21,6 +21,76 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.9.3
+
+### 🎯 Automatic class sorting (Prettier plugin)
+
+Tailwind's real moat is tooling, and automatic class sorting is the piece
+developers feel daily: without it class attributes drift into per-developer
+orderings and diffs churn on reordering alone.
+
+```jsonc
+// .prettierrc
+{ "plugins": ["santycss/prettier"] }
+```
+
+```html
+<!-- before -->
+<div class="add-padding-8 make-flex md:grid-cols-3 btn on-hover:scale-105">
+
+<!-- after formatting -->
+<div class="btn make-flex add-padding-8 md:grid-cols-3 on-hover:scale-105">
+```
+
+The order is: your own component classes first (they're the element's
+identity), then utilities grouped by what they affect — layout → box → spacing
+→ sizing → typography → colour → border → effects → motion → interaction — then
+variants last, breakpoints ascending. Class lists containing `${…}` are left
+untouched, since reordering could change what the strings concatenate to.
+
+The sorter is a plain function too, for editor commands, lint rules or codemods:
+
+```js
+const { sortClasses, isSorted } = require('santycss/sort');
+```
+
+### 🅱️ Migrate from Bootstrap in one command
+
+The Tailwind migrator has shipped since v2.4.0; Bootstrap had none, which left
+"replaces Bootstrap" a claim with no on-ramp behind it.
+
+```bash
+npx santycss-migrate --input=src/ --from=bootstrap --report
+```
+
+```html
+<!-- before -->
+<div class="card shadow-lg rounded-3">
+  <div class="card-body d-flex align-items-center justify-content-between p-4">
+    <h5 class="fw-bold fs-4 text-primary mb-2">Title</h5>
+  </div>
+</div>
+
+<!-- after -->
+<div class="card add-shadow-lg round-corners-12">
+  <div class="card-body make-flex align-center justify-between add-padding-24">
+    <h5 class="text-bold set-text-24 color-blue-600 add-margin-bottom-8">Title</h5>
+  </div>
+</div>
+```
+
+Two things it deliberately leaves alone: the **grid** (`.row`, `.col-md-6`,
+`.container`, `.g-*`, `.offset-*`) and **components that exist under the same
+name** (`.btn`, `.card`, `.navbar`, …). SantyCSS supports both as-is, so
+rewriting them would churn markup for no behavioural gain — and they're
+excluded from the unmapped report rather than flagged as work you still have to do.
+
+Bootstrap's negative margins (`m-n3`) are reported rather than translated:
+SantyCSS has no negative-margin utility, and emitting one that doesn't exist
+would be worse than telling you.
+
+---
+
 ## What's New in v2.9.1
 
 ### 🔌 Plugin API

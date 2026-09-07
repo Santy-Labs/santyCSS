@@ -642,6 +642,123 @@ test('shade utilities darken progressively', () => {
     `expected 90/80/70 base retention, got ${a}/${b}/${d}`);
 });
 
+// ── Class sorting (v2.9.0) ──────────────────────────────────────────────────
+const { sortClasses, isSorted } = require(path.join(ROOT, 'packages', 'sort', 'santy-sort.js'));
+
+test('sortClasses puts component classes first, then utilities, then variants', () => {
+  const out = sortClasses('add-padding-8 make-flex md:grid-cols-3 btn on-hover:scale-105');
+  assert(out === 'btn make-flex add-padding-8 md:grid-cols-3 on-hover:scale-105',
+    `got "${out}"`);
+});
+
+test('sortClasses orders breakpoints ascending', () => {
+  const out = sortClasses('lg:set-text-56 sm:set-text-32 md:set-text-40 set-text-24');
+  assert(out === 'set-text-24 sm:set-text-32 md:set-text-40 lg:set-text-56', `got "${out}"`);
+});
+
+test('sortClasses is idempotent', () => {
+  const samples = [
+    'dark:background-gray-800 background-white add-shadow-md round-corners-12 card',
+    'on-hover:scale-105 transition-all cursor-pointer make-flex align-center gap-16',
+    'set-text-20 text-bold color-gray-900 add-margin-bottom-8',
+  ];
+  for (const s of samples) {
+    const once = sortClasses(s);
+    assert(sortClasses(once) === once, `not idempotent: "${s}" → "${once}"`);
+    assert(isSorted(once), `isSorted() disagrees with sortClasses() for "${once}"`);
+  }
+});
+
+test('sortClasses never reorders around a dynamic expression', () => {
+  // Reordering across an interpolation can change what the strings concatenate to.
+  const input = 'add-padding-8 ${cls} make-flex';
+  assert(sortClasses(input) === input, `dynamic class list was reordered: ${sortClasses(input)}`);
+});
+
+test('sortClasses preserves every class it is given', () => {
+  const input = 'btn card add-padding-8 make-flex md:grid-cols-3 dark:color-white unknown-thing';
+  const before = input.split(/\s+/).sort();
+  const after = sortClasses(input).split(/\s+/).sort();
+  assert(JSON.stringify(before) === JSON.stringify(after),
+    `class list changed: ${JSON.stringify(after)}`);
+});
+
+test('sorter is mirrored into dist and the prettier plugin loads', () => {
+  assert(fs.existsSync(path.join(DIST, 'santy-sort.js')), 'dist/santy-sort.js missing');
+  const plugin = require(path.join(ROOT, 'packages', 'prettier', 'index.js'));
+  assert(typeof plugin.sortClasses === 'function', 'prettier plugin does not export sortClasses');
+  assert(plugin.parsers && typeof plugin.parsers === 'object', 'prettier plugin exposes no parsers map');
+});
+
+// ── Bootstrap migration (v2.9.0) ────────────────────────────────────────────
+const bs = require(path.join(ROOT, 'lib', 'bootstrap-map.js'));
+
+test('Bootstrap utilities map to SantyCSS equivalents', () => {
+  const cases = [
+    ['mt-3', 'add-margin-top-16'], ['px-lg-4', 'lg:add-padding-x-24'],
+    ['my-auto', 'add-margin-y-auto'], ['d-flex', 'make-flex'],
+    ['d-md-none', 'md:make-hidden'], ['gap-3', 'gap-16'],
+    ['fs-2', 'set-text-32'], ['text-primary', 'color-blue-600'],
+    ['rounded-pill', 'make-pill'], ['shadow-lg', 'add-shadow-lg'],
+    ['justify-content-between', 'justify-between'], ['align-items-center', 'align-center'],
+    ['fw-bold', 'text-bold'], ['visually-hidden', 'screen-reader-only'],
+    ['d-print-none', 'print:make-hidden'], ['w-50', 'set-width-half'],
+  ];
+  for (const [from, to] of cases) {
+    const got = bs.convert(from);
+    assert(got === to, `${from} → "${got}", expected "${to}"`);
+  }
+});
+
+test('Bootstrap grid and shared component classes pass through untouched', () => {
+  // SantyCSS ships a compatible grid, so rewriting these would churn markup
+  // for no behavioural gain.
+  for (const cls of ['row', 'container', 'col-md-6', 'col-12', 'offset-lg-3',
+                     'g-3', 'order-md-2', 'row-cols-3', 'container-xxl',
+                     'btn', 'btn-primary', 'card', 'card-body', 'navbar', 'modal']) {
+    assert(bs.convert(cls) === cls, `${cls} should pass through, got "${bs.convert(cls)}"`);
+  }
+});
+
+test('Bootstrap negative margins are reported, not mistranslated', () => {
+  // SantyCSS has no negative-margin utility; emitting add-margin--16 would be
+  // a class that does not exist.
+  assert(bs.convert('m-n3') === null, 'm-n3 should be unmapped');
+  assert(bs.convert('mt-n5') === null, 'mt-n5 should be unmapped');
+});
+
+test('Bootstrap spacer scale matches Bootstrap 5', () => {
+  assert(JSON.stringify(bs.SPACER) === JSON.stringify({ 0: 0, 1: 4, 2: 8, 3: 16, 4: 24, 5: 48 }),
+    'spacer scale drifted from Bootstrap 5 ($spacer = 16px)');
+});
+
+test('migrate --from=bootstrap converts a real file', () => {
+  const os = require('os');
+  const { execFileSync } = require('child_process');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'santy-bs-'));
+  const file = path.join(tmp, 'page.html');
+  fs.writeFileSync(file,
+    '<div class="container"><div class="row g-3"><div class="col-md-6 d-flex p-4 fw-bold">x</div></div></div>');
+  execFileSync('node', [path.join(ROOT, 'migrate.js'), `--file=${file}`, '--from=bootstrap'], { stdio: 'ignore' });
+  const out = fs.readFileSync(file, 'utf8');
+  assert(out.includes('make-flex'), 'd-flex not converted');
+  assert(out.includes('add-padding-24'), 'p-4 not converted');
+  assert(out.includes('text-bold'), 'fw-bold not converted');
+  assert(out.includes('col-md-6') && out.includes('row') && out.includes('container'),
+    'grid classes should survive untouched');
+  fs.rmSync(tmp, { recursive: true, force: true });
+});
+
+test('migrate rejects an unknown --from dialect', () => {
+  const { execFileSync } = require('child_process');
+  let failed = false;
+  try {
+    execFileSync('node', [path.join(ROOT, 'migrate.js'), '--from=foundation', '--dry-run'],
+      { stdio: 'ignore' });
+  } catch (e) { failed = true; }
+  assert(failed, 'unknown --from should exit non-zero');
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {

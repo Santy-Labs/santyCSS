@@ -3,6 +3,38 @@
 All notable changes to SantyCSS are documented here.
 The full illustrated changelog lives at [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
 
+## [2.9.3] — 2026-09-06
+
+### Added
+- **Class sorting** (`santycss/sort`) — a pure, dependency-free `sortClasses()`
+  plus `isSorted()`. Order: unrecognised/component classes first (in their
+  original relative order), then utilities grouped by what they affect, then
+  variants, breakpoints ascending. Idempotent, and class lists containing
+  `${…}` are left untouched because reordering could change what the strings
+  concatenate to.
+- **Prettier plugin** (`santycss/prettier`) — sorts `class` / `className` /
+  `:class` / `ngClass` on format, including `cn()` / `clsx()` argument lists,
+  ternaries, template literals and `{ 'class': cond }` keys. Wraps Prettier's
+  own parsers rather than replacing them; supports Prettier 2 and 3, and only
+  binds the parsers actually installed.
+- **Bootstrap 5 migrator** — `npx santycss-migrate --from=bootstrap`. Covers
+  Bootstrap's utility API: spacing (with the `$spacer` scale and responsive
+  infixes), display, flex, position, typography, theme colours, borders, radius,
+  shadows, sizing, overflow and print utilities.
+  - The grid (`.row`, `.col-md-6`, `.container`, `.g-*`, `.offset-*`) and
+    components sharing a name (`.btn`, `.card`, `.navbar`, …) pass through
+    untouched — SantyCSS supports them as-is — and are excluded from the
+    unmapped report rather than flagged as outstanding work.
+  - Negative margins (`m-n3`) are reported rather than translated: SantyCSS has
+    no negative-margin utility, so emitting one would produce a class that does
+    not exist.
+- New exports: `santycss/sort`, `santycss/prettier`, `santycss/bootstrap-map`,
+  and `dist/santy-sort.js` for CDN use.
+
+### Notes
+- The VSCode extension already provided classmap-backed completion and CSS-on-hover;
+  no changes were needed there.
+
 ## [2.9.2] — 2026-09-06
 
 
