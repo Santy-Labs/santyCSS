@@ -21,6 +21,85 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.9.1
+
+### 🔌 Plugin API
+
+The extension point the framework was missing. Tailwind's ecosystem exists
+because third parties can add utilities without forking the generator — this is
+the equivalent.
+
+```json
+{ "plugins": ["./plugins/brand.js"] }
+```
+
+```js
+module.exports = function ({ addUtilities, addComponents, addVariant, theme }) {
+  addUtilities({
+    '.text-brand': { color: theme('colors.blue.500') },
+    '.grid-dashboard': { display: 'grid', gridTemplateColumns: '240px 1fr' },
+  });
+
+  addComponents({
+    '.btn-brand': {
+      background: theme('colors.blue.500'),
+      color: '#fff',
+      '&:hover': { background: theme('colors.blue.600') },   // nested & works
+    },
+  });
+
+  addVariant('supports-grid', '@supports (display: grid) { & }', ['grid-dashboard']);
+};
+```
+
+`addVariant` takes three template shapes — an at-rule wrapper
+(`'@media print { & }'`), an ancestor selector (`'[data-theme="ocean"] &'`), or
+a pseudo-class (`'&:hover'`). Plugin classes land in `santy-classmap.json`, so
+editor IntelliSense picks them up automatically.
+
+### 🧩 `@apply` — compose utilities into a semantic class
+
+```css
+.card-promo {
+  @apply add-padding-24 round-corners-12 add-shadow-md background-white;
+  border-top: 3px solid var(--santy-primary);
+}
+```
+
+Runs through the PostCSS plugin. Utilities that only exist inside a media query
+or with a pseudo-class can't be flattened into a plain rule, so `@apply on-hover:scale-110`
+**warns** rather than silently emitting nothing.
+
+### 📐 Bootstrap-compatible 12-column grid
+
+Bootstrap's grid is the most familiar layout API in the ecosystem, and SantyCSS
+had no equivalent — migrants had nothing to land on.
+
+```html
+<div class="container">
+  <div class="row g-24">
+    <div class="col-12 col-md-6 col-lg-4">…</div>
+    <div class="col-12 col-md-6 col-lg-8">…</div>
+  </div>
+</div>
+```
+
+Full set: `.col-{1-12}`, `.col-{sm,md,lg,xl,xxl}-{1-12}`, `.col-auto`,
+`.offset-*-{0-11}`, `.order-*-{0-12}` plus `.order-first` / `.order-last`,
+`.row-cols-*-{1-6}`, gutters `.g-*` / `.gx-*` / `.gy-*`, and
+`.container-{fluid,sm,md,lg,xl,xxl}`. Breakpoints match Bootstrap 5
+(576/768/992/1200/1400).
+
+> **Note:** the grid deliberately does *not* redefine `.container`. SantyCSS has
+> shipped its own since long before this (640/768/1024 caps, 16px padding), and
+> overriding it would silently reflow every existing site. The
+> breakpoint-specific `.container-md` etc. are additive and safe.
+>
+> These are the *grid* breakpoints. SantyCSS utility variants (`md:`, `lg:`)
+> keep their own scale and are unaffected.
+
+---
+
 ## What's New in v2.9.0
 
 ### ⚡ `santy.js` — the behavior layer

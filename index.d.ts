@@ -257,7 +257,48 @@ declare namespace santy {
     prefix?: string;
     /** Directory the build writes to (relative to the working directory). */
     output?: string;
+    /**
+     * Plugins to run, as module paths resolved from the working directory.
+     * Each must export a `SantyPlugin` (or `{ handler }`).
+     */
+    plugins?: (string | SantyPlugin | [string | SantyPlugin, unknown])[];
   }
+
+  /** A declaration block. Nested keys are selectors (`&:hover`) or at-rules. */
+  interface CSSRules {
+    [selectorOrProperty: string]: string | number | string[] | CSSRules;
+  }
+
+  /** The API handed to every plugin. */
+  interface PluginAPI {
+    /** Element/base styles, emitted before components. */
+    addBase(rules: CSSRules): void;
+    /** Component classes, emitted before utilities. */
+    addComponents(rules: CSSRules): void;
+    /** Utility classes, emitted last so they win. */
+    addUtilities(rules: CSSRules): void;
+    /**
+     * Register a variant. `template` must contain `&`:
+     *   '@supports (display: grid) { & }'   — wraps the rule
+     *   '[data-theme="ocean"] &'            — ancestor selector
+     *   '&:hover'                           — pseudo-class
+     * `classes` defaults to everything this plugin registered; pass an explicit
+     * list to vary the framework's own utilities.
+     */
+    addVariant(name: string, template: string, classes?: string[]): void;
+    /** Read the resolved theme, e.g. theme('colors.blue.500'). */
+    theme<T = unknown>(path: string, fallback?: T): T;
+    /** The parsed santy.config.json. */
+    config: SantyConfig;
+    /** Escape a class name for use in a selector. */
+    e(className: string): string;
+    /** Class names registered so far by this plugin. */
+    registered: string[];
+  }
+
+  type SantyPlugin =
+    | ((api: PluginAPI, options?: unknown) => void)
+    | { handler: (api: PluginAPI, options?: unknown) => void };
 }
 
 export = santy;

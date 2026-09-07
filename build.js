@@ -6,6 +6,9 @@
 const fs   = require('fs');
 const path = require('path');
 const { ANIMATION_CSS } = require('./lib/animations');
+const { runPlugins } = require('./lib/plugin-api');
+const { buildIndex } = require('./lib/apply');
+const gridSystem = require('./lib/grid-system');
 
 // ─── VALUE RANGES ───────────────────────────────────────────────────────────
 // T-shirt spacing scale — 32 values covering all real-world design needs.
@@ -5358,7 +5361,38 @@ const BEHAVIOR_CSS = `
 }
 `;
 
-const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) + PORTFOLIO_CSS + PORTFOLIO_CV_CSS + ITSME_CSS + EXTENDED_COMPONENTS_CSS + BEHAVIOR_CSS : '';
+// ─── GRID SYSTEM (v2.9.0) ────────────────────────────────────────────────────
+// Bootstrap-compatible .row / .col-md-6 layout — the landing pad Bootstrap
+// migrants had nothing to use before. Generated rather than hand-written:
+// 6 breakpoints × 12 columns × (col/offset/order/row-cols) is ~400 rules.
+const GRID_CSS = gridSystem.build();
+
+// ─── USER PLUGINS (v2.9.0) ───────────────────────────────────────────────────
+// santy.config.json: { "plugins": ["./plugins/brand.js"] }
+let PLUGIN_CSS = '';
+if (Array.isArray(userConfig.plugins) && userConfig.plugins.length) {
+  // addVariant re-emits an existing utility's declarations, so it needs an index.
+  const utilIndex = buildIndex(fullCSS);
+  try {
+    const res = runPlugins(userConfig.plugins, {
+      require: (id) => require(require.resolve(id, { paths: [process.cwd(), __dirname] })),
+      theme: { colors: palette, spacing, fontSizes, breakpoints, radii, borderWidths, zIndexes },
+      config: userConfig,
+      lookup: (cls) => utilIndex[cls] || null,
+    });
+    PLUGIN_CSS = [res.base, res.components, res.utilities, res.variants].filter(Boolean).join('\n\n');
+    if (PLUGIN_CSS) PLUGIN_CSS = '\n/* ═══ SANTY PLUGINS ═══ */\n' + PLUGIN_CSS + '\n';
+    console.log(`🔌 Plugins: ${res.loaded.join(', ')} — ${res.names.length} classes added`);
+  } catch (e) {
+    console.error(`❌ Plugin error: ${e.message}`);
+    process.exit(1);
+  }
+}
+
+const compCSS  = compSplit > -1
+  ? fullCSS.slice(compSplit) + PORTFOLIO_CSS + PORTFOLIO_CV_CSS + ITSME_CSS +
+    EXTENDED_COMPONENTS_CSS + GRID_CSS + PLUGIN_CSS + BEHAVIOR_CSS
+  : '';
 
 // ─── Extract variant blocks to build slimmed core and start CSS ───
 const VSTART = '/* ═══ VARIANTS_BLOCK_START ═══ */';
@@ -5515,9 +5549,9 @@ const THEMES_CSS = `/* SantyCSS Themes — prebuilt design-token presets (v2.7.0
 
 // ─── APPLY OPTIONAL CLASS PREFIX (santy.config.json → "prefix") ──────────────
 const OUT_CSS = {
-  // BEHAVIOR_CSS is appended here too: it lives past the component marker, so
-  // it reaches santy-components.css via compCSS but never fullCSS on its own.
-  'santy.css': applyPrefix(fullCSS + EXTENDED_COMPONENTS_CSS + BEHAVIOR_CSS),
+  // All four of these sit past the component marker, so they reach
+  // santy-components.css via compCSS but would otherwise miss the full bundle.
+  'santy.css': applyPrefix(fullCSS + EXTENDED_COMPONENTS_CSS + GRID_CSS + PLUGIN_CSS + BEHAVIOR_CSS),
   'santy-core.css': applyPrefix(slimmedCoreCSS),
   'santy-variants.css': applyPrefix(variantsCSS),
   'santy-start.css': applyPrefix(startCSS),
@@ -5607,6 +5641,7 @@ console.log(`✅ santy-scroll.js    — ${kb(SCROLL_JS.length)} (IntersectionObs
 console.log(`✅ santy.js           — ${kb(BEHAVIOR_JS.length)} (behavior layer: modal, drawer, dropdown, tabs, toast, theme)`);
 console.log(`✅ santy-elements.js  — ${kb(ELEMENTS_JS.length)} (custom elements: React/Vue/Svelte/Angular/HTML)`);
 console.log(`✅ santy-merge.js     — ${kb(MERGE_JS.length)} (cn() conflict-aware class merge)`);
+console.log(`✅ grid system        — ${kb(GRID_CSS.length)} (Bootstrap-compatible .row / .col-md-6)`);
 console.log(`✅ santy-themes.css   — ${kb(THEMES_CSS.length)} (5 prebuilt data-theme presets)`);
 console.log(`✅ santy-classmap.json — ${kb(CLASSMAP_JSON.length)} (${classSet.size.toLocaleString()} class names for IntelliSense/AI)`);
 console.log(`✅ dist/              — mirrored for NPM package`);

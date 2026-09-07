@@ -21,6 +21,7 @@
 const path = require('path');
 const fs   = require('fs');
 const { purge, extractClasses, EXTS } = require('../lib/purge-core');
+const { buildIndex, expandApply } = require('../lib/apply');
 
 function expandGlobs(patterns) {
   const files = [];
@@ -46,26 +47,51 @@ function expandGlobs(patterns) {
   return [...new Set(files)];
 }
 
+/** Lazily read and cache the framework CSS an @apply / purge run resolves against. */
+let applyIndexCache = null;
+function utilityIndex(sourceCSS) {
+  if (!applyIndexCache) applyIndexCache = buildIndex(sourceCSS);
+  return applyIndexCache;
+}
+
 module.exports = (opts = {}) => {
-  const { content = [], safelist = [], sourceFile = null } = opts;
+  const { content = [], safelist = [], sourceFile = null, apply = true } = opts;
 
   return {
     postcssPlugin: 'postcss-santycss',
     async Once(root, { result }) {
-      const files = expandGlobs(content);
-      if (!files.length && !sourceFile) return;
-
       const sourceCSS = sourceFile
         ? fs.readFileSync(sourceFile, 'utf8')
         : fs.readFileSync(path.join(__dirname, '../dist/santy.css'), 'utf8');
 
+      /* ── @apply: inline utility declarations into the author's own rules ──
+         Runs before purging, so classes only referenced via @apply are
+         expanded rather than stripped as unused. */
+      if (apply && root.toString().includes('@apply')) {
+        const postcss = require('postcss');
+        const expanded = expandApply(root.toString(), utilityIndex(sourceCSS));
+        for (const warning of expanded.warnings) {
+          result.warn(warning, { plugin: 'postcss-santycss' });
+        }
+        root.removeAll();
+        postcss.parse(expanded.css).each(node => root.append(node.clone()));
+      }
+
+      const files = expandGlobs(content);
+      if (!files.length && !sourceFile) return;
+
       const html = files.map(f => fs.readFileSync(f, 'utf8')).join('\n');
       const purged = purge(sourceCSS, html, { safelist });
 
+      // Keep the author's own rules and re-append them *after* the framework,
+      // so their declarations still win. Before v2.9.0 this step dropped them
+      // outright, which made @apply (and any hand-written CSS) disappear.
+      const authored = root.nodes.map(n => n.clone());
+
       root.removeAll();
       const postcss = require('postcss');
-      const parsed  = postcss.parse(purged);
-      parsed.each(node => root.append(node.clone()));
+      postcss.parse(purged).each(node => root.append(node.clone()));
+      authored.forEach(node => root.append(node));
 
       result.messages.push({
         type: 'santycss',

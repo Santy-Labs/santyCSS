@@ -3,6 +3,41 @@
 All notable changes to SantyCSS are documented here.
 The full illustrated changelog lives at [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
 
+## [2.9.1] — 2026-09-06
+
+### Added
+- **Plugin API** (`santy.config.json` → `plugins: []`) — `addUtilities`,
+  `addComponents`, `addBase`, `addVariant`, `theme()`, `e()`. Nested `&`
+  selectors and at-rule keys are supported, camelCase property names are
+  converted to kebab-case, and plugin classes are added to
+  `santy-classmap.json` so editor IntelliSense picks them up.
+  `addVariant` accepts three template shapes: an at-rule wrapper
+  (`'@media print { & }'`), an ancestor selector (`'[data-theme="ocean"] &'`)
+  and a pseudo-class (`'&:hover'`).
+- **`@apply`** — compose utilities into a semantic class via the PostCSS
+  plugin. Only unconditional top-level utilities can be inlined, so
+  `@apply on-hover:scale-110` emits a warning explaining why rather than
+  silently producing nothing. Supports the `!` important suffix.
+- **Bootstrap-compatible 12-column grid** — `.row`, `.col-{1-12}`,
+  `.col-{sm,md,lg,xl,xxl}-{1-12}`, `.col-auto`, `.offset-*`, `.order-*`
+  (incl. `-first` / `-last`), `.row-cols-*`, gutters (`.g-*` / `.gx-*` / `.gy-*`
+  via CSS variables, Bootstrap 5 style) and `.container-{fluid,sm,md,lg,xl,xxl}`.
+  Breakpoints match Bootstrap 5 (576/768/992/1200/1400).
+
+### Fixed
+- The PostCSS plugin discarded the author's own rules: it called
+  `root.removeAll()` and replaced the file with purged framework CSS. Authored
+  CSS is now re-appended *after* the framework, so it still wins the cascade —
+  without this, `@apply` output would have been thrown away.
+
+### Notes
+- The grid deliberately does **not** redefine `.container`. SantyCSS has shipped
+  its own since well before this release (640/768/1024 caps, 16px padding), and
+  overriding it would silently reflow existing sites. Only the additive
+  breakpoint-specific containers are introduced.
+- The grid's breakpoints are Bootstrap's. SantyCSS utility variants (`md:`,
+  `lg:`) keep their own scale and are unchanged.
+
 ## [2.9.0] — 2026-09-06
 
 ### Added — framework adapters

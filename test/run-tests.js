@@ -425,6 +425,151 @@ test('react and vue are declared as OPTIONAL peer dependencies', () => {
   }
 });
 
+// ── Grid system (v2.9.0) ────────────────────────────────────────────────────
+test('Bootstrap-compatible grid ships in every component bundle', () => {
+  for (const file of ['santy.css', 'santy-components.css', 'santy-start.css']) {
+    const c = read(file);
+    for (const sel of ['.row', '.col-md-6', '.col-lg-4', '.offset-md-3',
+                       '.row-cols-md-3', '.order-lg-2', '.g-24', '.container-xxl']) {
+      assert(c.includes(sel + ' ') || c.includes(sel + ','), `${sel} missing from ${file}`);
+    }
+  }
+});
+
+test('grid columns use Bootstrap 5 breakpoints and widths', () => {
+  const c = read('santy-components.css');
+  assert(/\.col-md-6 \{ flex: 0 0 auto; width: 50%; \}/.test(c), 'col-md-6 width wrong');
+  assert(/\.col-lg-4 \{ flex: 0 0 auto; width: 33\.3333333%; \}/.test(c), 'col-lg-4 width wrong');
+  for (const [infix, px] of [['sm', 576], ['md', 768], ['lg', 992], ['xl', 1200], ['xxl', 1400]]) {
+    const i = c.indexOf(`.col-${infix}-1 `);
+    assert(i > -1, `col-${infix}-1 missing`);
+    assert(c.lastIndexOf(`@media (min-width: ${px}px)`, i) > -1,
+      `col-${infix}-* not inside its ${px}px media query`);
+  }
+});
+
+test('grid does NOT redefine the existing .container', () => {
+  // SantyCSS shipped .container long before this grid, with different caps
+  // (640/768/1024, 16px padding). Overriding it would reflow existing sites.
+  const c = read('santy.css');
+  const matches = c.match(/^\.container \{/gm) || [];
+  assert(matches.length === 1, `.container defined ${matches.length} times — the grid must not redefine it`);
+  assert(c.includes('.container-fluid'), '.container-fluid should still be added');
+});
+
+test('grid CSS is brace-balanced', () => {
+  const g = require(path.join(ROOT, 'lib', 'grid-system.js')).build();
+  const open = (g.match(/\{/g) || []).length;
+  const close = (g.match(/\}/g) || []).length;
+  assert(open === close, `grid braces unbalanced: ${open} vs ${close}`);
+});
+
+// ── Plugin API (v2.9.0) ─────────────────────────────────────────────────────
+const { runPlugins } = require(path.join(ROOT, 'lib', 'plugin-api.js'));
+
+test('plugins can add utilities, components and base styles', () => {
+  const res = runPlugins([
+    ({ addUtilities, addComponents, addBase, theme }) => {
+      addBase({ 'body': { margin: '0' } });
+      addUtilities({ '.text-brand': { color: theme('colors.blue.500', '#000') } });
+      addComponents({ '.btn-brand': { background: 'red', '&:hover': { background: 'darkred' } } });
+    },
+  ], { theme: { colors: { blue: { 500: '#3b82f6' } } }, require: () => {} });
+
+  assert(res.base.includes('body {'), 'addBase output missing');
+  assert(res.utilities.includes('.text-brand'), 'addUtilities output missing');
+  assert(res.utilities.includes('#3b82f6'), 'theme() did not resolve');
+  assert(res.components.includes('.btn-brand:hover'), 'nested & selector not expanded');
+  assert(res.names.includes('text-brand') && res.names.includes('btn-brand'),
+    'registered class names not reported for the classmap');
+});
+
+test('plugin camelCase properties become kebab-case', () => {
+  const res = runPlugins([
+    ({ addUtilities }) => addUtilities({ '.g': { gridTemplateColumns: '1fr', backgroundColor: 'red' } }),
+  ], { require: () => {} });
+  assert(res.utilities.includes('grid-template-columns: 1fr'), 'camelCase not converted');
+  assert(res.utilities.includes('background-color: red'), 'camelCase not converted');
+});
+
+test('addVariant handles at-rule, ancestor and pseudo templates', () => {
+  const res = runPlugins([
+    ({ addUtilities, addVariant }) => {
+      addUtilities({ '.gd': { display: 'grid' } });
+      addVariant('sup', '@supports (display: grid) { & }', ['gd']);
+      addVariant('ocean', '[data-theme="ocean"] &', ['gd']);
+      addVariant('hov', '&:hover', ['gd']);
+    },
+  ], { require: () => {} });
+
+  const v = res.variants;
+  assert(/@supports \(display: grid\) \{ \.sup\\:gd \{/.test(v), 'at-rule variant malformed');
+  assert(v.includes('[data-theme="ocean"] .ocean\\:gd {'), 'ancestor variant malformed');
+  assert(v.includes('.hov\\:gd:hover {'), 'pseudo variant malformed');
+  const open = (v.match(/\{/g) || []).length;
+  const close = (v.match(/\}/g) || []).length;
+  assert(open === close, `variant braces unbalanced: ${open} vs ${close}`);
+});
+
+test('addVariant rejects a template without &', () => {
+  let threw = false;
+  try {
+    runPlugins([({ addUtilities, addVariant }) => {
+      addUtilities({ '.x': { color: 'red' } });
+      addVariant('bad', '@media print', ['x']);
+    }], { require: () => {} });
+  } catch (e) { threw = /must contain/.test(e.message); }
+  assert(threw, 'addVariant should reject a template with no &');
+});
+
+test('a plugin that exports the wrong shape fails loudly', () => {
+  let threw = false;
+  try { runPlugins([{ notAFunction: true }], { require: () => {} }); }
+  catch (e) { threw = /did not export a function/.test(e.message); }
+  assert(threw, 'bad plugin shape should throw');
+});
+
+// ── @apply (v2.9.0) ─────────────────────────────────────────────────────────
+const { buildIndex, expandApply } = require(path.join(ROOT, 'lib', 'apply.js'));
+
+test('@apply inlines utility declarations', () => {
+  const index = buildIndex(read('santy.css'));
+  assert(Object.keys(index).length > 1000, `only ${Object.keys(index).length} utilities indexed`);
+  const out = expandApply('.promo { @apply add-padding-24 make-flex; border-top: 1px solid red; }', index);
+  assert(out.css.includes('padding: 24px'), 'add-padding-24 not inlined');
+  assert(out.css.includes('display: flex'), 'make-flex not inlined');
+  assert(out.css.includes('border-top: 1px solid red'), 'author declaration lost');
+  assert(out.warnings.length === 0, `unexpected warnings: ${out.warnings.join('; ')}`);
+});
+
+test('@apply warns instead of silently dropping unknown or variant classes', () => {
+  const index = buildIndex(read('santy.css'));
+  const out = expandApply('.x { @apply nope-not-real; }', index);
+  assert(out.warnings.some(w => /unknown class/.test(w)), 'no warning for unknown class');
+
+  const v = expandApply('.y { @apply on-hover:scale-110; }', index);
+  assert(v.warnings.some(w => /cannot be inlined/.test(w)),
+    'variant utilities must warn — they need a pseudo-class or media query');
+});
+
+test('@apply supports the ! important suffix', () => {
+  const index = buildIndex(read('santy.css'));
+  const out = expandApply('.x { @apply add-padding-24!; }', index);
+  assert(out.css.includes('!important'), '! suffix did not produce !important');
+});
+
+test('@apply index only holds unconditional top-level rules', () => {
+  // Anything inside @media/@supports is conditional and must not be inlinable.
+  const index = buildIndex(`
+    .a { color: red; }
+    @media (min-width: 700px) { .b { color: blue; } }
+    .c:hover { color: green; }
+  `);
+  assert(index.a === 'color: red', 'plain rule not indexed');
+  assert(!('b' in index), 'media-query rule must not be indexed');
+  assert(!('c' in index), 'pseudo-class rule must not be indexed');
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {
