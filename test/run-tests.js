@@ -759,6 +759,93 @@ test('migrate rejects an unknown --from dialect', () => {
   assert(failed, 'unknown --from should exit non-zero');
 });
 
+// ── Icons ship to consumers (v2.9.4) ────────────────────────────────────────
+test('santy-icons.css is emitted to dist and mirrors the source', () => {
+  // The docs point Webflow and CDN users at
+  // cdn.jsdelivr.net/npm/santycss@2/dist/santy-icons.css. Before this the file
+  // only existed at the repo root, so that URL 404'd and every npm/CDN user
+  // got a page with no icons at all.
+  const p = path.join(DIST, 'santy-icons.css');
+  assert(fs.existsSync(p), 'dist/santy-icons.css missing');
+  const distCSS = read('santy-icons.css');
+  const srcCSS = fs.readFileSync(path.join(ROOT, 'santy-icons.css'), 'utf8');
+  assert(distCSS === srcCSS, 'dist/santy-icons.css drifted from source');
+  assert(distCSS.length > 1000000, `icons CSS too small (${distCSS.length})`);
+});
+
+test('package.json publishes the icon stylesheet', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert(pkg.files.includes('santy-icons.css'), 'santy-icons.css not in files[]');
+  assert(pkg.exports['./css/icons'] === './dist/santy-icons.css',
+    'exports["./css/icons"] missing — npm consumers cannot import the icons');
+});
+
+test('icon stylesheet defines the base classes and a full icon set', () => {
+  const css = read('santy-icons.css');
+  for (const base of ['.brand-icon {', '.icon {']) {
+    assert(css.includes(base), `${base} base class missing`);
+  }
+  const brand = new Set([...css.matchAll(/\.brand-icon-([a-z0-9-]+)\s*\{/g)].map(m => m[1]));
+  const plain = new Set([...css.matchAll(/\.icon-([a-z0-9-]+)\s*\{/g)].map(m => m[1]));
+  assert(brand.size >= 80, `only ${brand.size} brand icons`);
+  assert(plain.size >= 2000, `only ${plain.size} icon-* classes`);
+  // Masks are driven by these custom properties; without them icons render blank.
+  assert(/--brand-icon-url:\s*url\(/.test(css), 'brand icons set no --brand-icon-url');
+  assert(/--icon-url:\s*url\(/.test(css), 'icons set no --icon-url');
+});
+
+test('every icon icons.html requests actually exists in the stylesheet', () => {
+  const html = fs.readFileSync(path.join(ROOT, 'icons.html'), 'utf8');
+  const css = read('santy-icons.css');
+  const brand = new Set([...css.matchAll(/\.brand-icon-([a-z0-9-]+)\s*\{/g)].map(m => m[1]));
+  const plain = new Set([...css.matchAll(/\.icon-([a-z0-9-]+)\s*\{/g)].map(m => m[1]));
+
+  // ICONS is a nested object of brand-icon categories; the rest are flat arrays
+  // rendered with the plain `icon` prefix.
+  const i = html.indexOf('const ICONS = {');
+  assert(i > -1, 'ICONS object not found in icons.html');
+  let depth = 0, end = -1;
+  for (let k = html.indexOf('{', i); k < html.length; k++) {
+    if (html[k] === '{') depth++;
+    else if (html[k] === '}') { depth--; if (depth === 0) { end = k; break; } }
+  }
+  const brandNames = [...html.slice(i, end + 1).matchAll(/name:\s*'([^']+)'/g)].map(m => m[1]);
+  assert(brandNames.length > 30, `only ${brandNames.length} brand icons requested`);
+  const missingBrand = brandNames.filter(n => !brand.has(n));
+  assert(missingBrand.length === 0, `brand icons with no CSS rule: ${missingBrand.slice(0, 8).join(', ')}`);
+
+  for (const varName of ['BUSINESS_ICONS', 'COMMUNICATION_ICONS', 'ESSENTIAL_ICONS']) {
+    const s = html.indexOf('const ' + varName);
+    assert(s > -1, `${varName} not found`);
+    const seg = html.slice(s, html.indexOf('];', s));
+    const names = [...seg.matchAll(/name:\s*'([^']+)'/g)].map(m => m[1]);
+    assert(names.length > 0, `${varName} is empty`);
+    const missing = names.filter(n => !plain.has(n));
+    assert(missing.length === 0,
+      `${varName}: ${missing.length} icons with no CSS rule (${missing.slice(0, 6).join(', ')})`);
+  }
+});
+
+test('icons.html is complete and its scripts parse', () => {
+  // The deployed v2.6.1 build of this page was truncated mid-comment, which
+  // made the whole inline script a syntax error — the grids stayed empty and
+  // every icon "went missing". Cheap to assert, so assert it.
+  const html = fs.readFileSync(path.join(ROOT, 'icons.html'), 'utf8');
+  assert(/<\/html>\s*$/.test(html), 'icons.html does not end with </html> — file is truncated');
+  const opens = (html.match(/\/\*/g) || []).length;
+  const closes = (html.match(/\*\//g) || []).length;
+  assert(opens === closes, `unbalanced block comments: ${opens} "/*" vs ${closes} "*/"`);
+
+  const scripts = [...html.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/g)]
+    .filter(m => !/type\s*=\s*["']application\/ld\+json["']/.test(m[1]));
+  assert(scripts.length > 0, 'no inline scripts found');
+  for (const [, , body] of scripts) {
+    // Throws on a truncated or malformed block, which is exactly the failure
+    // mode that shipped to production.
+    new Function(body);
+  }
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {

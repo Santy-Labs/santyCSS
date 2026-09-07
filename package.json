@@ -1,6 +1,6 @@
 {
   "name": "santycss",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "types": "index.d.ts",
@@ -28,6 +28,7 @@
     "./css/borders": "./dist/santy-borders.css",
     "./css/effects": "./dist/santy-effects.css",
     "./css/themes": "./dist/santy-themes.css",
+    "./css/icons": "./dist/santy-icons.css",
     "./classmap": "./dist/santy-classmap.json",
     "./min": "./dist/santy.min.css",
     "./postcss": "./postcss/index.js",
@@ -56,6 +57,7 @@
     "cli.js",
     "santy-jit.js",
     "santy.js",
+    "santy-icons.css",
     "packages/",
     "vite-plugin-santycss.js",
     "purge.js",

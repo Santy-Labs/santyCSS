@@ -5507,6 +5507,12 @@ const MERGE_JS    = fs.readFileSync(path.join(__dirname, 'packages', 'merge', 's
 // Class sorter mirrored to dist so editors and CDN consumers can load it.
 const SORT_JS = fs.readFileSync(path.join(__dirname, 'packages', 'sort', 'santy-sort.js'), 'utf8');
 
+// Icon stylesheet. Hand-authored (2,151 icons as data URIs) rather than
+// generated, but it still has to reach dist/ — the docs point Webflow and CDN
+// users at .../npm/santycss@2/dist/santy-icons.css, and until now that 404'd
+// because the file only ever existed at the repo root.
+const ICONS_CSS = fs.readFileSync(path.join(__dirname, 'santy-icons.css'), 'utf8');
+
 const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
  *
@@ -5663,6 +5669,12 @@ const OUT_FILES = {
   'santy-elements.js': ELEMENTS_JS,
   'santy-merge.js': MERGE_JS,
   'santy-sort.js': SORT_JS,
+  // Deliberately not run through applyPrefix. The file is 1.3MB of `url("data:
+  // image/svg+xml,…")` values, and the prefixer is a regex over `.class` tokens
+  // that only shields `url(...)` up to the first `)` — a custom prefixed build
+  // would risk corrupting the embedded SVGs. Icon class names are published
+  // verbatim in the docs anyway, so they stay unprefixed.
+  'santy-icons.css': ICONS_CSS,
   'santy-classmap.json': CLASSMAP_JSON,
 };
 
@@ -5703,6 +5715,7 @@ console.log(`✅ santy.js           — ${kb(BEHAVIOR_JS.length)} (behavior laye
 console.log(`✅ santy-elements.js  — ${kb(ELEMENTS_JS.length)} (custom elements: React/Vue/Svelte/Angular/HTML)`);
 console.log(`✅ santy-merge.js     — ${kb(MERGE_JS.length)} (cn() conflict-aware class merge)`);
 console.log(`✅ grid system        — ${kb(GRID_CSS.length)} (Bootstrap-compatible .row / .col-md-6)`);
+console.log(`✅ santy-icons.css    — ${kb(ICONS_CSS.length)} (2,151 icons — brand, business, communication, essential UI)`);
 console.log(`✅ santy-themes.css   — ${kb(THEMES_CSS.length)} (5 prebuilt data-theme presets)`);
 console.log(`✅ santy-classmap.json — ${kb(CLASSMAP_JSON.length)} (${classSet.size.toLocaleString()} class names for IntelliSense/AI)`);
 console.log(`✅ dist/              — mirrored for NPM package`);
