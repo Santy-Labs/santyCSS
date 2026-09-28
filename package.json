@@ -87,7 +87,9 @@
     "test": "node build.js && node test/run-tests.js",
     "purge": "node purge.js",
     "dev": "node build.js && echo 'Watching...'",
-    "prepublishOnly": "node build.js && node test/run-tests.js"
+    "prepublishOnly": "node build.js && node test/run-tests.js",
+    "version": "node scripts/sync-cdn-version.js && git add -A -- '*.html'",
+    "cdn:check": "node scripts/sync-cdn-version.js --check"
   },
   "peerDependencies": {
     "postcss": ">=8.0.0",

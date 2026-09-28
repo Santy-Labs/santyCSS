@@ -846,6 +846,17 @@ test('icons.html is complete and its scripts parse', () => {
   }
 });
 
+test('site pages load the framework from the npm CDN at the package version', () => {
+  // The site used to serve santy.css from its own host; pages now pull the
+  // published npm build from jsDelivr, pinned to package.json's version.
+  const { execFileSync } = require('child_process');
+  try {
+    execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'sync-cdn-version.js'), '--check'], { stdio: 'pipe' });
+  } catch (e) {
+    assert(false, String(e.stderr || e.message).trim());
+  }
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {

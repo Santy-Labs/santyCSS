@@ -6,7 +6,7 @@
   <title>Templates — SantyCSS</title>
   <meta name="description" content="Ready-to-use HTML templates built entirely with SantyCSS. Copy the code and use anywhere — no build step required." />
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
-  <link rel="stylesheet" href="santy.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.4/dist/santy.css" />
   <style>
     html { scroll-behavior: smooth; overflow-x: hidden; }
     body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; background:#f8fafc; transition: background .3s, color .3s; overflow-x: hidden; }
@@ -1215,7 +1215,6 @@ function makePortable(html, filename) {
   var dir = filename.indexOf('/') > -1 ? filename.slice(0, filename.lastIndexOf('/') + 1) : '';
   // 1. SantyCSS framework files (santy.css, santy-variants.css, …) -> npm CDN
   html = html.replace(/(href|src)="(?:\.\.\/)*((?:santy|santy-[a-z-]+)\.(?:css|js))"/g, function(m, attr, file) {
-    if (file === 'santy-icons.css') return attr + '="' + SANTY_SITE + 'santy-icons.css"';
     return attr + '="' + SANTY_CDN + file + '"';
   });
   // 2. Any other relative stylesheet/script (e.g. school/shared.css) -> live site
