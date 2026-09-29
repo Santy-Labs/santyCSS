@@ -21,6 +21,53 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## ⚡ CDN — free, no install
+
+SantyCSS is published on [npm](https://www.npmjs.com/package/santycss), so every file is served free by
+[jsDelivr](https://www.jsdelivr.com/package/npm/santycss) and [unpkg](https://unpkg.com/browse/santycss/).
+Paste one line into your `<head>` and start writing classes:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.min.css">
+```
+
+Add icons and the JS behavior layer (tabs, modals, dropdowns, toasts…) if you need them:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.js" defer></script>
+```
+
+| File | What it is | CDN URL |
+|---|---|---|
+| `santy.min.css` | Full framework, minified | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.min.css` |
+| `santy.css` | Full framework, readable | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.css` |
+| `santy-start.css` | Drop-in starter: base utilities + components | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-start.css` |
+| `santy-core.css` | Utilities only (slimmed) | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-core.css` |
+| `santy-variants.css` | `xl:`, `xxl:`, `peer-*`, `group-*`, `print:`, `motion-*`, RTL | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-variants.css` |
+| `santy-components.css` | Component classes (buttons, cards, navbars…) | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-components.css` |
+| `santy-animations.css` | Animation utilities | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-animations.css` |
+| `santy-themes.css` | 5 prebuilt semantic themes | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-themes.css` |
+| `santy-icons.css` | 2,000+ UI icons + brand icons | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-icons.css` |
+| `santy-email.css` | Email-safe styles for HTML email templates | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-email.css` |
+| `santy-reset.css` | Reset only | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-reset.css` |
+| `santy.js` | Behavior layer (tabs, modals, dropdowns…) | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.js` |
+| `santy-elements.js` | Custom elements (`<santy-modal>` …) — load after `santy.js` | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-elements.js` |
+| `santy-scroll.js` | Plays `when-visible:` animations on scroll | `https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-scroll.js` |
+| `santy-jit.js` | Runtime JIT — generates only the classes used, supports any value | `https://cdn.jsdelivr.net/npm/santycss@2/santy-jit.js` |
+
+**Versions.** `@2` always serves the latest 2.x release. In production, pin an exact
+version so a new release can never change your site unexpectedly:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.4/dist/santy.min.css">
+```
+
+**unpkg** works the same way — swap the host:
+`https://unpkg.com/santycss@2/dist/santy.min.css`
+
+---
+
 ## What's New in v2.9.4
 
 ### 🐛 Icons now actually ship
