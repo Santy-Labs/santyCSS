@@ -1,4 +1,4 @@
-/*! santy.js — SantyCSS behavior layer v2.9.4 | MIT | https://santycss.santy.in
+/*! santy.js — SantyCSS behavior layer v2.9.5 | MIT | https://santycss.santy.in
  *
  * Zero-dependency interactive behaviour for SantyCSS components.
  * Drives the state classes the CSS already ships (.open / .active / .show),
@@ -28,7 +28,7 @@
   /* ─── environment ────────────────────────────────────────────────────── */
 
   var hasDOM = typeof document !== 'undefined';
-  var VERSION = '2.9.4';
+  var VERSION = '2.9.5';
 
   /* ─── tiny DOM helpers ───────────────────────────────────────────────── */
 

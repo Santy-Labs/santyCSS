@@ -3,7 +3,7 @@
 All notable changes to SantyCSS are documented here.
 The full illustrated changelog lives at [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
 
-## [Unreleased]
+## [2.9.5] — 2026-10-07
 
 ### Fixed
 - **`npx santycss migrate` now works.** It was the documented command, but it

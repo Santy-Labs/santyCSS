@@ -39,7 +39,7 @@
   </script>
 
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.4/dist/santy.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.5/dist/santy.css" />
   <style>
     /* Tiny extras for the docs page only */
     html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -1230,7 +1230,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <div class="background-orange-50 round-corners-16 add-padding-28 add-border-1 border-color-orange-200">
         <h4 class="set-text-16 text-semibold color-orange-800 add-margin-bottom-10">No build step — drop-in CDN</h4>
         <p class="set-text-13 color-orange-700 line-height-relaxed add-margin-bottom-12">Tailwind requires Node + bundler. Bootstrap requires PostCSS for customisation. SantyCSS works instantly.</p>
-        <div class="code-block" style="padding:10px 14px;font-size:12px;"><span style="color:#86efac;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.4/dist/santy.css"&gt;</span><br><span style="color:#64748b;">// All 10,000+ classes ready — no build needed.</span></div>
+        <div class="code-block" style="padding:10px 14px;font-size:12px;"><span style="color:#86efac;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.5/dist/santy.css"&gt;</span><br><span style="color:#64748b;">// All 10,000+ classes ready — no build needed.</span></div>
       </div>
 
       <div class="background-pink-50 round-corners-16 add-padding-28 add-border-1 border-color-pink-200">
@@ -3064,7 +3064,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
           <li><a href="animations.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Animations Showcase</a></li>
           <li><a href="playground.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Playground</a></li>
           <li><a href="changelog.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Changelog</a></li>
-          <li><a href="https://cdn.jsdelivr.net/npm/santycss@2.9.4/dist/santy.css" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Download CSS</a></li>
+          <li><a href="https://cdn.jsdelivr.net/npm/santycss@2.9.5/dist/santy.css" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Download CSS</a></li>
         </ul>
       </div>
       <div>
@@ -3096,7 +3096,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
 // ─── Download CSS ──────────────────────────────────────────────────────────
 // Framework files are served from npm via jsDelivr. The version is kept in
 // sync with package.json by scripts/sync-cdn-version.js.
-var SANTY_CDN = 'https://cdn.jsdelivr.net/npm/santycss@2.9.4/';
+var SANTY_CDN = 'https://cdn.jsdelivr.net/npm/santycss@2.9.5/';
 function santyCdnUrl(filename) {
   return SANTY_CDN + (filename === 'santy-jit.js' ? '' : 'dist/') + filename;
 }
