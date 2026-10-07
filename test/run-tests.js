@@ -702,7 +702,7 @@ test('Bootstrap utilities map to SantyCSS equivalents', () => {
     ['rounded-pill', 'make-pill'], ['shadow-lg', 'add-shadow-lg'],
     ['justify-content-between', 'justify-between'], ['align-items-center', 'align-center'],
     ['fw-bold', 'text-bold'], ['visually-hidden', 'screen-reader-only'],
-    ['d-print-none', 'print:make-hidden'], ['w-50', 'set-width-half'],
+    ['d-print-none', 'print-hidden'], ['w-50', 'set-width-half'],
   ];
   for (const [from, to] of cases) {
     const got = bs.convert(from);
@@ -720,11 +720,13 @@ test('Bootstrap grid and shared component classes pass through untouched', () =>
   }
 });
 
-test('Bootstrap negative margins are reported, not mistranslated', () => {
-  // SantyCSS has no negative-margin utility; emitting add-margin--16 would be
-  // a class that does not exist.
-  assert(bs.convert('m-n3') === null, 'm-n3 should be unmapped');
-  assert(bs.convert('mt-n5') === null, 'mt-n5 should be unmapped');
+test('Bootstrap negative margins map to subtract-margin-*', () => {
+  assert(bs.convert('m-n3') === 'subtract-margin-16', `m-n3 → ${bs.convert('m-n3')}`);
+  assert(bs.convert('mt-n5') === 'subtract-margin-top-48', `mt-n5 → ${bs.convert('mt-n5')}`);
+  assert(bs.convert('mx-n2') === 'subtract-margin-left-8 subtract-margin-right-8',
+    `mx-n2 → ${bs.convert('mx-n2')}`);
+  assert(bs.convert('pt-n2') === null, 'negative padding does not exist in Bootstrap');
+  assert(bs.convert('mt-md-n1') === null, 'responsive negative margins do not exist in SantyCSS');
 });
 
 test('Bootstrap spacer scale matches Bootstrap 5', () => {
@@ -776,6 +778,58 @@ test('`npx santycss migrate` runs the migrator and radius classes exist', () => 
   const known = new Set(JSON.parse(read('santy-classmap.json')).classes);
   const missing = out.filter(c => !known.has(c));
   assert(missing.length === 0, `migrator emits classes that do not exist: ${missing.join(', ')}`);
+});
+
+test('every Tailwind STATIC_MAP output is a class SantyCSS ships', () => {
+  // A mapping to a missing class strips the style from migrated markup.
+  const known = new Set(JSON.parse(read('santy-classmap.json')).classes);
+  const src = fs.readFileSync(path.join(ROOT, 'migrate.js'), 'utf8');
+  const block = src.slice(src.indexOf('const STATIC_MAP'), src.indexOf('const DYNAMIC_PATTERNS'));
+  const pairs = [...block.matchAll(/'([^']+)':\s*'([^']+)'/g)];
+  assert(pairs.length > 150, `only ${pairs.length} static mappings parsed`);
+  const bad = pairs.filter(([, , to]) => to.split(' ').some(c => !known.has(c)))
+    .map(([, from, to]) => `${from} → ${to}`);
+  assert(bad.length === 0, `${bad.length} mappings emit missing classes: ${bad.slice(0, 8).join(', ')}`);
+});
+
+test('every Bootstrap output is a class SantyCSS ships', () => {
+  const known = new Set(JSON.parse(read('santy-classmap.json')).classes);
+  const samples = [...Object.keys(bs.STATIC_MAP),
+    'mt-3', 'px-lg-4', 'my-auto', 'm-n3', 'mx-n2', 'mt-md-n1', 'gap-3', 'gap-md-2', 'd-md-none', 'd-lg-flex', 'fs-1', 'fs-6'];
+  const bad = samples.map(c => [c, bs.convert(c)])
+    .filter(([c, out]) => out && out !== c && out.split(' ').some(x => !known.has(x)))
+    .map(([c, out]) => `${c} → ${out}`);
+  assert(bad.length === 0, `${bad.length} Bootstrap mappings emit missing classes: ${bad.slice(0, 8).join(', ')}`);
+});
+
+test('Tailwind dynamic patterns convert to real classes or stay unmapped', () => {
+  const os = require('os');
+  const { execFileSync } = require('child_process');
+  const known = new Set(JSON.parse(read('santy-classmap.json')).classes);
+  const input = {
+    'p-4': 'add-padding-16', 'mx-2': 'add-margin-x-8', '-mt-2': 'subtract-margin-top-8',
+    '-mx-1': 'subtract-margin-left-4 subtract-margin-right-4', 'gap-6': 'gap-24',
+    'w-64': 'set-width-256', 'max-w-lg': 'max-width-512', 'col-span-2': 'span-col-2',
+    'row-span-3': 'span-row-3', 'text-blue-500': 'color-blue-500', 'bg-gray-100': 'background-gray-100',
+    'rounded-t-lg': 'round-top-8', 'flex-col': 'flex-column', 'w-full': 'set-width-full',
+    'mx-auto': 'add-margin-x-auto', 'object-cover': 'object-fit-cover',
+    // No SantyCSS equivalent: must be left as-is, not rewritten to a missing class.
+    'max-w-7xl': 'max-w-7xl', 'col-start-2': 'col-start-2', 'duration-300': 'duration-300',
+    'basis-full': 'basis-full', 'float-left': 'float-left',
+  };
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'santy-tw-dyn-'));
+  const file = path.join(tmp, 'page.html');
+  fs.writeFileSync(file, Object.keys(input).map(c => `<i class="${c}"></i>`).join('\n'));
+  execFileSync('node', [path.join(ROOT, 'migrate.js'), `--file=${file}`], { stdio: 'ignore' });
+  const out = [...fs.readFileSync(file, 'utf8').matchAll(/class="([^"]+)"/g)].map(m => m[1]);
+  fs.rmSync(tmp, { recursive: true, force: true });
+  Object.entries(input).forEach(([from, want], i) => {
+    assert(out[i] === want, `${from} → "${out[i]}", expected "${want}"`);
+    if (want !== from) {
+      const missing = want.split(' ').filter(c => !known.has(c));
+      assert(missing.length === 0, `${from} expected output uses missing ${missing.join(', ')}`);
+    }
+  });
 });
 
 // ── Icons ship to consumers (v2.9.4) ────────────────────────────────────────

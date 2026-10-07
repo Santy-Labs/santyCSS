@@ -12,6 +12,19 @@ The full illustrated changelog lives at [santycss.santy.in/changelog.html](https
 - **Tailwind radii migrate to classes that exist.** `rounded-*` used to map to
   `make-rounded-*`, which SantyCSS never shipped. They now map to
   `round-corners-{px}`, `round-{side}-{px}` and `make-pill`.
+- **The migrators no longer emit classes that don't exist.** About 75 of the 230
+  Tailwind mappings, and 13 Bootstrap ones, produced classes SantyCSS never
+  shipped, which silently stripped styles from migrated markup. Examples:
+  `flex-col` → `flex-col`, `w-full` → `width-full`, `mx-auto` → `margin-auto`,
+  `col-span-2` → `col-span-2`, `flex-fill` → `flex-1`. They now map to the real
+  names (`flex-column`, `set-width-full`, `add-margin-x-auto`, `span-col-2`,
+  `flex-equal`, …). Utilities with no SantyCSS equivalent (`duration-*`,
+  `ease-*`, `float-*`, `clear-*`, `basis-*`, `col-start-*`, `table-row`) are
+  left in place and listed by `--report`. Every output is now also checked
+  against `santy-classmap.json` at runtime, and tests cover both maps.
+- **Negative margins migrate.** SantyCSS has had `subtract-margin-{side}-{n}`
+  all along; the v2.9.3 notes said otherwise. Tailwind `-mt-2` and Bootstrap
+  `m-n3` / `mx-n2` now convert instead of being reported as unmapped.
 
 ### Changed
 - **README rewritten for first-time visitors.** It covers the pitch, quick start,
