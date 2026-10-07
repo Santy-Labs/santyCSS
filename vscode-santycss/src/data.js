@@ -1,6 +1,6 @@
 'use strict';
 /**
- * SantyCSS class data — generates all ~8,500+ class names with their
+ * SantyCSS class data — generates all ~5,100+ class names with their
  * CSS descriptions for autocomplete and hover documentation.
  */
 

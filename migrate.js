@@ -46,18 +46,18 @@ const STATIC_MAP = {
   'self-center':        'self-center',
   'self-end':           'self-end',
   'self-stretch':       'self-stretch',
-  'flex-col':           'flex-col',
+  'flex-col':           'flex-column',
   'flex-row':           'flex-row',
   'flex-wrap':          'flex-wrap',
   'flex-nowrap':        'flex-nowrap',
   'flex-wrap-reverse':  'flex-wrap-reverse',
-  'flex-1':             'flex-1',
+  'flex-1':             'flex-equal',
   'flex-auto':          'flex-auto',
   'flex-none':          'flex-none',
   'flex-grow':          'flex-grow',
   'flex-shrink':        'flex-shrink',
-  'flex-shrink-0':      'flex-shrink-0',
-  'flex-grow-0':        'flex-grow-0',
+  'flex-shrink-0':      'flex-shrink-none',
+  'flex-grow-0':        'flex-grow-none',
 
   // Typography
   'font-thin':          'text-thin',
@@ -66,8 +66,8 @@ const STATIC_MAP = {
   'font-medium':        'text-medium',
   'font-semibold':      'text-semibold',
   'font-bold':          'text-bold',
-  'font-extrabold':     'text-extrabold',
-  'font-black':         'text-black',
+  'font-extrabold':     'text-extra-bold',
+  'font-black':         'text-black-weight',
   'text-xs':            'set-text-12',
   'text-sm':            'set-text-14',
   'text-base':          'set-text-16',
@@ -86,14 +86,14 @@ const STATIC_MAP = {
   'uppercase':          'text-uppercase',
   'lowercase':          'text-lowercase',
   'capitalize':         'text-capitalize',
-  'normal-case':        'text-normal-case',
+  'normal-case':        'text-no-transform',
   'italic':             'text-italic',
   'not-italic':         'text-not-italic',
   'underline':          'text-underline',
-  'line-through':       'text-line-through',
+  'line-through':       'text-strikethrough',
   'no-underline':       'text-no-decoration',
   'truncate':           'text-truncate',
-  'break-words':        'text-break-words',
+  'break-words':        'text-break-word',
   'break-all':          'text-break-all',
   'whitespace-nowrap':  'text-nowrap',
   'whitespace-normal':  'text-wrap',
@@ -103,32 +103,33 @@ const STATIC_MAP = {
   'leading-normal':     'line-height-normal',
   'leading-relaxed':    'line-height-relaxed',
   'leading-loose':      'line-height-loose',
-  'tracking-tighter':   'letter-spacing-tighter',
-  'tracking-tight':     'letter-spacing-tight',
-  'tracking-normal':    'letter-spacing-normal',
-  'tracking-wide':      'letter-spacing-wide',
-  'tracking-wider':     'letter-spacing-wider',
-  'tracking-widest':    'letter-spacing-widest',
+  'tracking-tighter':   'letter-space-tight',
+  'tracking-tight':     'letter-space-snug',
+  'tracking-normal':    'letter-space-normal',
+  'tracking-wide':      'letter-space-wide',
+  'tracking-wider':     'letter-space-wider',
+  'tracking-widest':    'letter-space-widest',
 
   // Borders / Radius
-  'rounded-none':   'make-rounded-none',
-  'rounded-sm':     'make-rounded-sm',
-  'rounded':        'make-rounded',
-  'rounded-md':     'make-rounded-md',
-  'rounded-lg':     'make-rounded-lg',
-  'rounded-xl':     'make-rounded-xl',
-  'rounded-2xl':    'make-rounded-2xl',
-  'rounded-3xl':    'make-rounded-3xl',
-  'rounded-full':   'make-rounded-full',
-  'border':         'add-border',
+  // Border radius — SantyCSS spells radii in px: round-corners-{n}.
+  'rounded-none':   'round-corners-0',
+  'rounded-sm':     'round-corners-2',
+  'rounded':        'round-corners-4',
+  'rounded-md':     'round-corners-6',
+  'rounded-lg':     'round-corners-8',
+  'rounded-xl':     'round-corners-12',
+  'rounded-2xl':    'round-corners-16',
+  'rounded-3xl':    'round-corners-24',
+  'rounded-full':   'make-pill',
+  'border':         'add-border-1',
   'border-0':       'add-border-0',
   'border-2':       'add-border-2',
   'border-4':       'add-border-4',
   'border-8':       'add-border-8',
-  'border-t':       'add-border-top',
-  'border-b':       'add-border-bottom',
-  'border-l':       'add-border-left',
-  'border-r':       'add-border-right',
+  'border-t':       'add-border-top-1',
+  'border-b':       'add-border-bottom-1',
+  'border-l':       'add-border-left-1',
+  'border-r':       'add-border-right-1',
   'border-solid':   'border-solid',
   'border-dashed':  'border-dashed',
   'border-dotted':  'border-dotted',
@@ -141,22 +142,21 @@ const STATIC_MAP = {
   'shadow-md':   'add-shadow-md',
   'shadow-lg':   'add-shadow-lg',
   'shadow-xl':   'add-shadow-xl',
-  'shadow-2xl':  'add-shadow-2xl',
   'shadow-inner':'add-shadow-inner',
 
   // Sizing
-  'w-full':    'width-full',
-  'w-screen':  'width-screen',
-  'w-auto':    'width-auto',
-  'w-min':     'width-min',
-  'w-max':     'width-max',
-  'w-fit':     'width-fit',
-  'h-full':    'height-full',
-  'h-screen':  'height-screen',
-  'h-auto':    'height-auto',
-  'h-min':     'height-min',
-  'h-max':     'height-max',
-  'h-fit':     'height-fit',
+  'w-full':    'set-width-full',
+  'w-screen':  'set-width-screen',
+  'w-auto':    'set-width-auto',
+  'w-min':     'set-width-min',
+  'w-max':     'set-width-max',
+  'w-fit':     'set-width-fit',
+  'h-full':    'set-height-full',
+  'h-screen':  'set-height-screen',
+  'h-auto':    'set-height-auto',
+  'h-min':     'set-height-min',
+  'h-max':     'set-height-max',
+  'h-fit':     'set-height-fit',
   'min-w-0':   'min-width-0',
   'min-w-full':'min-width-full',
   'max-w-full':'max-width-full',
@@ -170,11 +170,11 @@ const STATIC_MAP = {
   'absolute': 'position-absolute',
   'fixed':    'position-fixed',
   'sticky':   'position-sticky',
-  'inset-0':  'inset-0',
-  'top-0':    'top-0',
-  'bottom-0': 'bottom-0',
-  'left-0':   'left-0',
-  'right-0':  'right-0',
+  'inset-0':  'pin-all-0',
+  'top-0':    'pin-top-0',
+  'bottom-0': 'pin-bottom-0',
+  'left-0':   'pin-left-0',
+  'right-0':  'pin-right-0',
 
   // Overflow
   'overflow-auto':    'overflow-auto',
@@ -188,7 +188,7 @@ const STATIC_MAP = {
 
   // Misc
   'container':         'container',
-  'mx-auto':           'margin-auto',
+  'mx-auto':           'add-margin-x-auto',
   'cursor-pointer':    'cursor-pointer',
   'cursor-default':    'cursor-default',
   'cursor-not-allowed':'cursor-not-allowed',
@@ -213,33 +213,21 @@ const STATIC_MAP = {
   'transition-colors': 'transition-colors',
   'transition-opacity':'transition-opacity',
   'transition-transform':'transition-transform',
-  'duration-75':       'duration-75',
-  'duration-100':      'duration-100',
-  'duration-150':      'duration-150',
-  'duration-200':      'duration-200',
-  'duration-300':      'duration-300',
-  'duration-500':      'duration-500',
-  'duration-700':      'duration-700',
-  'duration-1000':     'duration-1000',
-  'ease-linear':       'ease-linear',
-  'ease-in':           'ease-in',
-  'ease-out':          'ease-out',
-  'ease-in-out':       'ease-in-out',
-  'sr-only':           'visually-hidden',
-  'not-sr-only':       'visually-visible',
+  'sr-only':           'sr-only',
+  'not-sr-only':       'not-sr-only',
   'list-none':         'list-none',
   'list-disc':         'list-disc',
   'list-decimal':      'list-decimal',
   'appearance-none':   'appearance-none',
   'resize-none':       'resize-none',
-  'resize':            'resize-both',
-  'resize-y':          'resize-vertical',
-  'resize-x':          'resize-horizontal',
-  'object-cover':      'object-cover',
-  'object-contain':    'object-contain',
-  'object-fill':       'object-fill',
-  'object-none':       'object-none',
-  'object-scale-down': 'object-scale-down',
+  'resize':            'resize',
+  'resize-y':          'resize-y',
+  'resize-x':          'resize-x',
+  'object-cover':      'object-fit-cover',
+  'object-contain':    'object-fit-contain',
+  'object-fill':       'object-fit-fill',
+  'object-none':       'object-fit-none',
+  'object-scale-down': 'object-fit-scale',
   'isolate':           'isolate',
   'isolation-auto':    'isolation-auto',
   'z-0':   'z-0',
@@ -249,24 +237,23 @@ const STATIC_MAP = {
   'z-40':  'z-40',
   'z-50':  'z-50',
   'z-auto':'z-auto',
-  'float-left':   'float-left',
-  'float-right':  'float-right',
-  'float-none':   'float-none',
-  'clear-left':   'clear-left',
-  'clear-right':  'clear-right',
-  'clear-both':   'clear-both',
-  'clear-none':   'clear-none',
   'table':          'make-table',
   'table-auto':     'table-auto',
   'table-fixed':    'table-fixed',
-  'table-row':      'make-table-row',
-  'table-cell':     'make-table-cell',
   'border-collapse':'border-collapse',
   'border-separate':'border-separate',
   'aspect-auto':     'aspect-auto',
   'aspect-square':   'aspect-square',
   'aspect-video':    'aspect-video',
 };
+
+// Tailwind radius scale in px, and side letters → SantyCSS side names.
+const ROUND_PX   = { sm: 2, DEFAULT: 4, md: 6, lg: 8, xl: 12, '2xl': 16, '3xl': 24 };
+const ROUND_SIDE = { t: 'top', b: 'bottom', l: 'left', r: 'right' };
+// Tailwind's named max-widths in px (only the ones SantyCSS has survive the
+// classmap check below; the rest are reported as unmapped).
+const MAX_W_PX   = { xs: 320, sm: 384, md: 448, lg: 512, xl: 576, '2xl': 672,
+                     '3xl': 768, '4xl': 896, '5xl': 1024, '6xl': 1152, '7xl': 1280 };
 
 // ─── Dynamic pattern converters ──────────────────────────────────────────────
 // Each returns { from, to } or null if no match
@@ -293,10 +280,13 @@ const DYNAMIC_PATTERNS = [
   { re: /^mb-(\d+)$/,      fn: m => `add-margin-bottom-${+m[1]*4}` },
   { re: /^ml-(\d+)$/,      fn: m => `add-margin-left-${+m[1]*4}` },
   { re: /^mr-(\d+)$/,      fn: m => `add-margin-right-${+m[1]*4}` },
-  { re: /^-mt-(\d+)$/,     fn: m => `add-margin-top--${+m[1]*4}` },
-  { re: /^-mb-(\d+)$/,     fn: m => `add-margin-bottom--${+m[1]*4}` },
-  { re: /^-ml-(\d+)$/,     fn: m => `add-margin-left--${+m[1]*4}` },
-  { re: /^-mr-(\d+)$/,     fn: m => `add-margin-right--${+m[1]*4}` },
+  { re: /^-m-(\d+)$/,      fn: m => `subtract-margin-${+m[1]*4}` },
+  { re: /^-mt-(\d+)$/,     fn: m => `subtract-margin-top-${+m[1]*4}` },
+  { re: /^-mb-(\d+)$/,     fn: m => `subtract-margin-bottom-${+m[1]*4}` },
+  { re: /^-ml-(\d+)$/,     fn: m => `subtract-margin-left-${+m[1]*4}` },
+  { re: /^-mr-(\d+)$/,     fn: m => `subtract-margin-right-${+m[1]*4}` },
+  { re: /^-mx-(\d+)$/,     fn: m => `subtract-margin-left-${+m[1]*4} subtract-margin-right-${+m[1]*4}` },
+  { re: /^-my-(\d+)$/,     fn: m => `subtract-margin-top-${+m[1]*4} subtract-margin-bottom-${+m[1]*4}` },
 
   // width / height fixed values
   { re: /^w-(\d+)$/, fn: m => `set-width-${+m[1]*4}` },
@@ -305,15 +295,13 @@ const DYNAMIC_PATTERNS = [
   { re: /^max-w-\[(\d+)px\]$/, fn: m => `max-width-${m[1]}` },
 
   // max-w-{size}
-  { re: /^max-w-(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)$/, fn: m => `max-width-${m[1]}` },
+  { re: /^max-w-(xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)$/, fn: m => `max-width-${MAX_W_PX[m[1]]}` },
 
   // grid-cols-{n}
   { re: /^grid-cols-(\d+)$/,  fn: m => `grid-cols-${m[1]}` },
   { re: /^grid-rows-(\d+)$/,  fn: m => `grid-rows-${m[1]}` },
-  { re: /^col-span-(\d+)$/,   fn: m => `col-span-${m[1]}` },
-  { re: /^col-start-(\d+)$/,  fn: m => `col-start-${m[1]}` },
-  { re: /^col-end-(\d+)$/,    fn: m => `col-end-${m[1]}` },
-  { re: /^row-span-(\d+)$/,   fn: m => `row-span-${m[1]}` },
+  { re: /^col-span-(\d+|full)$/, fn: m => `span-col-${m[1]}` },
+  { re: /^row-span-(\d+|full)$/, fn: m => `span-row-${m[1]}` },
 
   // text color — text-{color}-{shade}
   { re: /^text-([a-z]+)-(\d+)$/, fn: m => `color-${m[1]}-${m[2]}` },
@@ -334,16 +322,9 @@ const DYNAMIC_PATTERNS = [
   { re: /^space-x-(\d+)$/, fn: m => `gap-${+m[1]*4}` },
   { re: /^space-y-(\d+)$/, fn: m => `gap-y-${+m[1]*4}` },
 
-  // rounded-t / rounded-b etc (partial border radius)
-  { re: /^rounded-t(-\w+)?$/, fn: m => `make-rounded-top${m[1]||''}` },
-  { re: /^rounded-b(-\w+)?$/, fn: m => `make-rounded-bottom${m[1]||''}` },
-  { re: /^rounded-l(-\w+)?$/, fn: m => `make-rounded-left${m[1]||''}` },
-  { re: /^rounded-r(-\w+)?$/, fn: m => `make-rounded-right${m[1]||''}` },
-
-  // basis
-  { re: /^basis-(\d+)$/, fn: m => `flex-basis-${+m[1]*4}` },
-  { re: /^basis-full$/, fn: () => 'flex-basis-full' },
-  { re: /^basis-auto$/, fn: () => 'flex-basis-auto' },
+  // rounded-t / rounded-b etc (partial border radius) → round-{side}-{px}
+  { re: /^rounded-([tblr])(?:-(sm|md|lg|xl|2xl|3xl))?$/,
+    fn: m => `round-${ROUND_SIDE[m[1]]}-${ROUND_PX[m[2] || 'DEFAULT']}` },
 ];
 
 // ─── Source framework selection (v2.9.0) ─────────────────────────────────────
@@ -354,8 +335,26 @@ const bootstrap = require('./lib/bootstrap-map');
 
 let SOURCE = 'tailwind';
 
+// ─── Every class SantyCSS ships ──────────────────────────────────────────────
+// A mapping that produces a class SantyCSS doesn't have silently strips the
+// style from the user's markup, which is worse than leaving the original class
+// and reporting it. So every output is checked against the classmap.
+let KNOWN = null;
+try {
+  KNOWN = new Set(require('./dist/santy-classmap.json').classes);
+} catch (e) { /* classmap not built — skip the check */ }
+
+function exists(out) {
+  return !KNOWN || out.split(' ').every(c => KNOWN.has(c));
+}
+
 // ─── Convert a single class name ─────────────────────────────────────────────
 function convertClass(tw) {
+  const out = rawConvert(tw);
+  return out && exists(out) ? out : null; // null → unmapped
+}
+
+function rawConvert(tw) {
   if (SOURCE === 'bootstrap') {
     const out = bootstrap.convert(tw);
     // A passthrough (class already valid in SantyCSS) is not a conversion.
@@ -366,7 +365,7 @@ function convertClass(tw) {
     const m = tw.match(p.re);
     if (m) return p.fn(m);
   }
-  return null; // unmapped
+  return null;
 }
 
 /** True when a class needs no change because SantyCSS already supports it. */

@@ -283,6 +283,12 @@
       <a href="webflow.html" class="sidebar-link"><span class="sidebar-dot" style="background:#4353FF;"></span>Webflow</a>
     </div>
 
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Reference</div>
+      <a href="#deprecated-names" class="sidebar-link"><span class="sidebar-dot" style="background:#f59e0b;"></span>Deprecated names</a>
+      <a href="#browser-support" class="sidebar-link"><span class="sidebar-dot" style="background:#10b981;"></span>Browser support</a>
+    </div>
+
   </aside>
 
   <!-- ── MAIN CONTENT ──────────────────────────────────────────────────── -->
@@ -1842,6 +1848,45 @@ npm install santycss
   <span class="c-tag">&lt;/div&gt;</span>
 <span class="c-tag">&lt;/body&gt;</span>
 <span class="c-tag">&lt;/html&gt;</span></pre>
+      </div>
+    </section>
+
+    <section id="deprecated-names" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Deprecated names</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Older docs and posts used these spellings. Use the current name in new code. <code class="chip">bg-surface</code>, <code class="chip">text-primary</code> and <code class="chip">text-muted</code> still work; the others were documented but never shipped, and <code class="chip">npx santycss migrate</code> now emits the current names.</p>
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Old</th><th>Current</th></tr></thead>
+          <tbody>
+            <tr><td><code class="chip">make-rounded-lg</code>, <code class="chip">make-rounded-*</code></td><td><code class="chip">round-corners-8</code> (Tailwind <code class="chip">rounded-lg</code> = 8px), <code class="chip">round-corners-{n}</code></td></tr>
+            <tr><td><code class="chip">make-rounded-full</code></td><td><code class="chip">make-pill</code></td></tr>
+            <tr><td><code class="chip">tablet:make-block</code></td><td><code class="chip">md:make-block</code> (768px+) or <code class="chip">on-tablet:make-block</code> (640–1023px)</td></tr>
+            <tr><td><code class="chip">bg-surface</code></td><td><code class="chip">background-surface</code></td></tr>
+            <tr><td><code class="chip">text-primary</code> (semantic)</td><td><code class="chip">color-text</code></td></tr>
+            <tr><td><code class="chip">text-muted</code></td><td><code class="chip">color-text-muted</code></td></tr>
+            <tr><td><code class="chip">npx santycss-migrate</code></td><td><code class="chip">npx santycss migrate</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="browser-support" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Browser support</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Core utilities (flex, grid, spacing, colors, typography, borders, effects) work in all evergreen browsers. Some opt-in features rely on modern CSS. Everything degrades gracefully: unsupported features simply don't apply, and layout and content stay intact.</p>
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Feature</th><th>Classes</th><th>Chrome / Edge</th><th>Firefox</th><th>Safari</th></tr></thead>
+          <tbody>
+            <tr><td>:has() parent variants</td><td><code class="chip">has-checked: group-has-*:</code></td><td>105+</td><td>121+</td><td>15.4+</td></tr>
+            <tr><td>Container queries</td><td><code class="chip">container-query, cq-sm:</code></td><td>105+</td><td>110+</td><td>16+</td></tr>
+            <tr><td>Popover API</td><td><code class="chip">.popover</code></td><td>114+</td><td>125+</td><td>17+</td></tr>
+            <tr><td>&lt;dialog&gt;</td><td><code class="chip">.dialog</code></td><td>37+</td><td>98+</td><td>15.4+</td></tr>
+            <tr><td>Dynamic viewport units</td><td><code class="chip">set-height-dvh/svh/lvh</code></td><td>108+</td><td>101+</td><td>15.4+</td></tr>
+            <tr><td>Scroll snap / carousel</td><td><code class="chip">.carousel, scroll-snap-x</code></td><td>69+</td><td>68+</td><td>11+</td></tr>
+            <tr><td>text-wrap: balance</td><td><code class="chip">text-balance</code></td><td>114+</td><td>121+</td><td>17.5+</td></tr>
+            <tr><td>View Transitions</td><td><code class="chip">view-transition-*</code></td><td>111+</td><td>—</td><td>18+</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
