@@ -111,15 +111,16 @@ const STATIC_MAP = {
   'tracking-widest':    'letter-spacing-widest',
 
   // Borders / Radius
-  'rounded-none':   'make-rounded-none',
-  'rounded-sm':     'make-rounded-sm',
-  'rounded':        'make-rounded',
-  'rounded-md':     'make-rounded-md',
-  'rounded-lg':     'make-rounded-lg',
-  'rounded-xl':     'make-rounded-xl',
-  'rounded-2xl':    'make-rounded-2xl',
-  'rounded-3xl':    'make-rounded-3xl',
-  'rounded-full':   'make-rounded-full',
+  // Border radius — SantyCSS spells radii in px: round-corners-{n}.
+  'rounded-none':   'round-corners-0',
+  'rounded-sm':     'round-corners-2',
+  'rounded':        'round-corners-4',
+  'rounded-md':     'round-corners-6',
+  'rounded-lg':     'round-corners-8',
+  'rounded-xl':     'round-corners-12',
+  'rounded-2xl':    'round-corners-16',
+  'rounded-3xl':    'round-corners-24',
+  'rounded-full':   'make-pill',
   'border':         'add-border',
   'border-0':       'add-border-0',
   'border-2':       'add-border-2',
@@ -268,6 +269,10 @@ const STATIC_MAP = {
   'aspect-video':    'aspect-video',
 };
 
+// Tailwind radius scale in px, and side letters → SantyCSS side names.
+const ROUND_PX   = { sm: 2, DEFAULT: 4, md: 6, lg: 8, xl: 12, '2xl': 16, '3xl': 24 };
+const ROUND_SIDE = { t: 'top', b: 'bottom', l: 'left', r: 'right' };
+
 // ─── Dynamic pattern converters ──────────────────────────────────────────────
 // Each returns { from, to } or null if no match
 const DYNAMIC_PATTERNS = [
@@ -334,11 +339,9 @@ const DYNAMIC_PATTERNS = [
   { re: /^space-x-(\d+)$/, fn: m => `gap-${+m[1]*4}` },
   { re: /^space-y-(\d+)$/, fn: m => `gap-y-${+m[1]*4}` },
 
-  // rounded-t / rounded-b etc (partial border radius)
-  { re: /^rounded-t(-\w+)?$/, fn: m => `make-rounded-top${m[1]||''}` },
-  { re: /^rounded-b(-\w+)?$/, fn: m => `make-rounded-bottom${m[1]||''}` },
-  { re: /^rounded-l(-\w+)?$/, fn: m => `make-rounded-left${m[1]||''}` },
-  { re: /^rounded-r(-\w+)?$/, fn: m => `make-rounded-right${m[1]||''}` },
+  // rounded-t / rounded-b etc (partial border radius) → round-{side}-{px}
+  { re: /^rounded-([tblr])(?:-(sm|md|lg|xl|2xl|3xl))?$/,
+    fn: m => `round-${ROUND_SIDE[m[1]]}-${ROUND_PX[m[2] || 'DEFAULT']}` },
 
   // basis
   { re: /^basis-(\d+)$/, fn: m => `flex-basis-${+m[1]*4}` },

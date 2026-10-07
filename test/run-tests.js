@@ -759,6 +759,25 @@ test('migrate rejects an unknown --from dialect', () => {
   assert(failed, 'unknown --from should exit non-zero');
 });
 
+test('`npx santycss migrate` runs the migrator and radius classes exist', () => {
+  // The docs say `npx santycss migrate`; that resolves to cli.js, which used to
+  // reject `migrate` as an unknown command. Tailwind radii also used to map to
+  // make-rounded-*, which SantyCSS never shipped.
+  const os = require('os');
+  const { execFileSync } = require('child_process');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'santy-tw-'));
+  const file = path.join(tmp, 'page.html');
+  fs.writeFileSync(file, '<div class="rounded rounded-lg rounded-t-xl rounded-full hidden"></div>');
+  execFileSync('node', [path.join(ROOT, 'cli.js'), 'migrate', `--file=${file}`], { stdio: 'ignore' });
+  const out = fs.readFileSync(file, 'utf8').match(/class="([^"]+)"/)[1].split(' ');
+  fs.rmSync(tmp, { recursive: true, force: true });
+  assert(out.join(' ') === 'round-corners-4 round-corners-8 round-top-12 make-pill make-hidden',
+    `unexpected output: ${out.join(' ')}`);
+  const known = new Set(JSON.parse(read('santy-classmap.json')).classes);
+  const missing = out.filter(c => !known.has(c));
+  assert(missing.length === 0, `migrator emits classes that do not exist: ${missing.join(', ')}`);
+});
+
 // ── Icons ship to consumers (v2.9.4) ────────────────────────────────────────
 test('santy-icons.css is emitted to dist and mirrors the source', () => {
   // The docs point Webflow and CDN users at

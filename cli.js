@@ -5,6 +5,7 @@
  *   init [dir]      Scaffold a starter index.html wired to the SantyCSS CDN
  *   build           Build custom CSS from santy.config.json (colors, prefix, breakpoints…)
  *   purge [...]     Strip unused classes (same flags as before — see purge.js)
+ *   migrate [...]   Convert Tailwind or Bootstrap classes (see migrate.js)
  *   classes         Print class count + classmap location
  *   --help          Show this help
  *
@@ -76,6 +77,9 @@ SantyCSS CLI
   npx santycss build          Build custom CSS from santy.config.json in the current dir
                               (keys: colors, spacing, fontSizes, breakpoints, prefix, output)
   npx santycss purge [flags]  Remove unused classes  (--input=, --out=, --css=, --keep=, …)
+  npx santycss migrate [flags]
+                              Convert Tailwind (default) or Bootstrap classes in place
+                              (--input=, --file=, --from=bootstrap, --dry-run, --report)
   npx santycss classes        Show class count from the bundled classmap
   npx santycss --help         This help
 
@@ -118,6 +122,11 @@ if (cmd === 'init') {
   const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
   console.log(`SantyCSS v${map.version} — ${map.count.toLocaleString()} classes`);
   console.log(`Classmap: ${mapPath}`);
+} else if (cmd === 'migrate') {
+  // `npx santycss migrate …` — the documented form. `santycss-migrate` still works
+  // when the package is installed locally.
+  process.argv.splice(2, 1);
+  require('./migrate.js');
 } else if (cmd === 'purge' || (cmd && cmd.startsWith('--') && cmd !== '--help') || (!cmd && false)) {
   // `santycss purge --input=src` or legacy `santycss --input=src`
   if (cmd === 'purge') process.argv.splice(2, 1);

@@ -1,7 +1,7 @@
 {
   "name": "santycss",
   "version": "2.9.4",
-  "description": "Plain-English utility-first CSS framework — no build step, just classes",
+  "description": "Utility-first CSS with plain-English class names. No build step required (optional build for customization).",
   "main": "index.js",
   "types": "index.d.ts",
   "style": "dist/santy.css",
@@ -62,7 +62,8 @@
     "vite-plugin-santycss.js",
     "purge.js",
     "migrate.js",
-    "README.md"
+    "README.md",
+    "santycss.context.md"
   ],
   "bin": {
     "santycss": "./cli.js",
@@ -80,7 +81,16 @@
     "no-build",
     "santycss",
     "postcss",
-    "vite"
+    "vite",
+    "bootstrap-alternative",
+    "components",
+    "ui-components",
+    "react",
+    "vue",
+    "web-components",
+    "icons",
+    "llm",
+    "css-framework"
   ],
   "scripts": {
     "build": "node build.js",
