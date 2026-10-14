@@ -9,10 +9,10 @@
   "homepage": "https://santycss.santy.in",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ChintuSanty/santyCSS.git"
+    "url": "https://github.com/Santy-Labs/santyCSS.git"
   },
   "bugs": {
-    "url": "https://github.com/ChintuSanty/santyCSS/issues"
+    "url": "https://github.com/Santy-Labs/santyCSS/issues"
   },
   "engines": {
     "vscode": "^1.75.0"

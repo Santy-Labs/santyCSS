@@ -8,7 +8,7 @@ All CSS is **generated** by `build.js` — never edit the `.css` files in the re
 or `dist/` by hand. Change the generator, rebuild, and commit both together.
 
 ```bash
-git clone https://github.com/ChintuSanty/santyCSS.git
+git clone https://github.com/Santy-Labs/santyCSS.git
 cd santyCSS
 node build.js          # regenerate every bundle into ./ and ./dist/
 node test/run-tests.js # run the regression suite

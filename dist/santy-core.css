@@ -1,7 +1,7 @@
 /* @SANTYMOD:reset */
 /* ============================================================
-   SantyCSS v2.7.0  —  Plain-English Utility CSS Framework
-   https://github.com/santybad/santy_css
+   SantyCSS v2.9.5  —  Plain-English Utility CSS Framework
+   https://github.com/Santy-Labs/santyCSS
    ============================================================ */
 
 /* ── Box Sizing Reset ── */
@@ -2726,6 +2726,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .scale-90         { transform: scale(0.90); }
 .scale-95         { transform: scale(0.95); }
 .scale-100        { transform: scale(1); }
+.scale-102        { transform: scale(1.02); }
 .scale-105        { transform: scale(1.05); }
 .scale-110        { transform: scale(1.10); }
 .scale-125        { transform: scale(1.25); }
@@ -3852,6 +3853,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .on-hover\:scale-90:hover { transform:scale(0.9); }
 .on-hover\:scale-95:hover { transform:scale(0.95); }
 .on-hover\:scale-100:hover { transform:scale(1); }
+.on-hover\:scale-102:hover { transform:scale(1.02); }
 .on-hover\:scale-105:hover { transform:scale(1.05); }
 .on-hover\:scale-110:hover { transform:scale(1.1); }
 .on-hover\:make-hidden:hover { display:none; }
@@ -4153,6 +4155,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .on-focus\:scale-90:focus { transform:scale(0.9); }
 .on-focus\:scale-95:focus { transform:scale(0.95); }
 .on-focus\:scale-100:focus { transform:scale(1); }
+.on-focus\:scale-102:focus { transform:scale(1.02); }
 .on-focus\:scale-105:focus { transform:scale(1.05); }
 .on-focus\:scale-110:focus { transform:scale(1.1); }
 .on-focus\:make-hidden:focus { display:none; }
@@ -4655,6 +4658,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-checked\:scale-90:has(:checked) { transform:scale(0.9); }
 .has-checked\:scale-95:has(:checked) { transform:scale(0.95); }
 .has-checked\:scale-100:has(:checked) { transform:scale(1); }
+.has-checked\:scale-102:has(:checked) { transform:scale(1.02); }
 .has-checked\:scale-105:has(:checked) { transform:scale(1.05); }
 .has-checked\:scale-110:has(:checked) { transform:scale(1.1); }
 .has-checked\:make-hidden:has(:checked) { display:none; }
@@ -4956,6 +4960,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-focus\:scale-90:has(:focus) { transform:scale(0.9); }
 .has-focus\:scale-95:has(:focus) { transform:scale(0.95); }
 .has-focus\:scale-100:has(:focus) { transform:scale(1); }
+.has-focus\:scale-102:has(:focus) { transform:scale(1.02); }
 .has-focus\:scale-105:has(:focus) { transform:scale(1.05); }
 .has-focus\:scale-110:has(:focus) { transform:scale(1.1); }
 .has-focus\:make-hidden:has(:focus) { display:none; }
@@ -5257,6 +5262,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-focus-within\:scale-90:has(:focus-within) { transform:scale(0.9); }
 .has-focus-within\:scale-95:has(:focus-within) { transform:scale(0.95); }
 .has-focus-within\:scale-100:has(:focus-within) { transform:scale(1); }
+.has-focus-within\:scale-102:has(:focus-within) { transform:scale(1.02); }
 .has-focus-within\:scale-105:has(:focus-within) { transform:scale(1.05); }
 .has-focus-within\:scale-110:has(:focus-within) { transform:scale(1.1); }
 .has-focus-within\:make-hidden:has(:focus-within) { display:none; }
@@ -5558,6 +5564,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-hover\:scale-90:has(:hover) { transform:scale(0.9); }
 .has-hover\:scale-95:has(:hover) { transform:scale(0.95); }
 .has-hover\:scale-100:has(:hover) { transform:scale(1); }
+.has-hover\:scale-102:has(:hover) { transform:scale(1.02); }
 .has-hover\:scale-105:has(:hover) { transform:scale(1.05); }
 .has-hover\:scale-110:has(:hover) { transform:scale(1.1); }
 .has-hover\:make-hidden:has(:hover) { display:none; }
@@ -5859,6 +5866,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-invalid\:scale-90:has(:invalid) { transform:scale(0.9); }
 .has-invalid\:scale-95:has(:invalid) { transform:scale(0.95); }
 .has-invalid\:scale-100:has(:invalid) { transform:scale(1); }
+.has-invalid\:scale-102:has(:invalid) { transform:scale(1.02); }
 .has-invalid\:scale-105:has(:invalid) { transform:scale(1.05); }
 .has-invalid\:scale-110:has(:invalid) { transform:scale(1.1); }
 .has-invalid\:make-hidden:has(:invalid) { display:none; }
@@ -6160,6 +6168,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-valid\:scale-90:has(:valid) { transform:scale(0.9); }
 .has-valid\:scale-95:has(:valid) { transform:scale(0.95); }
 .has-valid\:scale-100:has(:valid) { transform:scale(1); }
+.has-valid\:scale-102:has(:valid) { transform:scale(1.02); }
 .has-valid\:scale-105:has(:valid) { transform:scale(1.05); }
 .has-valid\:scale-110:has(:valid) { transform:scale(1.1); }
 .has-valid\:make-hidden:has(:valid) { display:none; }
@@ -6461,6 +6470,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-disabled\:scale-90:has(:disabled) { transform:scale(0.9); }
 .has-disabled\:scale-95:has(:disabled) { transform:scale(0.95); }
 .has-disabled\:scale-100:has(:disabled) { transform:scale(1); }
+.has-disabled\:scale-102:has(:disabled) { transform:scale(1.02); }
 .has-disabled\:scale-105:has(:disabled) { transform:scale(1.05); }
 .has-disabled\:scale-110:has(:disabled) { transform:scale(1.1); }
 .has-disabled\:make-hidden:has(:disabled) { display:none; }
@@ -6762,6 +6772,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-required\:scale-90:has(:required) { transform:scale(0.9); }
 .has-required\:scale-95:has(:required) { transform:scale(0.95); }
 .has-required\:scale-100:has(:required) { transform:scale(1); }
+.has-required\:scale-102:has(:required) { transform:scale(1.02); }
 .has-required\:scale-105:has(:required) { transform:scale(1.05); }
 .has-required\:scale-110:has(:required) { transform:scale(1.1); }
 .has-required\:make-hidden:has(:required) { display:none; }
@@ -7063,6 +7074,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-open\:scale-90:has([open]) { transform:scale(0.9); }
 .has-open\:scale-95:has([open]) { transform:scale(0.95); }
 .has-open\:scale-100:has([open]) { transform:scale(1); }
+.has-open\:scale-102:has([open]) { transform:scale(1.02); }
 .has-open\:scale-105:has([open]) { transform:scale(1.05); }
 .has-open\:scale-110:has([open]) { transform:scale(1.1); }
 .has-open\:make-hidden:has([open]) { display:none; }
@@ -7364,6 +7376,7 @@ img, video, picture, svg { max-width: 100%; height: auto; }
 .has-placeholder-shown\:scale-90:has(:placeholder-shown) { transform:scale(0.9); }
 .has-placeholder-shown\:scale-95:has(:placeholder-shown) { transform:scale(0.95); }
 .has-placeholder-shown\:scale-100:has(:placeholder-shown) { transform:scale(1); }
+.has-placeholder-shown\:scale-102:has(:placeholder-shown) { transform:scale(1.02); }
 .has-placeholder-shown\:scale-105:has(:placeholder-shown) { transform:scale(1.05); }
 .has-placeholder-shown\:scale-110:has(:placeholder-shown) { transform:scale(1.1); }
 .has-placeholder-shown\:make-hidden:has(:placeholder-shown) { display:none; }
