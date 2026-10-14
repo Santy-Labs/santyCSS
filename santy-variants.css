@@ -1786,6 +1786,7 @@
 .on-active\:scale-90:active { transform:scale(0.9); }
 .on-active\:scale-95:active { transform:scale(0.95); }
 .on-active\:scale-100:active { transform:scale(1); }
+.on-active\:scale-102:active { transform:scale(1.02); }
 .on-active\:scale-105:active { transform:scale(1.05); }
 .on-active\:scale-110:active { transform:scale(1.1); }
 .on-active\:make-hidden:active { display:none; }
@@ -2087,6 +2088,7 @@
 .on-disabled\:scale-90:disabled { transform:scale(0.9); }
 .on-disabled\:scale-95:disabled { transform:scale(0.95); }
 .on-disabled\:scale-100:disabled { transform:scale(1); }
+.on-disabled\:scale-102:disabled { transform:scale(1.02); }
 .on-disabled\:scale-105:disabled { transform:scale(1.05); }
 .on-disabled\:scale-110:disabled { transform:scale(1.1); }
 .on-disabled\:make-hidden:disabled { display:none; }
@@ -2388,6 +2390,7 @@
 .on-checked\:scale-90:checked { transform:scale(0.9); }
 .on-checked\:scale-95:checked { transform:scale(0.95); }
 .on-checked\:scale-100:checked { transform:scale(1); }
+.on-checked\:scale-102:checked { transform:scale(1.02); }
 .on-checked\:scale-105:checked { transform:scale(1.05); }
 .on-checked\:scale-110:checked { transform:scale(1.1); }
 .on-checked\:make-hidden:checked { display:none; }
@@ -2689,6 +2692,7 @@
 .on-first\:scale-90:first-child { transform:scale(0.9); }
 .on-first\:scale-95:first-child { transform:scale(0.95); }
 .on-first\:scale-100:first-child { transform:scale(1); }
+.on-first\:scale-102:first-child { transform:scale(1.02); }
 .on-first\:scale-105:first-child { transform:scale(1.05); }
 .on-first\:scale-110:first-child { transform:scale(1.1); }
 .on-first\:make-hidden:first-child { display:none; }
@@ -2990,6 +2994,7 @@
 .on-last\:scale-90:last-child { transform:scale(0.9); }
 .on-last\:scale-95:last-child { transform:scale(0.95); }
 .on-last\:scale-100:last-child { transform:scale(1); }
+.on-last\:scale-102:last-child { transform:scale(1.02); }
 .on-last\:scale-105:last-child { transform:scale(1.05); }
 .on-last\:scale-110:last-child { transform:scale(1.1); }
 .on-last\:make-hidden:last-child { display:none; }
@@ -3291,6 +3296,7 @@
 .on-odd\:scale-90:nth-child(odd) { transform:scale(0.9); }
 .on-odd\:scale-95:nth-child(odd) { transform:scale(0.95); }
 .on-odd\:scale-100:nth-child(odd) { transform:scale(1); }
+.on-odd\:scale-102:nth-child(odd) { transform:scale(1.02); }
 .on-odd\:scale-105:nth-child(odd) { transform:scale(1.05); }
 .on-odd\:scale-110:nth-child(odd) { transform:scale(1.1); }
 .on-odd\:make-hidden:nth-child(odd) { display:none; }
@@ -3592,6 +3598,7 @@
 .on-even\:scale-90:nth-child(even) { transform:scale(0.9); }
 .on-even\:scale-95:nth-child(even) { transform:scale(0.95); }
 .on-even\:scale-100:nth-child(even) { transform:scale(1); }
+.on-even\:scale-102:nth-child(even) { transform:scale(1.02); }
 .on-even\:scale-105:nth-child(even) { transform:scale(1.05); }
 .on-even\:scale-110:nth-child(even) { transform:scale(1.1); }
 .on-even\:make-hidden:nth-child(even) { display:none; }
@@ -3893,6 +3900,7 @@
 .on-placeholder\:scale-90::placeholder { transform:scale(0.9); }
 .on-placeholder\:scale-95::placeholder { transform:scale(0.95); }
 .on-placeholder\:scale-100::placeholder { transform:scale(1); }
+.on-placeholder\:scale-102::placeholder { transform:scale(1.02); }
 .on-placeholder\:scale-105::placeholder { transform:scale(1.05); }
 .on-placeholder\:scale-110::placeholder { transform:scale(1.1); }
 .on-placeholder\:make-hidden::placeholder { display:none; }
@@ -4194,6 +4202,7 @@
 .on-focus-within\:scale-90:focus-within { transform:scale(0.9); }
 .on-focus-within\:scale-95:focus-within { transform:scale(0.95); }
 .on-focus-within\:scale-100:focus-within { transform:scale(1); }
+.on-focus-within\:scale-102:focus-within { transform:scale(1.02); }
 .on-focus-within\:scale-105:focus-within { transform:scale(1.05); }
 .on-focus-within\:scale-110:focus-within { transform:scale(1.1); }
 .on-focus-within\:make-hidden:focus-within { display:none; }
@@ -4495,6 +4504,7 @@
 .on-focus-visible\:scale-90:focus-visible { transform:scale(0.9); }
 .on-focus-visible\:scale-95:focus-visible { transform:scale(0.95); }
 .on-focus-visible\:scale-100:focus-visible { transform:scale(1); }
+.on-focus-visible\:scale-102:focus-visible { transform:scale(1.02); }
 .on-focus-visible\:scale-105:focus-visible { transform:scale(1.05); }
 .on-focus-visible\:scale-110:focus-visible { transform:scale(1.1); }
 .on-focus-visible\:make-hidden:focus-visible { display:none; }
@@ -4797,6 +4807,7 @@
 .group:hover .group-hover\:scale-90 { transform:scale(0.9); }
 .group:hover .group-hover\:scale-95 { transform:scale(0.95); }
 .group:hover .group-hover\:scale-100 { transform:scale(1); }
+.group:hover .group-hover\:scale-102 { transform:scale(1.02); }
 .group:hover .group-hover\:scale-105 { transform:scale(1.05); }
 .group:hover .group-hover\:scale-110 { transform:scale(1.1); }
 .group:hover .group-hover\:make-hidden { display:none; }
@@ -4850,6 +4861,25 @@
 .end-0    { inset-inline-end: 0; }
 .start-auto { inset-inline-start: auto; }
 .end-auto   { inset-inline-end: auto; }
+
+.add-padding-start-0 { padding-inline-start: 0; }
+.add-padding-end-0 { padding-inline-end: 0; }
+.add-padding-start-4 { padding-inline-start: 4px; }
+.add-padding-end-4 { padding-inline-end: 4px; }
+.add-padding-start-8 { padding-inline-start: 8px; }
+.add-padding-end-8 { padding-inline-end: 8px; }
+.add-padding-start-12 { padding-inline-start: 12px; }
+.add-padding-end-12 { padding-inline-end: 12px; }
+.add-padding-start-16 { padding-inline-start: 16px; }
+.add-padding-end-16 { padding-inline-end: 16px; }
+.add-padding-start-20 { padding-inline-start: 20px; }
+.add-padding-end-20 { padding-inline-end: 20px; }
+.add-padding-start-24 { padding-inline-start: 24px; }
+.add-padding-end-24 { padding-inline-end: 24px; }
+.add-padding-start-32 { padding-inline-start: 32px; }
+.add-padding-end-32 { padding-inline-end: 32px; }
+.add-margin-start-auto { margin-inline-start: auto; }
+.add-margin-end-auto { margin-inline-end: auto; }
 
 /* ── Peer Variants ── */
 /* Usage: add class="peer" to input, then class="peer-checked:make-block" to sibling */

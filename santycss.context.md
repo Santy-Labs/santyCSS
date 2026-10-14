@@ -403,4 +403,4 @@ Prebuilt themes (santy-themes.css): <html data-theme="ocean|sunset|forest|midnig
 
 ---
 
-*Generated from SantyCSS v2.7.0 · https://santycss.santy.in · https://github.com/ChintuSanty/santyCSS*
+*Generated from SantyCSS v2.7.0 · https://santycss.santy.in · https://github.com/Santy-Labs/santyCSS*

@@ -126,12 +126,26 @@ test('package.json exports resolve', () => {
   for (const [key, val] of Object.entries(pkg.exports)) {
     const rels = typeof val === 'string' ? [val] : Object.values(val);
     for (const rel of rels) {
+      // Subpath patterns: "./dist/*" → check the directory exists.
+      if (rel.includes('*')) {
+        assert(fs.existsSync(path.join(ROOT, path.dirname(rel))), `export "${key}" → ${rel} missing`);
+        continue;
+      }
       assert(fs.existsSync(path.join(ROOT, rel)), `export "${key}" → ${rel} missing`);
     }
   }
   for (const [name, rel] of Object.entries(pkg.bin || {})) {
     assert(fs.existsSync(path.join(ROOT, rel)), `bin "${name}" → ${rel} missing`);
   }
+});
+
+test('package.json allows documented deep imports', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  // The docs teach @import 'santycss/dist/santy.css'; tooling reads santycss/package.json.
+  assert(pkg.exports['./dist/*'] === './dist/*', 'exports["./dist/*"] missing');
+  assert(pkg.exports['./package.json'] === './package.json', 'exports["./package.json"] missing');
+  assert(pkg.sideEffects && pkg.sideEffects.includes('*.css'), 'CSS must be marked as side effects');
+  assert(pkg.engines && pkg.engines.node, 'engines.node missing');
 });
 
 // ── 10. CLI init scaffolds ───────────────────────────────────────────────────
@@ -266,7 +280,8 @@ test('ripple animation is disabled under prefers-reduced-motion', () => {
 test('package.json exposes the behavior layer', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   assert(pkg.exports['./js'] === './dist/santy.js', 'exports["./js"] missing');
-  assert(pkg.files.includes('santy.js'), 'santy.js not in files[]');
+  assert(pkg.files.includes('dist/'), 'dist/ (with santy.js) not in files[]');
+  assert(pkg.sideEffects.includes('./dist/santy.js'), 'santy.js must be marked as a side effect');
 });
 
 // ── Extended components (v2.9.0) ────────────────────────────────────────────
@@ -848,7 +863,7 @@ test('santy-icons.css is emitted to dist and mirrors the source', () => {
 
 test('package.json publishes the icon stylesheet', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-  assert(pkg.files.includes('santy-icons.css'), 'santy-icons.css not in files[]');
+  assert(pkg.files.includes('dist/'), 'dist/ (with santy-icons.css) not in files[]');
   assert(pkg.exports['./css/icons'] === './dist/santy-icons.css',
     'exports["./css/icons"] missing — npm consumers cannot import the icons');
 });

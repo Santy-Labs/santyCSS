@@ -45,20 +45,28 @@
     "./vue": "./packages/vue/index.js",
     "./sort": "./packages/sort/santy-sort.js",
     "./prettier": "./packages/prettier/index.js",
-    "./bootstrap-map": "./lib/bootstrap-map.js"
+    "./bootstrap-map": "./lib/bootstrap-map.js",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
   },
+  "sideEffects": [
+    "*.css",
+    "./dist/santy.js",
+    "./dist/santy-elements.js",
+    "./dist/santy-scroll.js",
+    "./packages/elements/santy-elements.js"
+  ],
   "files": [
     "dist/",
+    "!dist/sitemap.xml",
     "postcss/",
     "lib/",
+    "packages/",
     "index.js",
     "index.d.ts",
     "build.js",
     "cli.js",
     "santy-jit.js",
-    "santy.js",
-    "santy-icons.css",
-    "packages/",
     "vite-plugin-santycss.js",
     "purge.js",
     "migrate.js",
@@ -93,13 +101,14 @@
     "css-framework"
   ],
   "scripts": {
-    "build": "node build.js",
-    "test": "node build.js && node test/run-tests.js",
+    "build": "node build.js && node scripts/sync-site-stats.js",
+    "test": "node build.js && node test/run-tests.js && node scripts/sync-site-stats.js --check",
     "purge": "node purge.js",
     "dev": "node build.js && echo 'Watching...'",
     "prepublishOnly": "node build.js && node test/run-tests.js",
-    "version": "node scripts/sync-cdn-version.js && git add -A -- '*.html'",
-    "cdn:check": "node scripts/sync-cdn-version.js --check"
+    "version": "node scripts/sync-cdn-version.js && node scripts/sync-site-stats.js && git add -A -- '*.html'",
+    "cdn:check": "node scripts/sync-cdn-version.js --check",
+    "site:stats": "node scripts/sync-site-stats.js"
   },
   "peerDependencies": {
     "postcss": ">=8.0.0",
@@ -119,12 +128,15 @@
   },
   "author": "Santy",
   "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ChintuSanty/santyCSS.git"
+    "url": "https://github.com/Santy-Labs/santyCSS.git"
   },
   "homepage": "https://santycss.santy.in",
   "bugs": {
-    "url": "https://github.com/ChintuSanty/santyCSS/issues"
+    "url": "https://github.com/Santy-Labs/santyCSS/issues"
   }
 }

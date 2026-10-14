@@ -109,8 +109,8 @@ const mod = (name) => lines.push(`\n/* @SANTYMOD:${name} */`);
 mod('reset');
 add(
 `/* ============================================================
-   SantyCSS v2.7.0  —  Plain-English Utility CSS Framework
-   https://github.com/santybad/santy_css
+   SantyCSS v${require('./package.json').version}  —  Plain-English Utility CSS Framework
+   https://github.com/Santy-Labs/santyCSS
    ============================================================ */
 
 /* ── Box Sizing Reset ── */
@@ -743,6 +743,7 @@ add(`\n/* ── Transition ── */
 .scale-90         { transform: scale(0.90); }
 .scale-95         { transform: scale(0.95); }
 .scale-100        { transform: scale(1); }
+.scale-102        { transform: scale(1.02); }
 .scale-105        { transform: scale(1.05); }
 .scale-110        { transform: scale(1.10); }
 .scale-125        { transform: scale(1.25); }
@@ -1144,7 +1145,7 @@ stateClasses.push(['no-shadow','box-shadow:none']);
 // Opacity
 [0,25,50,75,100].forEach(v => stateClasses.push([`opacity-${v}`,`opacity:${v/100}`]));
 // Transforms
-['scale-90','scale-95','scale-100','scale-105','scale-110'].forEach(cls => {
+['scale-90','scale-95','scale-100','scale-102','scale-105','scale-110'].forEach(cls => {
   const v = parseFloat(cls.split('-')[1])/100;
   stateClasses.push([cls, `transform:scale(${v})`]);
 });
@@ -1394,6 +1395,15 @@ add(`
 .start-auto { inset-inline-start: auto; }
 .end-auto   { inset-inline-end: auto; }
 `);
+// Plain-English aliases for the logical-property shorthands above
+// (ps-16 = add-padding-start-16, ms-auto = add-margin-start-auto).
+[0,4,8,12,16,20,24,32].forEach(n => {
+  const v = n ? `${n}px` : '0';
+  add(`.add-padding-start-${n} { padding-inline-start: ${v}; }`);
+  add(`.add-padding-end-${n} { padding-inline-end: ${v}; }`);
+});
+add(`.add-margin-start-auto { margin-inline-start: auto; }
+.add-margin-end-auto { margin-inline-end: auto; }`);
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── PEER VARIANTS ───────────────────────────────────────────────────────────
@@ -5498,7 +5508,13 @@ const startCSS = `/* SantyCSS Start — Drop-in CDN build
 // ─── santy-scroll.js ──────────────────────────────────────────────────────────
 // Behaviour layer is authored as a real source file (santy.js) rather than a
 // template string, so it can be linted, unit-tested and diffed like normal code.
-const BEHAVIOR_JS = fs.readFileSync(path.join(__dirname, 'santy.js'), 'utf8');
+// The npm tarball ships these two sources only once, under dist/, so fall back
+// there when `santycss build` runs from an installed package.
+const readSource = (name) => {
+  const root = path.join(__dirname, name);
+  return fs.readFileSync(fs.existsSync(root) ? root : path.join(__dirname, 'dist', name), 'utf8');
+};
+const BEHAVIOR_JS = readSource('santy.js');
 
 // Framework adapters. The universal ones (custom elements, class merge) are
 // mirrored into dist/ for CDN use; the React/Vue packages ship as source.
@@ -5511,7 +5527,7 @@ const SORT_JS = fs.readFileSync(path.join(__dirname, 'packages', 'sort', 'santy-
 // generated, but it still has to reach dist/ — the docs point Webflow and CDN
 // users at .../npm/santycss@2/dist/santy-icons.css, and until now that 404'd
 // because the file only ever existed at the repo root.
-const ICONS_CSS = fs.readFileSync(path.join(__dirname, 'santy-icons.css'), 'utf8');
+const ICONS_CSS = readSource('santy-icons.css');
 
 const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
