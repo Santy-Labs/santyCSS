@@ -3,6 +3,35 @@
 All notable changes to SantyCSS are documented here.
 The full illustrated changelog lives at [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
 
+## [2.9.6] — 2026-10-14
+
+### Fixed
+- **`@import 'santycss/dist/santy.css'` works.** The docs taught it, but the
+  `exports` map didn't expose `dist/`, so Node, Vite and webpack threw
+  `ERR_PACKAGE_PATH_NOT_EXPORTED`. `santycss/dist/*` and
+  `santycss/package.json` are now exported.
+- **`scale-102` ships.** The docs' hover example used it, but it was never built.
+- **Site examples use current names.** `background-surface` and
+  `color-text-muted` replace the deprecated `bg-surface` / `text-muted`.
+- **Site claims match the package.** The homepage no longer says every px from
+  0–200 is pre-generated (any value works through `santy-jit.js`), and the
+  version, file sizes, class counts and purged size are now stamped from the
+  build by `scripts/sync-site-stats.js` instead of hand-typed.
+
+### Added
+- Plain-English aliases for logical properties: `add-padding-start-{n}`,
+  `add-padding-end-{n}`, `add-margin-start-auto`, `add-margin-end-auto`
+  (same as `ps-`, `pe-`, `ms-auto`, `me-auto`).
+- `sideEffects` and `engines` in `package.json`, so bundlers keep CSS imports.
+
+### Changed
+- **Smaller install (10.1 MB → 8.6 MB).** The tarball no longer carries root
+  duplicates of `santy.js` and `santy-icons.css` or `dist/sitemap.xml`.
+- `santy-start.css` is now the recommended CDN file; the full `santy.min.css`
+  is 1.4 MB.
+- Repository links point to `Santy-Labs/santyCSS`, and the VS Code link to
+  `SantyCSS.santycss-intellisense`.
+
 ## [2.9.5] — 2026-10-07
 
 ### Fixed
