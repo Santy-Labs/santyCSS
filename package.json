@@ -74,8 +74,8 @@
     "santycss.context.md"
   ],
   "bin": {
-    "santycss": "./cli.js",
-    "santycss-migrate": "./migrate.js"
+    "santycss": "cli.js",
+    "santycss-migrate": "migrate.js"
   },
   "keywords": [
     "css",
@@ -133,7 +133,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Santy-Labs/santyCSS.git"
+    "url": "git+https://github.com/Santy-Labs/santyCSS.git"
   },
   "homepage": "https://santycss.santy.in",
   "bugs": {
