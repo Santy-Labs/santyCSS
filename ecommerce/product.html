@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product — LuxeStore</title>
+  <meta name="description" content="Product detail page of the LuxeStore SantyCSS template: image gallery, size and colour pickers, specs, customer reviews and related products." />
+  <link rel="canonical" href="https://santycss.santy.in/ecommerce/product.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SantyCSS" />
+  <meta property="og:title" content="Product — LuxeStore" />
+  <meta property="og:description" content="Product detail page of the LuxeStore SantyCSS template: image gallery, size and colour pickers, specs, customer reviews and related products." />
+  <meta property="og:url" content="https://santycss.santy.in/ecommerce/product.html" />
+  <meta property="og:image" content="https://santycss.santy.in/assest/santy_css.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Product — LuxeStore" />
+  <meta name="twitter:description" content="Product detail page of the LuxeStore SantyCSS template: image gallery, size and colour pickers, specs, customer reviews and related products." />
+  <meta name="twitter:image" content="https://santycss.santy.in/assest/santy_css.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.6/dist/santy.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.6/dist/santy-variants.css">
   <style>
@@ -135,8 +148,8 @@
   <div class="container add-padding-y-14 set-text-13 color-gray-400" style="max-width:1280px">
     <a href="index.html" class="color-gray-400" style="text-decoration:none">Home</a> ›
     <a href="shop.html" class="color-gray-400" style="text-decoration:none;margin:0 4px">Shop</a> ›
-    <a href="shop.html" class="color-gray-400" style="text-decoration:none;margin:0 4px" id="bc-category">Category</a> ›
-    <span class="color-gray-700 text-semibold" id="bc-product">Product</span>
+    <a href="shop.html" class="color-gray-400" style="text-decoration:none;margin:0 4px" id="bc-category">Shoes</a> ›
+    <span class="color-gray-700 text-semibold" id="bc-product">Classic White Sneakers</span>
   </div>
 </div>
 
@@ -146,39 +159,39 @@
     <!-- Images -->
     <div class="product-images" style="width:520px;flex-shrink:0">
       <div class="main-image-wrap">
-        <img id="main-image" src="" alt="Product">
+        <img id="main-image" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&amp;h=600&amp;fit=crop" alt="Classic White Sneakers">
         <div class="zoom-hint">🔍 Hover to zoom</div>
       </div>
-      <div class="thumb-strip" id="thumb-strip"></div>
+      <div class="thumb-strip" id="thumb-strip"><div class="thumb active" onclick="switchImage(this,'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&amp;h=600&amp;fit=crop')"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&amp;h=600&amp;fit=crop" alt=""></div><div class="thumb" onclick="switchImage(this,'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&amp;h=600&amp;fit=crop')"><img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&amp;h=600&amp;fit=crop" alt=""></div><div class="thumb" onclick="switchImage(this,'https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=600&amp;h=600&amp;fit=crop')"><img src="https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=600&amp;h=600&amp;fit=crop" alt=""></div><div class="thumb" onclick="switchImage(this,'https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600&amp;h=600&amp;fit=crop')"><img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600&amp;h=600&amp;fit=crop" alt=""></div></div>
     </div>
 
     <!-- Info -->
     <div style="flex:1;min-width:0">
       <!-- Badge + category -->
       <div class="make-flex align-center gap-8 add-margin-bottom-12">
-        <span class="badge" id="product-badge" style="display:none"></span>
-        <span class="set-text-12 color-gray-400 text-uppercase" style="letter-spacing:.08em" id="product-category"></span>
+        <span class="badge" id="product-badge" style="display: inline-flex; background: rgb(209, 250, 229); color: rgb(6, 95, 70);">New</span>
+        <span class="set-text-12 color-gray-400 text-uppercase" style="letter-spacing:.08em" id="product-category">Shoes</span>
       </div>
 
-      <h1 class="set-text-32 text-bold color-gray-900 add-margin-bottom-12" id="product-name"></h1>
+      <h1 class="set-text-32 text-bold color-gray-900 add-margin-bottom-12" id="product-name">Classic White Sneakers</h1>
 
       <!-- Rating -->
       <div class="make-flex align-center gap-10 add-margin-bottom-20">
-        <div id="product-stars" style="color:#f59e0b;font-size:18px"></div>
-        <span class="set-text-14 color-gray-500" id="product-rating-text"></span>
+        <div id="product-stars" style="color:#f59e0b;font-size:18px">★★★★☆</div>
+        <span class="set-text-14 color-gray-500" id="product-rating-text">4.8 out of 5</span>
         <span class="color-gray-300">|</span>
-        <a href="#tab-reviews" onclick="switchTab('reviews')" class="set-text-14 color-blue-600" style="text-decoration:none" id="product-reviews-link"></a>
+        <a href="#tab-reviews" onclick="switchTab('reviews')" class="set-text-14 color-blue-600" style="text-decoration:none" id="product-reviews-link">124 reviews</a>
       </div>
 
       <!-- Price -->
       <div class="make-flex align-center gap-16 add-margin-bottom-24">
-        <span class="set-text-36 text-bold" style="color:#0f172a" id="product-price"></span>
-        <span class="set-text-18 color-gray-400" style="text-decoration:line-through" id="product-old-price"></span>
-        <span class="badge badge-red" id="product-discount" style="background:#fee2e2;color:#b91c1c;display:none"></span>
+        <span class="set-text-36 text-bold" style="color:#0f172a" id="product-price">$89.99</span>
+        <span class="set-text-18 color-gray-400" style="text-decoration:line-through" id="product-old-price">$120.00</span>
+        <span class="badge badge-red" id="product-discount" style="background: rgb(254, 226, 226); color: rgb(185, 28, 28); display: inline-flex;">-25%</span>
       </div>
 
       <!-- Short description -->
-      <p class="set-text-15 color-gray-600 add-margin-bottom-28" style="line-height:1.7" id="product-desc"></p>
+      <p class="set-text-15 color-gray-600 add-margin-bottom-28" style="line-height:1.7" id="product-desc">Crafted from premium full-grain leather with a cushioned insole for all-day comfort. The classic white colorway pairs effortlessly with any outfit — jeans, chinos, or even a suit.</p>
 
       <!-- Color selection -->
       <div class="add-margin-bottom-24" id="color-section">
@@ -271,7 +284,7 @@
   <div style="margin-top:64px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
     <div style="display:flex;border-bottom:1px solid #e5e7eb;overflow-x:auto">
       <button class="tab-btn active" onclick="switchTab('description')" id="tab-description">Description</button>
-      <button class="tab-btn" onclick="switchTab('reviews')" id="tab-reviews">Reviews <span style="background:#eff6ff;color:#2563eb;border-radius:4px;padding:1px 6px;font-size:11px" id="review-count-badge">0</span></button>
+      <button class="tab-btn" onclick="switchTab('reviews')" id="tab-reviews">Reviews <span style="background:#eff6ff;color:#2563eb;border-radius:4px;padding:1px 6px;font-size:11px" id="review-count-badge">124</span></button>
       <button class="tab-btn" onclick="switchTab('shipping')">Shipping & Returns</button>
       <button class="tab-btn" onclick="switchTab('specs')">Specifications</button>
     </div>
@@ -279,10 +292,15 @@
     <!-- Description -->
     <div class="tab-panel active" id="panel-description" style="padding:32px">
       <div style="max-width:720px">
-        <h3 class="set-text-20 text-bold color-gray-900 add-margin-bottom-16" id="tab-desc-title">About this product</h3>
-        <p class="set-text-15 color-gray-600 add-margin-bottom-20" style="line-height:1.8" id="tab-desc-text"></p>
+        <h3 class="set-text-20 text-bold color-gray-900 add-margin-bottom-16" id="tab-desc-title">About Classic White Sneakers</h3>
+        <p class="set-text-15 color-gray-600 add-margin-bottom-20" style="line-height:1.8" id="tab-desc-text">Crafted from premium full-grain leather with a cushioned insole for all-day comfort. The classic white colorway pairs effortlessly with any outfit — jeans, chinos, or even a suit.</p>
         <h4 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-12">Key Features</h4>
-        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px" id="features-list"></ul>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px" id="features-list"><li class="make-flex align-center gap-10 set-text-14 color-gray-700"><span style="color:#22c55e;font-size:18px;flex-shrink:0">✓</span> Full-grain leather upper
+    </li><li class="make-flex align-center gap-10 set-text-14 color-gray-700"><span style="color:#22c55e;font-size:18px;flex-shrink:0">✓</span> Cushioned EVA midsole
+    </li><li class="make-flex align-center gap-10 set-text-14 color-gray-700"><span style="color:#22c55e;font-size:18px;flex-shrink:0">✓</span> Non-slip rubber outsole
+    </li><li class="make-flex align-center gap-10 set-text-14 color-gray-700"><span style="color:#22c55e;font-size:18px;flex-shrink:0">✓</span> Breathable mesh lining
+    </li><li class="make-flex align-center gap-10 set-text-14 color-gray-700"><span style="color:#22c55e;font-size:18px;flex-shrink:0">✓</span> Orthopaedic insole support
+    </li></ul>
       </div>
     </div>
 
@@ -292,9 +310,9 @@
         <!-- Summary -->
         <div>
           <div class="text-center add-margin-bottom-20">
-            <div class="set-text-64 text-bold" style="color:#0f172a;line-height:1" id="avg-rating-big">0.0</div>
-            <div style="color:#f59e0b;font-size:24px;margin:6px 0" id="avg-stars-big"></div>
-            <div class="set-text-13 color-gray-400" id="total-reviews-text"></div>
+            <div class="set-text-64 text-bold" style="color:#0f172a;line-height:1" id="avg-rating-big">4.8</div>
+            <div style="color:#f59e0b;font-size:24px;margin:6px 0" id="avg-stars-big">★★★★</div>
+            <div class="set-text-13 color-gray-400" id="total-reviews-text">124 verified reviews</div>
           </div>
           <div style="display:flex;flex-direction:column;gap:8px">
             <div class="make-flex align-center gap-10 set-text-13"><span style="color:#f59e0b;width:20px">5★</span><div class="review-bar"><div class="review-fill" style="width:70%"></div></div><span class="color-gray-400 set-text-12">70%</span></div>
@@ -326,7 +344,7 @@
             <button onclick="submitReview()" class="btn btn-primary">Submit Review</button>
           </div>
 
-          <div id="reviews-list"></div>
+          <div id="reviews-list"><div class="review-card"><div class="make-flex align-center justify-between add-margin-bottom-10"><div class="make-flex align-center gap-10"><div style="width:40px;height:40px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-weight:700">E</div><div><div class="set-text-14 text-semibold color-gray-900">Emma W.</div><div class="set-text-12 color-gray-400">3 days ago</div></div></div><span class="badge" style="background:#d1fae5;color:#065f46;font-size:11px">✓ Verified</span></div><div style="color:#f59e0b;margin-bottom:8px">★★★★★</div><p class="set-text-14 color-gray-600">Perfect fit, incredible quality. The material feels luxurious.</p></div><div class="review-card"><div class="make-flex align-center justify-between add-margin-bottom-10"><div class="make-flex align-center gap-10"><div style="width:40px;height:40px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-weight:700">J</div><div><div class="set-text-14 text-semibold color-gray-900">James T.</div><div class="set-text-12 color-gray-400">1 week ago</div></div></div><span class="badge" style="background:#d1fae5;color:#065f46;font-size:11px">✓ Verified</span></div><div style="color:#f59e0b;margin-bottom:8px">★★★★</div><p class="set-text-14 color-gray-600">Great product, fast delivery. Exactly as described.</p></div><div class="review-card"><div class="make-flex align-center justify-between add-margin-bottom-10"><div class="make-flex align-center gap-10"><div style="width:40px;height:40px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-weight:700">P</div><div><div class="set-text-14 text-semibold color-gray-900">Priya M.</div><div class="set-text-12 color-gray-400">2 weeks ago</div></div></div><span class="badge" style="background:#d1fae5;color:#065f46;font-size:11px">✓ Verified</span></div><div style="color:#f59e0b;margin-bottom:8px">★★★★★</div><p class="set-text-14 color-gray-600">I love it! Already ordered in another color.</p></div></div>
         </div>
       </div>
     </div>
@@ -373,7 +391,7 @@
     <div class="tab-panel" id="panel-specs" style="padding:32px">
       <div style="max-width:560px">
         <table style="width:100%;border-collapse:collapse" id="specs-table">
-          <tbody id="specs-body"></tbody>
+          <tbody id="specs-body"><tr style="background:#f9fafb"><td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">Material</td><td style="padding:12px 16px;font-size:14px;color:#6b7280">Full-grain leather</td></tr><tr style="background:#fff"><td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">Sole</td><td style="padding:12px 16px;font-size:14px;color:#6b7280">Rubber</td></tr><tr style="background:#f9fafb"><td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">Lining</td><td style="padding:12px 16px;font-size:14px;color:#6b7280">Breathable mesh</td></tr><tr style="background:#fff"><td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">Closure</td><td style="padding:12px 16px;font-size:14px;color:#6b7280">Lace-up</td></tr><tr style="background:#f9fafb"><td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">Weight</td><td style="padding:12px 16px;font-size:14px;color:#6b7280">380g per shoe</td></tr><tr style="background:#fff"><td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">Made in</td><td style="padding:12px 16px;font-size:14px;color:#6b7280">Italy</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -382,17 +400,17 @@
   <!-- ── RELATED PRODUCTS ── -->
   <div style="margin-top:64px">
     <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-32">You May Also Like</h2>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px" id="related-products"></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px" id="related-products"><div class="rel-card" onclick="location.href='product.html?id=2'"><div style="overflow:hidden"><img class="rel-img" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&amp;h=600&amp;fit=crop" alt="Premium Leather Jacket" loading="lazy"></div><div style="padding:14px 16px 18px"><div class="set-text-12 color-gray-400">Men</div><div class="set-text-14 text-semibold color-gray-900 add-margin-y-4">Premium Leather Jacket</div><div style="color:#f59e0b;font-size:12px">★★★★</div><div class="set-text-16 text-bold color-gray-900 add-margin-top-6">$249.99</div></div></div><div class="rel-card" onclick="location.href='product.html?id=3'"><div style="overflow:hidden"><img class="rel-img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&amp;h=600&amp;fit=crop" alt="Minimalist Watch" loading="lazy"></div><div style="padding:14px 16px 18px"><div class="set-text-12 color-gray-400">Accessories</div><div class="set-text-14 text-semibold color-gray-900 add-margin-y-4">Minimalist Watch</div><div style="color:#f59e0b;font-size:12px">★★★★</div><div class="set-text-16 text-bold color-gray-900 add-margin-top-6">$179.99</div></div></div></div>
   </div>
 </div>
 
 <!-- Sticky ATC bar -->
 <div id="sticky-atc">
   <div class="make-flex align-center gap-16">
-    <img id="sticky-img" src="" style="width:48px;height:48px;object-fit:cover;border-radius:8px" alt="">
+    <img id="sticky-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&amp;h=600&amp;fit=crop" style="width:48px;height:48px;object-fit:cover;border-radius:8px" alt="">
     <div>
-      <div class="set-text-14 text-semibold color-gray-900" id="sticky-name"></div>
-      <div class="set-text-16 text-bold color-blue-600" id="sticky-price"></div>
+      <div class="set-text-14 text-semibold color-gray-900" id="sticky-name">Classic White Sneakers</div>
+      <div class="set-text-16 text-bold color-blue-600" id="sticky-price">$89.99</div>
     </div>
   </div>
   <button onclick="addToCartBtn()" class="btn btn-primary">Add to Cart</button>
@@ -441,6 +459,7 @@ function loadProduct(){
 
   // Images
   document.getElementById('main-image').src = p.imgs[0];
+  document.getElementById('main-image').alt = p.name;
   document.getElementById('thumb-strip').innerHTML = p.imgs.map((img,i)=>`
     <div class="thumb${i===0?' active':''}" onclick="switchImage(this,'${img}')">
       <img src="${img}" alt="">
@@ -450,8 +469,9 @@ function loadProduct(){
   const saved = p.oldPrice?Math.round((1-p.price/p.oldPrice)*100):0;
   document.getElementById('product-name').textContent = p.name;
   document.getElementById('product-category').textContent = p.category;
+  const b=document.getElementById('product-badge');
+  b.style.display='none';
   if(p.badge){
-    const b=document.getElementById('product-badge');
     b.textContent=p.badge; b.style.display='inline-flex';
     b.style.background=p.badge==='Sale'?'#fee2e2':p.badge==='New'?'#d1fae5':'#fef3c7';
     b.style.color=p.badge==='Sale'?'#b91c1c':p.badge==='New'?'#065f46':'#b45309';
@@ -460,8 +480,10 @@ function loadProduct(){
   document.getElementById('product-rating-text').textContent = `${p.rating} out of 5`;
   document.getElementById('product-reviews-link').textContent = `${p.reviews} reviews`;
   document.getElementById('product-price').textContent = `$${p.price.toFixed(2)}`;
-  if(p.oldPrice) document.getElementById('product-old-price').textContent = `$${p.oldPrice.toFixed(2)}`;
-  if(saved){ const d=document.getElementById('product-discount');d.textContent=`-${saved}%`;d.style.display='inline-flex'; }
+  document.getElementById('product-old-price').textContent = p.oldPrice ? `$${p.oldPrice.toFixed(2)}` : '';
+  const d=document.getElementById('product-discount');
+  d.style.display='none';
+  if(saved){ d.textContent=`-${saved}%`;d.style.display='inline-flex'; }
   document.getElementById('product-desc').textContent = p.desc;
   document.getElementById('review-count-badge').textContent = p.reviews;
 

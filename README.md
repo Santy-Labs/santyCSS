@@ -11,7 +11,7 @@
 
 Class names say what they do: `add-padding-24` instead of `p-6`. You can read the markup without a cheat sheet, and so can AI tools.
 
-📖 [Docs](https://santycss.santy.in/docs.html) · 🔎 [Class reference](https://santycss.santy.in/classes.html) · 🎮 [Playground](https://santycss.santy.in/playground.html) · 🧩 [Templates](https://santycss.santy.in/templates.html) · 📝 [Changelog](CHANGELOG.md) · 🤝 [Contributing](CONTRIBUTING.md)
+🌐 **[santycss.santy.in](https://santycss.santy.in)** · 📖 [Docs](https://santycss.santy.in/docs.html) · 🔎 [Class reference](https://santycss.santy.in/classes.html) · 🎮 [Playground](https://santycss.santy.in/playground.html) · 🧩 [Templates](https://santycss.santy.in/templates.html) · 📝 [Changelog](CHANGELOG.md) · 🤝 [Contributing](CONTRIBUTING.md)
 
 > **Latest releases: v2.9.3 – v2.9.4**
 > - The icon stylesheet now ships on npm and the CDN (`santycss/css/icons`).

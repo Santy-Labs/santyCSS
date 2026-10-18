@@ -102,13 +102,14 @@
   ],
   "scripts": {
     "build": "node build.js && node scripts/sync-site-stats.js",
-    "test": "node build.js && node test/run-tests.js && node scripts/sync-site-stats.js --check",
+    "test": "node build.js && node test/run-tests.js && node scripts/sync-site-stats.js --check && node scripts/seo.js --check",
     "purge": "node purge.js",
     "dev": "node build.js && echo 'Watching...'",
     "prepublishOnly": "node build.js && node test/run-tests.js",
-    "version": "node scripts/sync-cdn-version.js && node scripts/sync-site-stats.js && git add -A -- '*.html'",
+    "version": "node scripts/sync-cdn-version.js && node scripts/sync-site-stats.js && node scripts/seo.js && git add -A -- '*.html' sitemap.xml dist/sitemap.xml",
     "cdn:check": "node scripts/sync-cdn-version.js --check",
-    "site:stats": "node scripts/sync-site-stats.js"
+    "site:stats": "node scripts/sync-site-stats.js",
+    "seo": "node scripts/seo.js"
   },
   "peerDependencies": {
     "postcss": ">=8.0.0",

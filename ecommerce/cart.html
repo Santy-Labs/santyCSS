@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shopping Cart — LuxeStore</title>
+  <meta name="description" content="Shopping cart page of the LuxeStore SantyCSS template, with quantity controls, coupon codes, saved-for-later items and recommendations." />
+  <link rel="canonical" href="https://santycss.santy.in/ecommerce/cart.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SantyCSS" />
+  <meta property="og:title" content="Shopping Cart — LuxeStore" />
+  <meta property="og:description" content="Shopping cart page of the LuxeStore SantyCSS template, with quantity controls, coupon codes, saved-for-later items and recommendations." />
+  <meta property="og:url" content="https://santycss.santy.in/ecommerce/cart.html" />
+  <meta property="og:image" content="https://santycss.santy.in/assest/santy_css.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shopping Cart — LuxeStore" />
+  <meta name="twitter:description" content="Shopping cart page of the LuxeStore SantyCSS template, with quantity controls, coupon codes, saved-for-later items and recommendations." />
+  <meta name="twitter:image" content="https://santycss.santy.in/assest/santy_css.png" />
+  <meta name="robots" content="noindex, follow" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.6/dist/santy.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.6/dist/santy-variants.css" />
   <style>
@@ -332,7 +345,7 @@
 
   <!-- Page Title -->
   <h1 style="font-size:28px; font-weight:800; color:#0f172a; margin-bottom:8px;" id="page-title">Shopping Cart</h1>
-  <p style="color:#64748b; margin-bottom:32px;" id="item-count-label">Loading...</p>
+  <p style="color:#64748b; margin-bottom:32px;" id="item-count-label">Your cart is empty</p>
 
   <!-- Cart Grid -->
   <div class="cart-grid">
@@ -344,9 +357,9 @@
           <span class="cart-panel-title">Cart Items</span>
           <button class="clear-cart-btn" onclick="clearCart()">Clear All</button>
         </div>
-        <div id="cart-items-container">
-          <!-- Populated by JS -->
-        </div>
+        <div id="cart-items-container"><div class="empty-cart"><div class="empty-cart-icon">🛒</div><h3>Your cart is empty</h3><p>Looks like you haven't added anything yet.</p><a href="shop.html" style="display:inline-block; padding:12px 28px; background:#2563eb; color:#fff; border-radius:10px; text-decoration:none; font-weight:600; font-size:15px;">
+          Continue Shopping
+        </a></div></div>
         <!-- Coupon -->
         <div class="coupon-row" id="coupon-row" style="display:none;">
           <input type="text" class="coupon-input" id="coupon-input" placeholder="Coupon code (try LUXE20)" />
@@ -420,7 +433,7 @@
   <!-- Recommended Products -->
   <div class="rec-section">
     <div class="rec-title">You Might Also Like</div>
-    <div class="rec-grid" id="rec-grid"></div>
+    <div class="rec-grid" id="rec-grid"><div class="rec-card when-visible:animate-zoom-in"><img class="rec-card-img" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&amp;q=80" alt="Merino Wool Crew" loading="lazy" onclick="window.location='product.html?id=1'"><div class="rec-card-body"><div class="rec-card-name">Merino Wool Crew</div><div class="rec-card-price">$89.00</div><button class="rec-add-btn" onclick="quickAddToCart(1)">Add to Cart</button></div></div><div class="rec-card when-visible:animate-zoom-in"><img class="rec-card-img" src="https://images.unsplash.com/photo-1594938298603-c8148c4b4c0b?w=400&amp;q=80" alt="Linen Blazer" loading="lazy" onclick="window.location='product.html?id=2'"><div class="rec-card-body"><div class="rec-card-name">Linen Blazer</div><div class="rec-card-price">$159.00</div><button class="rec-add-btn" onclick="quickAddToCart(2)">Add to Cart</button></div></div><div class="rec-card when-visible:animate-zoom-in"><img class="rec-card-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&amp;q=80" alt="Silk Blouse" loading="lazy" onclick="window.location='product.html?id=3'"><div class="rec-card-body"><div class="rec-card-name">Silk Blouse</div><div class="rec-card-price">$119.00</div><button class="rec-add-btn" onclick="quickAddToCart(3)">Add to Cart</button></div></div><div class="rec-card when-visible:animate-zoom-in"><img class="rec-card-img" src="https://images.unsplash.com/photo-1601924921557-45e6dea0a157?w=400&amp;q=80" alt="Cashmere Scarf" loading="lazy" onclick="window.location='product.html?id=4'"><div class="rec-card-body"><div class="rec-card-name">Cashmere Scarf</div><div class="rec-card-price">$79.00</div><button class="rec-add-btn" onclick="quickAddToCart(4)">Add to Cart</button></div></div></div>
   </div>
 
 </main>

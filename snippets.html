@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SantyCSS Snippets — Ready-to-use Code Examples</title>
   <meta name="description" content="Copy-paste code snippets for SantyCSS — flexbox, grid, buttons, cards, typography, forms, and more." />
+  <link rel="canonical" href="https://santycss.santy.in/snippets.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SantyCSS" />
+  <meta property="og:title" content="SantyCSS Snippets — Ready-to-use Code Examples" />
+  <meta property="og:description" content="Copy-paste code snippets for SantyCSS — flexbox, grid, buttons, cards, typography, forms, and more." />
+  <meta property="og:url" content="https://santycss.santy.in/snippets.html" />
+  <meta property="og:image" content="https://santycss.santy.in/assest/santy_css.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SantyCSS Snippets — Ready-to-use Code Examples" />
+  <meta name="twitter:description" content="Copy-paste code snippets for SantyCSS — flexbox, grid, buttons, cards, typography, forms, and more." />
+  <meta name="twitter:image" content="https://santycss.santy.in/assest/santy_css.png" />
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2.9.6/dist/santy.css" />
   <style>
@@ -70,7 +82,7 @@
 
     /* ── Section header ── */
     .sec-header { margin-bottom: 20px; }
-    .sec-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+    .sec-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-top: 0.67em; margin-bottom: 4px; }
     .sec-desc  { font-size: 13px; color: #64748b; }
     .sec-filters { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
     .sec-filter-label { font-size: 13px; color: #64748b; display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -240,6 +252,7 @@
   </style>
 </head>
 <body>
+<h1 class="sr-only">SantyCSS Snippets — Ready-to-use Code Examples</h1>
 
 <!-- ─── TOP NAV ───────────────────────────────────────────────────── -->
 <header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
@@ -318,7 +331,7 @@
     <!-- ═══ FLEX ═══ -->
     <div id="sec-flex" class="snip-section active">
       <div class="sec-header">
-        <h1 class="sec-title">Flex Snippets</h1>
+        <h2 class="sec-title">Flex Snippets</h2>
         <p class="sec-desc">Flexbox layouts built with SantyCSS — copy and use instantly, no custom CSS needed.</p>
       </div>
       <div class="sec-filters">
@@ -496,7 +509,7 @@
     <!-- ═══ GRID ═══ -->
     <div id="sec-grid" class="snip-section">
       <div class="sec-header">
-        <h1 class="sec-title">Grid Snippets</h1>
+        <h2 class="sec-title">Grid Snippets</h2>
         <p class="sec-desc">CSS grid layouts using SantyCSS <code style="background:#f1f5f9;padding:1px 6px;border-radius:4px;font-size:12px;">make-grid</code> with inline template columns.</p>
       </div>
       <div class="sec-filters">
@@ -591,7 +604,7 @@
     <!-- ═══ BUTTONS ═══ -->
     <div id="sec-buttons" class="snip-section">
       <div class="sec-header">
-        <h1 class="sec-title">Button Snippets</h1>
+        <h2 class="sec-title">Button Snippets</h2>
         <p class="sec-desc">Button variants using SantyCSS padding, border-radius, and color utilities.</p>
       </div>
       <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('buttons',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
@@ -659,7 +672,7 @@
 
     <!-- ═══ BADGES ═══ -->
     <div id="sec-badges" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Badge &amp; Tag Snippets</h1><p class="sec-desc">Status badges and category tags using SantyCSS padding + border-radius utilities.</p></div>
+      <div class="sec-header"><h2 class="sec-title">Badge &amp; Tag Snippets</h2><p class="sec-desc">Status badges and category tags using SantyCSS padding + border-radius utilities.</p></div>
       <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('badges',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
       <div class="snip-grid" id="grid-badges">
         <div class="snip-card" data-fav="1">
@@ -701,7 +714,7 @@
 
     <!-- ═══ CARDS ═══ -->
     <div id="sec-cards" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Card Snippets</h1><p class="sec-desc">15 ready-to-use card layouts — click any card to open a live preview with code.</p></div>
+      <div class="sec-header"><h2 class="sec-title">Card Snippets</h2><p class="sec-desc">15 ready-to-use card layouts — click any card to open a live preview with code.</p></div>
       <div class="snip-grid" id="grid-cards">
 
         <!-- 1. Stat Card -->
@@ -1302,7 +1315,7 @@ function hoverOut(card) {
 
     <!-- ═══ TYPOGRAPHY ═══ -->
     <div id="sec-type" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Typography Snippets</h1><p class="sec-desc">Text size, weight, and color using <code style="background:#f1f5f9;padding:1px 5px;border-radius:4px;font-size:12px;">set-text-*</code> and color utilities.</p></div>
+      <div class="sec-header"><h2 class="sec-title">Typography Snippets</h2><p class="sec-desc">Text size, weight, and color using <code style="background:#f1f5f9;padding:1px 5px;border-radius:4px;font-size:12px;">set-text-*</code> and color utilities.</p></div>
       <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('type',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
       <div class="snip-grid" id="grid-type">
         <div class="snip-card" data-fav="1">
@@ -1328,7 +1341,7 @@ function hoverOut(card) {
 
     <!-- ═══ FORMS ═══ -->
     <div id="sec-forms" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Form Snippets</h1><p class="sec-desc">Input fields and form layouts with SantyCSS border, padding, and corner utilities.</p></div>
+      <div class="sec-header"><h2 class="sec-title">Form Snippets</h2><p class="sec-desc">Input fields and form layouts with SantyCSS border, padding, and corner utilities.</p></div>
       <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('forms',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
       <div class="snip-grid" id="grid-forms">
         <div class="snip-card" data-fav="1">
@@ -1377,7 +1390,7 @@ function hoverOut(card) {
 
     <!-- ═══ NAVBARS ═══ -->
     <div id="sec-nav" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Navbar Snippets</h1><p class="sec-desc">Sticky top navigation bars using SantyCSS flex, spacing, and position utilities.</p></div>
+      <div class="sec-header"><h2 class="sec-title">Navbar Snippets</h2><p class="sec-desc">Sticky top navigation bars using SantyCSS flex, spacing, and position utilities.</p></div>
       <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('nav',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
       <div class="snip-grid" id="grid-nav">
         <div class="snip-card" data-fav="1">

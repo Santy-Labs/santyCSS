@@ -888,30 +888,16 @@ test('every icon icons.html requests actually exists in the stylesheet', () => {
   const brand = new Set([...css.matchAll(/\.brand-icon-([a-z0-9-]+)\s*\{/g)].map(m => m[1]));
   const plain = new Set([...css.matchAll(/\.icon-([a-z0-9-]+)\s*\{/g)].map(m => m[1]));
 
-  // ICONS is a nested object of brand-icon categories; the rest are flat arrays
-  // rendered with the plain `icon` prefix.
-  const i = html.indexOf('const ICONS = {');
-  assert(i > -1, 'ICONS object not found in icons.html');
-  let depth = 0, end = -1;
-  for (let k = html.indexOf('{', i); k < html.length; k++) {
-    if (html[k] === '{') depth++;
-    else if (html[k] === '}') { depth--; if (depth === 0) { end = k; break; } }
-  }
-  const brandNames = [...html.slice(i, end + 1).matchAll(/name:\s*'([^']+)'/g)].map(m => m[1]);
+  // Every card is static HTML: <div class="icon-card" data-name="…" data-prefix="brand-icon|icon">.
+  const cards = [...html.matchAll(/class="icon-card" data-name="([^"]+)"[^>]*data-prefix="([^"]+)"/g)];
+  const brandNames = cards.filter(m => m[2] === 'brand-icon').map(m => m[1]);
+  const plainNames = cards.filter(m => m[2] === 'icon').map(m => m[1]);
   assert(brandNames.length > 30, `only ${brandNames.length} brand icons requested`);
+  assert(plainNames.length > 2000, `only ${plainNames.length} plain icons requested`);
   const missingBrand = brandNames.filter(n => !brand.has(n));
   assert(missingBrand.length === 0, `brand icons with no CSS rule: ${missingBrand.slice(0, 8).join(', ')}`);
-
-  for (const varName of ['BUSINESS_ICONS', 'COMMUNICATION_ICONS', 'ESSENTIAL_ICONS']) {
-    const s = html.indexOf('const ' + varName);
-    assert(s > -1, `${varName} not found`);
-    const seg = html.slice(s, html.indexOf('];', s));
-    const names = [...seg.matchAll(/name:\s*'([^']+)'/g)].map(m => m[1]);
-    assert(names.length > 0, `${varName} is empty`);
-    const missing = names.filter(n => !plain.has(n));
-    assert(missing.length === 0,
-      `${varName}: ${missing.length} icons with no CSS rule (${missing.slice(0, 6).join(', ')})`);
-  }
+  const missing = plainNames.filter(n => !plain.has(n));
+  assert(missing.length === 0, `${missing.length} icons with no CSS rule (${missing.slice(0, 6).join(', ')})`);
 });
 
 test('icons.html is complete and its scripts parse', () => {

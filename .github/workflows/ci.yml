@@ -21,6 +21,11 @@ jobs:
       - name: Run test suite
         run: node test/run-tests.js
 
+      - name: Check SEO tags and sitemap
+        # Every deployed page needs a title, description, one <h1>, canonical,
+        # Open Graph and Twitter tags, and must be listed in sitemap.xml.
+        run: node scripts/seo.js --check
+
       - name: TypeScript declaration check
         # `dom` is required since v2.9.0: the behavior-layer types reference
         # Element, HTMLElement, IntersectionObserver and friends.
